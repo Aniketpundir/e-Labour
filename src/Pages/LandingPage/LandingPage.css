@@ -1,0 +1,128 @@
+.landing-page {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.landing-page::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: url(../../assets/workers_landing_img.jpg) no-repeat center center/cover;
+    filter: blur(10px);
+    z-index: -1;
+}
+
+.landing-content {
+    gap: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.landing-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2px;
+}
+
+.landing-content h1 {
+    font-size: 40px;
+    color: #111;
+    font-weight: 800;
+}
+
+.landing-content p {
+    font-size: 18px;
+    color: #111111d7;
+}
+
+.landing-button {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.landing-button button {
+    padding: 20px 30px;
+}
+
+.forCustomer {
+    background-color: #2196F3;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    box-shadow: 2px 5px 5px 5px rgba(255, 255, 255, 0.475);
+}
+
+.forCustomer:hover {
+    background-color: #ec6d13;
+    transform: scale(1.1);
+}
+
+.forWorkers {
+    background-color: #ec6d13;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 2px 5px 5px 5px rgba(255, 255, 255, 0.475);
+    transition: 0.3s;
+}
+
+.forWorkers:hover {
+    background-color: #2196F3;
+    transform: scale(1.1);
+}
+
+@media (max-width:650px) {
+    .landing-content h1 {
+        font-size: 36px;
+    }
+
+    .landing-content p {
+        font-size: 16px;
+    }
+
+    .landing-button {
+        gap: 30px;
+    }
+
+    .landing-button button {
+        padding: 18px 28px;
+    }
+}
+
+@media (max-width:550px) {
+    .landing-content h1 {
+        font-size: 26px;
+    }
+
+    .landing-content p {
+        font-size: 10px;
+    }
+
+    .landing-button {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .landing-button button {
+        padding: 15px 24px;
+    }
+}

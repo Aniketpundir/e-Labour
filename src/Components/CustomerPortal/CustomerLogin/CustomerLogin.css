@@ -1,0 +1,92 @@
+.CustomerLogin-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 70px;
+    gap: 70px;
+}
+
+.CustomerLogin-text-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.CustomerLogin-text-form h1 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+.CustomerLogin-text-form h5 {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    color: #111111c1;
+}
+
+.CustomerLogin-text-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.CustomerLogin-text-form form input {
+    padding: 8px 50px;
+    background-color: #11111138;
+    border: 1px solid #11111138;
+}
+
+.CustomerLogin-text-form form input:focus {
+    outline: none;
+    color: black;
+}
+
+
+
+.CustomerLogin-img {
+    width: 25%;
+}
+
+.CustomerLogin-img img {
+    width: 100%;
+}
+
+
+.input-field-for-login {
+    display: flex;
+}
+
+.input-field-for-login .hide_show {
+    padding: 8px 25px;
+    border-bottom: 1px solid #ec6d13;
+    border-top: 1px solid #ec6d13;
+    border-right: 1px solid #ec6d13;
+    text-align: center;
+    background-color: #ec6d13;
+    margin-left: -10px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.login-button {
+    padding: 10px;
+    background-color: #ec6d13;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.CustomerLogin-text-form form p {
+    text-align: center;
+}
+
+.CustomerLogin-text-form form p span {
+    color: #ec6d13;
+    cursor: pointer;
+}

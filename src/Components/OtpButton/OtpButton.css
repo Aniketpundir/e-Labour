@@ -1,0 +1,12 @@
+.OTPbutton {
+    padding: 12px 14px;
+    border-left: none;
+    background-color: #ec6d13;
+    border: 1px solid #ec6d13;
+    color: #fff;
+    margin-left: -10px;
+    font-size: 16px;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    cursor: pointer;
+}

@@ -1,0 +1,87 @@
+.WorkersSignup {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.WorkersSignup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.WorkersSignup-form form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.WorkersSignup-form h2 {
+    text-align: center;
+    font-size: 22px;
+    color: #111;
+}
+
+.WorkersSignup-form p {
+    text-align: center;
+    font-size: 15px;
+}
+
+.WorkersSignup-form p span {
+    color: #ec6d13;
+    cursor: pointer;
+}
+
+.WorkersSignup-form form input {
+    padding: 10px 70px;
+}
+
+.WorkersSignup-form form input:focus {
+    outline: none;
+}
+
+.otp-section {
+    display: flex;
+}
+
+.input-field {
+    display: flex;
+}
+
+.input-field .hide-show {
+    padding: 10px 25px;
+    border-bottom: 1px solid #ec6d13;
+    border-top: 1px solid #ec6d13;
+    border-right: 1px solid #ec6d13;
+    text-align: center;
+    background-color: #ec6d13;
+    margin-left: -10px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.WorkersSignup-form form h5 {
+    font-weight: 500;
+}
+
+.WorkersSignup-form form h5 span {
+    color: #ec6d13;
+    cursor: pointer;
+}
+
+.submit-button {
+    padding: 10px 0;
+    background-color: #ec6d13;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 17px;
+    cursor: pointer;
+}
