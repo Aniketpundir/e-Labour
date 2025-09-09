@@ -1,6 +1,15 @@
 .CustomerLogin-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 70px;
+    gap: 50px;
+}
+
+.CustomerLogin-text-form {
+    display: flex;
     flex-direction: column;
-    margin: 10px 15%;
+    gap: 10px;
 }
 
 .CustomerLogin-text-form h1 {
@@ -33,8 +42,6 @@
     color: black;
 }
 
-
-
 .CustomerLogin-img {
     width: 25%;
 }
@@ -42,7 +49,6 @@
 .CustomerLogin-img img {
     width: 100%;
 }
-
 
 .input-field-for-login1 {
     display: flex;
@@ -82,16 +88,25 @@
     cursor: pointer;
 }
 
-@media(max-width:650px) {
+/* ---------------------- */
+/* ✅ Responsive Styles   */
+/* ---------------------- */
+
+@media (max-width: 650px) {
     .CustomerLogin-content {
-        margin-top: 50px;
+        flex-direction: column;
+        margin: 70px 18px;
         gap: 70px;
     }
 
+    .CustomerLogin-img {
+        display: none !important;
+    }
+
     .CustomerLogin-text-form h1 {
-        text-align: center;
         font-size: 26px;
         font-weight: 600;
+        text-align: center;
     }
 
     .CustomerLogin-text-form form {
@@ -102,29 +117,11 @@
         padding: 8px 40px;
     }
 
-    .CustomerLogin-img img {
-        display: none;
-    }
-
-
-    .input-field-for-login1 {
-        display: flex;
-    }
-
-    .input-field-for-login1 .hide_show {
-        padding: 8px 15px;
-        margin-left: -55px;
-        font-size: 15px;
-    }
-
     .CustomerLogin-text-form form p {
         text-align: center;
-        font-size: 14px;
     }
 
     .CustomerLogin-text-form form p span {
-        color: #ec6d13;
-        cursor: pointer;
         font-weight: 500;
     }
 }

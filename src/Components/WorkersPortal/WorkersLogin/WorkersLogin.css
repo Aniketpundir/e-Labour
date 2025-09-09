@@ -94,9 +94,36 @@
 @media(max-width:900px) {
     .WorkerLogin-content {
         flex-direction: column;
+        margin: 70px 18px;
+        gap: 70px;
+    }
+
+    .WorkerLogin-text-form h1 {
+        font-size: 26px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+
+
+    .WorkerLogin-text-form form {
+        gap: 35px;
+    }
+
+    .WorkerLogin-text-form form input {
+        padding: 8px 40px;
     }
 
     .WorkerLogin-img img {
-        display: none !important;
+        display: none;
+    }
+
+
+    .WorkerLogin-text-form form p {
+        text-align: center;
+    }
+
+    .WorkerLogin-text-form form p span {
+        font-weight: 500;
     }
 }
