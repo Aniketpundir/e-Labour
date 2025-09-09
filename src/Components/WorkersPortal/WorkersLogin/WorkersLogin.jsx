@@ -34,7 +34,7 @@ const WorkersLogin = () => {
                         <h5>Welcome back! Please login to your account</h5>
                         <form>
                             <input placeholder='Enter your email' type='email' name='email' value={data.email} onChange={handleChange} required />
-                            <input placeholder='Confirm Password' type="password" name='password' value={data.password} onChange={handleChange} />
+                            <input placeholder='Password' type="password" name='password' value={data.password} onChange={handleChange} />
                             <button className='login-button'>Login as Customer</button>
                             <p>
                                 Don't have an account? <span onClick={() => {
