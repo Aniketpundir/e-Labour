@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     gap: 40px;
-    margin-top: 50px;
+    /* margin-top: 50px; */
 }
 
 .CustomerSignup-form {
@@ -87,8 +87,9 @@
 }
 
 @media(max-width:650px) {
-    .CustomerSignup-form {
-        margin: 0 10%;
+
+    .CustomerSignup {
+        margin: 20px 0px;
     }
 
     .CustomerSignup-form h2 {
@@ -96,7 +97,7 @@
     }
 
     .CustomerSignup-form form input {
-        padding: 10px 45px;
+        padding: 10px 30px;
         margin-left: 2px;
         border: 1px solid rgba(0, 0, 0, 0.453);
     }
