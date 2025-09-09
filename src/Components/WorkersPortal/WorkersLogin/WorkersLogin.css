@@ -90,3 +90,14 @@
     color: #ec6d13;
     cursor: pointer;
 }
+
+@media(max-width:900px) {
+    .WorkerLogin-content {
+        margin-top: 40%;
+        flex-direction: column;
+    }
+
+    .WorkerLogin-img img {
+        display: none !important;
+    }
+}

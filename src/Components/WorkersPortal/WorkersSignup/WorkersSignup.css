@@ -85,3 +85,13 @@
     font-size: 17px;
     cursor: pointer;
 }
+
+@media (max-width:550px) {
+    .WorkersSignup {
+        margin-top: 20%;
+    }
+
+    .WorkersSignup-form form input {
+        padding: 10px 45px;
+    }
+}

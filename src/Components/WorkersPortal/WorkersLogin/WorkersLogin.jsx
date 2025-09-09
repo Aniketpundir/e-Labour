@@ -51,7 +51,7 @@ const WorkersLogin = () => {
                             </p>
                         </form>
                     </div>
-                    <div className='CustomerLogin-img'>
+                    <div className='WorkerLogin-img'>
                         <img src={workersLoginImg} alt='Customer Login Img' />
                     </div>
                 </div>

@@ -90,3 +90,14 @@
     color: #ec6d13;
     cursor: pointer;
 }
+
+@media(max-width:550px) {
+    .CustomerLogin-content {
+        margin-top: 30%;
+        flex-direction: column;
+    }
+
+    .CustomerLogin-img img {
+        display: none;
+    }
+}
