@@ -33,7 +33,7 @@ const CustomerLogin = () => {
                         <h5>Welcome back! Please login to your account</h5>
                         <form>
                             <input placeholder='Enter your email' type='email' name='email' value={data.email} onChange={handleChange} required />
-                            <div className='input-field-for-login'>
+                            <div className='input-field-for-login1'>
                                 <input placeholder='Confirm Password' type={showPassword ? "text" : "password"} name='password' value={data.password} onChange={handleChange} />
                                 <p
                                     onClick={() => setShowPassword(!showPassword)}

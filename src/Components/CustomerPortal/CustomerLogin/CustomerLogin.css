@@ -53,11 +53,11 @@
 }
 
 
-.input-field-for-login {
+.input-field-for-login1 {
     display: flex;
 }
 
-.input-field-for-login .hide_show {
+.input-field-for-login1 .hide_show {
     padding: 8px 25px;
     border-bottom: 1px solid #ec6d13;
     border-top: 1px solid #ec6d13;
@@ -98,5 +98,14 @@
 
     .CustomerLogin-img img {
         display: none;
+    }
+
+    .CustomerLogin-text-form form {
+        margin: 0% 5%;
+    }
+
+    .input-field-for-login1 .hide_show {
+        padding: 8px 20px;
+        margin-left: -50px;
     }
 }

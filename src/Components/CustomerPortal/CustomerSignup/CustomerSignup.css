@@ -87,6 +87,14 @@
 }
 
 @media(max-width:650px) {
+    .CustomerSignup-form {
+        margin: 0 10%;
+    }
+
+    .CustomerSignup-form h2 {
+        font-size: 20px;
+    }
+
     .CustomerSignup-form form input {
         padding: 10px 45px;
         margin-left: 2px;
