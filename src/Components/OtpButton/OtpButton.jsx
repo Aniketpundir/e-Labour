@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Otpbutton.css";
+import "./OtpButton.css";
 const OTPButton = () => {
     const [isDisabled, setIsDisabled] = useState(false);
     const [countdown, setCountdown] = useState(0);
