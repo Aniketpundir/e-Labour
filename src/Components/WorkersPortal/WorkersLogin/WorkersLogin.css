@@ -93,7 +93,6 @@
 
 @media(max-width:900px) {
     .WorkerLogin-content {
-        margin-top: 40%;
         flex-direction: column;
     }
 

@@ -32,6 +32,7 @@
     justify-content: center;
     align-items: center;
     gap: 2px;
+    width: 90%;
 }
 
 .landing-content h1 {
@@ -42,7 +43,7 @@
 
 .landing-content p {
     font-size: 18px;
-    color: #111111d7;
+    color: #111111f6;
 }
 
 .landing-button {
@@ -69,7 +70,7 @@
 }
 
 .forCustomer:hover {
-    background-color: #ec6d13;
+    background-color: #2195f38b;
     transform: scale(1.1);
 }
 
@@ -86,7 +87,7 @@
 }
 
 .forWorkers:hover {
-    background-color: #2196F3;
+    background-color: #ec6d13a9;
     transform: scale(1.1);
 }
 
@@ -108,13 +109,14 @@
     }
 }
 
-@media (max-width:550px) {
+@media (max-width:600px) {
     .landing-content h1 {
-        font-size: 26px;
+        font-size: 32px;
     }
 
     .landing-content p {
-        font-size: 10px;
+        text-align: center;
+        font-size: 24px;
     }
 
     .landing-button {

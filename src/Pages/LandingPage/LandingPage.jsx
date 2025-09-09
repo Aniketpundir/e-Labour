@@ -10,8 +10,8 @@ const LandingPage = () => {
                 <div className='landing-content'>
                     <div className='landing-text'>
                         <h1>Join Our Platform</h1>
-                        <p>Connect with skilled professionals of find work that matters. Choose your</p>
-                        <p>path below.</p>
+                        <p>Connect with skilled professionals of find work that matters. Choose your path below.</p>
+
                     </div>
                     <div className='landing-button'>
                         <button className='forCustomer' onClick={() => {
