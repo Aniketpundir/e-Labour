@@ -1,15 +1,6 @@
 .CustomerLogin-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 70px;
-    gap: 70px;
-}
-
-.CustomerLogin-text-form {
-    display: flex;
     flex-direction: column;
-    gap: 14px;
+    margin: 10px 15%;
 }
 
 .CustomerLogin-text-form h1 {
@@ -93,19 +84,47 @@
 
 @media(max-width:650px) {
     .CustomerLogin-content {
-        flex-direction: column;
+        margin-top: 50px;
+        gap: 70px;
+    }
+
+    .CustomerLogin-text-form h1 {
+        text-align: center;
+        font-size: 26px;
+        font-weight: 600;
+    }
+
+    .CustomerLogin-text-form form {
+        gap: 35px;
+    }
+
+    .CustomerLogin-text-form form input {
+        padding: 8px 40px;
     }
 
     .CustomerLogin-img img {
         display: none;
     }
 
-    .CustomerLogin-text-form form {
-        margin: 0% 5%;
+
+    .input-field-for-login1 {
+        display: flex;
     }
 
     .input-field-for-login1 .hide_show {
-        padding: 8px 20px;
-        margin-left: -50px;
+        padding: 8px 15px;
+        margin-left: -55px;
+        font-size: 15px;
+    }
+
+    .CustomerLogin-text-form form p {
+        text-align: center;
+        font-size: 14px;
+    }
+
+    .CustomerLogin-text-form form p span {
+        color: #ec6d13;
+        cursor: pointer;
+        font-weight: 500;
     }
 }

@@ -52,7 +52,7 @@ const WorkersLogin = () => {
                         </form>
                     </div>
                     <div className='WorkerLogin-img'>
-                        <img src={workersLoginImg} alt='Customer Login Img' />
+                        <img src={workersLoginImg} alt='Worker Login Img' />
                     </div>
                 </div>
             </div>
