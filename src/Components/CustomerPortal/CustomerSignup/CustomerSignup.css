@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     gap: 40px;
-    /* margin-top: 50px; */
+    margin-top: 50px;
 }
 
 .CustomerSignup-form {
@@ -18,6 +18,8 @@
     flex-direction: column;
     gap: 20px;
     margin-top: 10px;
+    width: 100%;
+    max-width: 400px;
 }
 
 .CustomerSignup-form h2 {
@@ -37,38 +39,82 @@
 }
 
 .CustomerSignup-form form input {
-    padding: 10px 70px;
+    padding: 12px 15px;
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 6px;
+    font-size: 15px;
 }
 
 .CustomerSignup-form form input:focus {
     outline: none;
+    border: 1px solid #ec6d13;
 }
 
 .otp-section {
+    position: relative;
     display: flex;
+    align-items: center;
 }
 
-.input-field {
-    display: flex;
+.otp-section input {
+    width: 100%;
+    padding-right: 100px;
 }
 
-.input-field .hide-show {
-    padding: 10px 25px;
-    border-bottom: 1px solid #ec6d13;
-    border-top: 1px solid #ec6d13;
-    border-right: 1px solid #ec6d13;
-    text-align: center;
-    background-color: #ec6d13;
-    margin-left: -10px;
-    color: #fff;
-    font-size: 16px;
+.otp-section button {
+    position: absolute;
+    right: 10px;
+    top: 30%;
+    transform: translateY(-50%);
+    background: #fff;
+    color: #ec6d13;
+    border: 1px solid #ec6d13;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
     cursor: pointer;
-    border-bottom-right-radius: 3px;
-    border-top-right-radius: 3px;
+}
+
+.input-field1 {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-field1 input {
+    width: 100%;
+    padding-right: 80px;
+}
+
+.input-field1 .hide-show {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 6px 12px;
+    background-color: #ec6d13;
+    color: #fff;
+    font-size: 13px;
+    cursor: pointer;
+    border-radius: 4px;
 }
 
 .CustomerSignup-form form h5 {
     font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+    color: #111;
+}
+
+.CustomerSignup-form form h5 input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #ec6d13;
 }
 
 .CustomerSignup-form form h5 span {
@@ -77,28 +123,37 @@
 }
 
 .submit-button {
-    padding: 10px 0;
+    padding: 12px 0;
     background-color: #ec6d13;
     color: #fff;
     border: none;
     border-radius: 8px;
     font-size: 17px;
     cursor: pointer;
+    width: 100%;
 }
 
-@media(max-width:650px) {
-
-    .CustomerSignup {
-        margin: 20px 0px;
+@media (max-width: 650px) {
+    .CustomerSignup-form form {
+        gap: 18px;
+        max-width: 95%;
     }
 
-    .CustomerSignup-form h2 {
-        font-size: 20px;
+    .otp-section input {
+        padding-right: 85px;
     }
 
-    .CustomerSignup-form form input {
-        padding: 10px 30px;
-        margin-left: 2px;
-        border: 1px solid rgba(0, 0, 0, 0.453);
+    .otp-section button {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .input-field1 input {
+        padding-right: 70px;
+    }
+
+    .input-field1 .hide-show {
+        padding: 5px 10px;
+        font-size: 12px;
     }
 }

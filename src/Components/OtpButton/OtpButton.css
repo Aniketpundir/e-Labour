@@ -1,4 +1,6 @@
 .OTPbutton {
+    /* position: absolute; */
+    margin-top: 10px;
     padding: 12px 14px;
     border-left: none;
     background-color: #ec6d13;
@@ -9,4 +11,12 @@
     border-bottom-right-radius: 3px;
     border-top-right-radius: 3px;
     cursor: pointer;
+}
+
+@media(max-width:650px) {
+    .OTPbutton {
+        padding: 16px 20px;
+        margin-left: -30px;
+        font-size: 8px;
+    }
 }

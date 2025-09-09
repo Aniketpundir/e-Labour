@@ -48,7 +48,7 @@ const WorkersSignup = () => {
 
                         <input placeholder='Mobile Number' type='text' name='mobileNumber' value={data.mobileNumber}
                             onChange={handleChange} required />
-                        <div className='input-field'>
+                        <div className='input-field1'>
                             <input placeholder='Confirm Password' type={showPassword ? "text" : "password"} name='password' value={data.password} onChange={handleChange} />
                             <p
                                 onClick={() => setShowPassword(!showPassword)}
