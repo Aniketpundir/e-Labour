@@ -34,15 +34,7 @@ const WorkersLogin = () => {
                         <h5>Welcome back! Please login to your account</h5>
                         <form>
                             <input placeholder='Enter your email' type='email' name='email' value={data.email} onChange={handleChange} required />
-                            <div className='input-field-for-login'>
-                                <input placeholder='Confirm Password' type={showPassword ? "text" : "password"} name='password' value={data.password} onChange={handleChange} />
-                                <p
-                                    onClick={() => setShowPassword(!showPassword)}
-                                    className='hide_show'
-                                >
-                                    {showPassword ? "Hide" : "Show"}
-                                </p>
-                            </div>
+                            <input placeholder='Confirm Password' type="password" name='password' value={data.password} onChange={handleChange} />
                             <button className='login-button'>Login as Customer</button>
                             <p>
                                 Don't have an account? <span onClick={() => {
