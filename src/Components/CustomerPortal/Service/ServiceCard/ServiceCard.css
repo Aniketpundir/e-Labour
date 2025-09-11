@@ -21,6 +21,10 @@
 
 
 @media (max-width:650px) {
+    .service-card-menu {
+        margin-left: 10px;
+    }
+
     .service-card-menu img {
         height: 15vh;
         width: 20vh;
