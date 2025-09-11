@@ -22,8 +22,8 @@
 
 @media (max-width:650px) {
     .service-card-menu img {
-        height: 20vh;
-        width: 26vh;
+        height: 15vh;
+        width: 20vh;
         border-radius: 30px;
     }
 

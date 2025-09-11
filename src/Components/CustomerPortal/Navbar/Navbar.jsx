@@ -20,7 +20,7 @@ const Navbar = () => {
 
     useEffect(() => {
         localStorage.setItem("token", "123456");
-        setToken(localStorage.getItem("token"));
+        // setToken(localStorage.getItem("token"));
     }, []);
 
     const toggleProfileMenu = () => setShowProfileMenu((prev) => !prev);
