@@ -1,0 +1,44 @@
+.Top-service {
+    margin: 20px 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+.Top-service h1 {
+    text-align: center;
+}
+
+.Top-Category {
+    margin: 20px 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.Top-service button {
+    margin: 10px 44%;
+    padding: 10px;
+    background-color: #ec6d13;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    box-shadow: 0.5px 10px 20px 0.5px #ec6d13;
+    cursor: pointer;
+}
+
+@media(max-width:650px) {
+    .Top-service {
+        margin: 20px 10px;
+        gap: 10px;
+    }
+
+    .Top-Category {
+        margin: 20px 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .Top-service button {
+        margin: 10px 30%;
+    }
+}

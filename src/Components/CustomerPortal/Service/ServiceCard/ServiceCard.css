@@ -1,0 +1,37 @@
+.service-card-menu {
+    margin: 15px 0;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.service-card-menu img {
+    height: 30vh;
+    width: 45vh;
+    border-radius: 30px;
+}
+
+.service-card-menu p {
+    margin-top: -12%;
+    margin-left: 10px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+@media (max-width:650px) {
+    .service-card-menu img {
+        height: 20vh;
+        width: 26vh;
+        border-radius: 30px;
+    }
+
+    .service-card-menu p {
+        margin-top: -15%;
+        margin-left: 15px;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 500;
+    }
+}
