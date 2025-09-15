@@ -1,0 +1,29 @@
+.FeatureHighlights {
+    display: flex;
+    margin: 60px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.FeatureHighlights-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.FeatureHighlights-logo svg {
+    font-size: 26px;
+}
+
+.FeatureHighlights-text h2 {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+@media (max-width:650px) {
+    .FeatureHighlights {
+        flex-direction: column;
+        gap: 60px;
+    }
+}

@@ -28,7 +28,7 @@ const Navbar = () => {
 
 
     return (
-        <navbar className="navbar-container">
+        <div className="navbar-container">
             <div className="hamburger-icon" onClick={toggleHamburger}>
                 {showMenu ? <FaTimes size={25} /> : <FaBars size={25} />}
             </div>
@@ -129,7 +129,7 @@ const Navbar = () => {
                     </li>
                 </ul>
             </div>
-        </navbar>
+        </div>
     );
 };
 
