@@ -50,6 +50,10 @@
 }
 
 @media (max-width:650px) {
+    .HowItWork-container {
+        margin: 50px 30px;
+    }
+
     .HowItWork-content {
         grid-template-columns: repeat(1, 1fr);
     }
