@@ -38,7 +38,7 @@ const WorkersLogin = () => {
                             <button className='login-button'>Login as Customer</button>
                             <p>
                                 Don't have an account? <span onClick={() => {
-                                    Navigate("/customer-signup")
+                                    Navigate("/workers-signup")
                                 }}>Sign up here</span>
                             </p>
                         </form>

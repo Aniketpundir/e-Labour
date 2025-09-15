@@ -28,7 +28,7 @@ const Navbar = () => {
 
 
     return (
-        <div className="navbar-container">
+        <navbar className="navbar-container">
             <div className="hamburger-icon" onClick={toggleHamburger}>
                 {showMenu ? <FaTimes size={25} /> : <FaBars size={25} />}
             </div>
@@ -40,7 +40,7 @@ const Navbar = () => {
 
             <div className="navbar-middle">
                 <ul>
-                    <Link to="/home">
+                    <Link to="/">
                         <li
                             className={`button ${activeItem === "Home" ? "clicked" : ""}`}
                             onClick={() => handleClick("Home")}
@@ -129,7 +129,7 @@ const Navbar = () => {
                     </li>
                 </ul>
             </div>
-        </div>
+        </navbar>
     );
 };
 
