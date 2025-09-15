@@ -9,22 +9,22 @@ const Our_Mission = () => {
     const OurMission = [
         {
             id: "1",
-            icon: <MdVerified />,
+            icon: <MdVerified style={{ color: "#3B82F6" }} />,
             title: "Trust",
         },
         {
             id: "2",
-            icon: <FaRegEye />,
+            icon: <FaRegEye style={{ color: "#3B82F6" }} />,
             title: "Transparency",
         },
         {
             id: "2",
-            icon: <MdOutlineSpeed />,
+            icon: <MdOutlineSpeed style={{ color: "#3B82F6" }} />,
             title: "Efficiency",
         },
         {
             id: "1",
-            icon: <RiUserCommunityLine />,
+            icon: <RiUserCommunityLine style={{ color: "#3B82F6" }} />,
             title: "Community",
         },
     ];

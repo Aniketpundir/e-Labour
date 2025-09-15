@@ -103,30 +103,38 @@ const Navbar = () => {
                     <img src={logo} alt="Logo" />
                 </div>
                 <ul>
-                    <li
-                        className={activeItem === "Home" ? "clicked" : ""}
-                        onClick={() => handleClick("Home")}
-                    >
-                        Home
-                    </li>
-                    <li
-                        className={activeItem === "How it works" ? "clicked" : ""}
-                        onClick={() => handleClick("How it works")}
-                    >
-                        How it works
-                    </li>
-                    <li
-                        className={activeItem === "About" ? "clicked" : ""}
-                        onClick={() => handleClick("About")}
-                    >
-                        About
-                    </li>
-                    <li
-                        className={activeItem === "Contact" ? "clicked" : ""}
-                        onClick={() => handleClick("Contact")}
-                    >
-                        Contact
-                    </li>
+                    <Link to="/">
+                        <li
+                            className={activeItem === "Home" ? "clicked" : ""}
+                            onClick={() => handleClick("Home")}
+                        >
+                            Home
+                        </li>
+                    </Link>
+                    <Link to="/howItWorks">
+                        <li
+                            className={activeItem === "How it works" ? "clicked" : ""}
+                            onClick={() => handleClick("How it works")}
+                        >
+                            How it works
+                        </li>
+                    </Link>
+                    <Link to="/about">
+                        <li
+                            className={activeItem === "About" ? "clicked" : ""}
+                            onClick={() => handleClick("About")}
+                        >
+                            About
+                        </li>
+                    </Link>
+                    <Link to="/contact">
+                        <li
+                            className={activeItem === "Contact" ? "clicked" : ""}
+                            onClick={() => handleClick("Contact")}
+                        >
+                            Contact
+                        </li>
+                    </Link>
                 </ul>
             </div>
         </div>
