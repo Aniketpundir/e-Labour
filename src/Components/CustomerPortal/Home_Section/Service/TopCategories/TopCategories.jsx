@@ -1,9 +1,9 @@
 import React from 'react'
 import "./TopCategories.css"
-import image1 from "../../../../assets/Plumber.jpeg"
-import image2 from "../../../../assets/Electrician.jpeg"
-import image3 from "../../../../assets/Painter.jpeg"
-import image4 from "../../../../assets/Carpenter.jpeg"
+import image1 from "../../../../../assets/Plumber.jpeg"
+import image2 from "../../../../../assets/Electrician.jpeg"
+import image3 from "../../../../../assets/Painter.jpeg"
+import image4 from "../../../../../assets/Carpenter.jpeg"
 import ServiceCard from '../ServiceCard/ServiceCard'
 
 const service = [
