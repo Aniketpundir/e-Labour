@@ -72,4 +72,9 @@
     .Our-Vision-image {
         width: 100%;
     }
+
+    .Our-Vision-text button {
+        width: 50%;
+        background-color: #ec6d13;
+    }
 }
