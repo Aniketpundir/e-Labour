@@ -18,6 +18,13 @@ const Navbar = () => {
         setShowMenu(false);
     };
 
+    const handleClicked = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
+
     useEffect(() => {
         const path = location.pathname;
         if (path === "/") {
@@ -55,7 +62,9 @@ const Navbar = () => {
                     <Link to="/">
                         <li
                             className={`button ${activeItem === "Home" ? "clicked" : ""}`}
-                            onClick={() => handleClick("Home")}
+                            onClick={() => {
+                                handleClick("Home"), handleClicked()
+                            }}
                         >
                             Home
                         </li>
@@ -64,7 +73,7 @@ const Navbar = () => {
                         <li
                             className={`button ${activeItem === "How it works" ? "clicked" : ""
                                 }`}
-                            onClick={() => handleClick("How it works")}
+                            onClick={() => { handleClick("How it works"), handleClicked() }}
                         >
                             How it works
                         </li>
@@ -72,7 +81,7 @@ const Navbar = () => {
                     <Link to="/about">
                         <li
                             className={`button ${activeItem === "About" ? "clicked" : ""}`}
-                            onClick={() => handleClick("About")}
+                            onClick={() => { handleClick("About"), handleClicked() }}
                         >
                             About
                         </li>
@@ -80,7 +89,7 @@ const Navbar = () => {
                     <Link to="/contact">
                         <li
                             className={`button ${activeItem === "Contact" ? "clicked" : ""}`}
-                            onClick={() => handleClick("Contact")}
+                            onClick={() => { handleClick("Contact"), handleClick() }}
                         >
                             Contact
                         </li>
@@ -103,16 +112,16 @@ const Navbar = () => {
                         {showProfileMenu && (
                             <div className="profile-menu">
                                 <ul>
-                                    <Link to="#">
+                                    <Link onClick={() => { handleClicked() }} to="#">
                                         <li>Your Profile</li>
                                     </Link>
-                                    <Link to="#">
+                                    <Link onClick={() => { handleClicked() }} to="#">
                                         <li>Current Booking & Details</li>
                                     </Link>
-                                    <Link to="#">
+                                    <Link onClick={() => { handleClicked() }} to="#">
                                         <li>Past Jobs / History</li>
                                     </Link>
-                                    <Link to="#">
+                                    <Link onClick={() => { handleClicked() }} to="#">
                                         <li>Support & Help Section</li>
                                     </Link>
                                     <Link to="#">
@@ -133,7 +142,7 @@ const Navbar = () => {
                     <Link to="/">
                         <li
                             className={activeItem === "Home" ? "clicked" : ""}
-                            onClick={() => handleClick("Home")}
+                            onClick={() => { handleClick("Home"), handleClicked() }}
                         >
                             Home
                         </li>
@@ -141,7 +150,7 @@ const Navbar = () => {
                     <Link to="/howItWorks">
                         <li
                             className={activeItem === "How it works" ? "clicked" : ""}
-                            onClick={() => handleClick("How it works")}
+                            onClick={() => { handleClick("How it works"), handleClicked() }}
                         >
                             How it works
                         </li>
@@ -149,7 +158,7 @@ const Navbar = () => {
                     <Link to="/about">
                         <li
                             className={activeItem === "About" ? "clicked" : ""}
-                            onClick={() => handleClick("About")}
+                            onClick={() => { handleClick("About"), handleClicked() }}
                         >
                             About
                         </li>
@@ -157,7 +166,7 @@ const Navbar = () => {
                     <Link to="/contact">
                         <li
                             className={activeItem === "Contact" ? "clicked" : ""}
-                            onClick={() => handleClick("Contact")}
+                            onClick={() => { handleClick("Contact"), handleClicked() }}
                         >
                             Contact
                         </li>

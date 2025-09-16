@@ -33,6 +33,12 @@ const How_Works = [
 ]
 
 const How_Work = () => {
+    const handleClick = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
     return (
         <>
             <div className='How-Works'>
@@ -47,7 +53,9 @@ const How_Work = () => {
                         )
                     })}
                 </div>
-                <button>Find a Worker Now</button>
+                <button onClick={() => {
+                    handleClick()
+                }}>Find a Worker Now</button>
             </div>
         </>
     )

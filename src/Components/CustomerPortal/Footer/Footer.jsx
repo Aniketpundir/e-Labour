@@ -5,6 +5,13 @@ import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
     const Navigate = useNavigate();
+    const handleClick = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
+
     return (
         <>
             <div className='footer-section'>
@@ -16,16 +23,16 @@ const Footer = () => {
                     <div className='footer-middle1'>
                         <h3>Quick Links</h3>
                         <p onClick={() => {
-                            Navigate("/")
+                            Navigate("/"), handleClick()
                         }}>Home</p>
                         <p onClick={() => {
-                            Navigate("/howItWorks")
+                            Navigate("/howItWorks"), handleClick()
                         }}>How it Works</p>
                         <p onClick={() => {
-                            Navigate("/about")
+                            Navigate("/about"), handleClick()
                         }}>About Us</p>
                         <p onClick={() => {
-                            Navigate("/contact")
+                            Navigate("/contact"), handleClick()
                         }}>Contact</p>
                     </div>
                     <div className='footer-middle2'>
