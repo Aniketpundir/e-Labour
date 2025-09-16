@@ -51,6 +51,7 @@
 
 .navbar-middle li {
     cursor: pointer;
+    transition: .1s;
 }
 
 .navbar-middle li:hover {

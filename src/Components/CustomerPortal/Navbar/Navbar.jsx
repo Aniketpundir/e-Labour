@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 import logo from "../../../assets/logo.jpg";
-import { Link } from "react-router-dom";
 import profileImg from "../../../assets/profile_img.png";
 import { FaBars, FaTimes } from "react-icons/fa";
 
@@ -11,12 +10,26 @@ const Navbar = () => {
     const [token, setToken] = useState("");
     const [showMenu, setShowMenu] = useState(false);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
-    const Navigate = useNavigate();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const handleClick = (name) => {
         setActiveItem(name);
         setShowMenu(false);
     };
+
+    useEffect(() => {
+        const path = location.pathname;
+        if (path === "/") {
+            setActiveItem("Home");
+        } else if (path === "/howItWorks") {
+            setActiveItem("How it works");
+        } else if (path === "/about") {
+            setActiveItem("About");
+        } else if (path === "/contact") {
+            setActiveItem("Contact");
+        }
+    }, [location]);
 
     useEffect(() => {
         localStorage.setItem("token", "123456");
@@ -25,7 +38,6 @@ const Navbar = () => {
 
     const toggleProfileMenu = () => setShowProfileMenu((prev) => !prev);
     const toggleHamburger = () => setShowMenu((prev) => !prev);
-
 
     return (
         <div className="navbar-container">
@@ -50,7 +62,8 @@ const Navbar = () => {
                     </Link>
                     <Link to="/howItWorks">
                         <li
-                            className={`button ${activeItem === "How it works" ? "clicked" : ""}`}
+                            className={`button ${activeItem === "How it works" ? "clicked" : ""
+                                }`}
                             onClick={() => handleClick("How it works")}
                         >
                             How it works
@@ -77,20 +90,34 @@ const Navbar = () => {
 
             <div className="navbar-right">
                 {!token ? (
-                    <button onClick={() => {
-                        Navigate("/landing-page")
-                    }}>Sign Up</button>
+                    <button
+                        onClick={() => {
+                            navigate("/landing-page");
+                        }}
+                    >
+                        Sign Up
+                    </button>
                 ) : (
                     <div className="profile-section">
                         <img src={profileImg} alt="Profile" onClick={toggleProfileMenu} />
                         {showProfileMenu && (
                             <div className="profile-menu">
                                 <ul>
-                                    <Link to="#"><li>Your Profile</li></Link>
-                                    <Link to="#"><li>Current Booking & Details</li></Link>
-                                    <Link to="#"><li>Past Jobs / History</li></Link>
-                                    <Link to="#"><li>Support & Help Section</li></Link>
-                                    <Link to="#"><li>Logout</li></Link>
+                                    <Link to="#">
+                                        <li>Your Profile</li>
+                                    </Link>
+                                    <Link to="#">
+                                        <li>Current Booking & Details</li>
+                                    </Link>
+                                    <Link to="#">
+                                        <li>Past Jobs / History</li>
+                                    </Link>
+                                    <Link to="#">
+                                        <li>Support & Help Section</li>
+                                    </Link>
+                                    <Link to="#">
+                                        <li>Logout</li>
+                                    </Link>
                                 </ul>
                             </div>
                         )}

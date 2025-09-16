@@ -1,0 +1,153 @@
+.contact {
+    margin: 0px 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 110vh;
+}
+
+.contact h1 {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 26px;
+    font-weight: 550;
+}
+
+.contact .heading {
+    text-align: center;
+}
+
+.contact-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
+}
+
+
+.contact-left form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contact-left {
+    padding: 10px 30px;
+    border-radius: 20px;
+    width: 50%;
+    box-shadow: 0.5px 10px 20px 0.5px rgba(128, 128, 128, 0.478);
+}
+
+.contact-left form input {
+    padding: 8px;
+}
+
+.contact-left form button {
+    background-color: #ec6d13;
+    padding: 8px;
+    margin: 0 35%;
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.contact-right {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.Content-detail {
+    box-shadow: 0.5px 10px 20px 0.5px rgba(128, 128, 128, 0.478);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.contact-right h3 {
+    font-weight: 550;
+}
+
+.Content-details {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.address {
+    display: flex;
+    gap: 5px;
+}
+
+.address p svg {
+    font-size: 20px;
+}
+
+.address h6 {
+    font-size: 16px;
+    font-weight: 550;
+}
+
+.socila-media {
+    box-shadow: 0.5px 10px 20px 0.5px rgba(128, 128, 128, 0.478);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.social {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.social p {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.social svg {
+    font-size: 30px;
+    border-radius: 50%;
+}
+
+.social p span {
+    font-size: 22px;
+}
+
+@media (max-width:650px) {
+    .contact {
+        margin: 0px 5%;
+        height: 130vh;
+    }
+
+    .contact h1 {
+        margin-top: 0%;
+    }
+
+    .contact-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .contact-left {
+        width: 100%;
+    }
+
+    .contact-left form input {
+        padding: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.544);
+    }
+
+    .contact-left form textarea {
+        border: 1px solid rgba(0, 0, 0, 0.544);
+    }
+
+    .contact-right {
+        width: 100%;
+    }
+}

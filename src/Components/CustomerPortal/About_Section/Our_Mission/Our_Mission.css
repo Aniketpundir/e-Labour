@@ -67,7 +67,7 @@
     }
 
     .Our_Mission-content {
-        flex-direction: column;
+        flex-direction: column-reverse;
         gap: 50px;
     }
 
