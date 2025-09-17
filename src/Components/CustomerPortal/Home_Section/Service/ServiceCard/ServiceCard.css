@@ -53,7 +53,16 @@
     }
 
     .service-text {
-        padding: 10px;
+        padding: 5px;
+    }
+
+    .service-text h3 {
+        font-size: 20px;
+        font-weight: 550;
+    }
+
+    .service-text p {
+        font-size: 15px
     }
 
     .service-text button {
