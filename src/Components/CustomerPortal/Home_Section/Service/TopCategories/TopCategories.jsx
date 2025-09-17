@@ -46,7 +46,7 @@ const TopCategories = () => {
                         )
                     })}
                 </div>
-                <button>More Service...</button>
+                <button className='more-service'>More Service...</button>
             </div>
         </>
     )
