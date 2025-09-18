@@ -1,8 +1,26 @@
 import React from 'react'
 import "./ServiceCard.css";
+import { useLocation, useNavigate } from 'react-router-dom';
 
-const ServiceCard = ({ img, title }) => {
+const ServiceCard = ({ img, title, description }) => {
+    const location = useLocation();
+    const Navigate = useNavigate();
 
+    const token = localStorage.getItem("token");
+
+    const handleClik = () => {
+        const path = location.pathname;
+
+        if (token) {
+            Navigate(`/Service-Categories/Listed-Workers/${title}`)
+        } else {
+            Navigate('/login');
+            toast.error("Please login first!", {
+                position: "bottom-left",
+                autoClose: 5000,
+            });
+        }
+    }
 
     return (
         <>
@@ -12,8 +30,8 @@ const ServiceCard = ({ img, title }) => {
                 </div>
                 <div className='service-text'>
                     <h3>{title}</h3>
-                    <p>Professional cleaning for your home</p>
-                    <button className='service-btn'>Book Now</button>
+                    <p>{description}</p>
+                    <button onClick={() => { handleClik() }} className='service-btn'>Book Now</button>
                 </div>
             </div>
         </>

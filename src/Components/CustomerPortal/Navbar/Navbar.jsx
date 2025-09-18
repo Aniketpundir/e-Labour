@@ -35,12 +35,14 @@ const Navbar = () => {
             setActiveItem("About");
         } else if (path === "/contact") {
             setActiveItem("Contact");
+        } else {
+            setActiveItem("");
         }
     }, [location]);
 
     useEffect(() => {
         localStorage.setItem("token", "123456");
-        // setToken(localStorage.getItem("token"));
+        setToken(localStorage.getItem("token"));
     }, []);
 
     const toggleProfileMenu = () => setShowProfileMenu((prev) => !prev);

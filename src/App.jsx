@@ -10,6 +10,8 @@ import Home from './Pages/Home/Home'
 import HowItWorks from "./Pages/HowItWorkrs/HowItWorkrs"
 import About from "./Pages/About/About"
 import Contact from "./Pages/Contact/Contact"
+import ServiceCategories from './Components/CustomerPortal/ServiceCategories/ServiceCategories'
+import ListedWorkers from './Components/CustomerPortal/Listed_Workers/ListedWorker/ListedWorkers'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -24,6 +26,9 @@ const router = createBrowserRouter(
                 <Route path='/howItWorks' element={<HowItWorks />} />
                 <Route path='/about' element={<About />} />
                 <Route path='/contact' element={<Contact />} />
+                <Route path='/Service-Categories' element={<ServiceCategories />} />
+                <Route path='/Service-Categories/Listed-Workers/:title' element={<ListedWorkers />} />
+                {/* <Route path='/Service-Categories/Listed-Workers/${title}' element={<ListedWorkers />} /> */}
             </Route>
         </Route>
     )

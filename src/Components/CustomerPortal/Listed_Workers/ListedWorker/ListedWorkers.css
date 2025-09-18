@@ -1,0 +1,70 @@
+.ListedWorker {
+    margin-top: 90px;
+    margin-bottom: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: self-start;
+    gap: 25px;
+}
+
+.category-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #ec6d1368;
+    color: #ec6d13;
+    padding: 8px 24px 8px 16px;
+    border: none;
+    border-radius: 9999px;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: sans-serif;
+    position: relative;
+}
+
+.select-wrapper {
+    display: inline-block;
+    position: relative;
+}
+
+.select-wrapper::after {
+    content: "▾";
+    font-size: 14px;
+    background-color: #ec6d1368;
+    color: #ec6d13;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.category-select:focus {
+    outline: none;
+    background-color: #ec6d1368;
+    color: #ec6d13;
+}
+
+.caret-icon {
+    color: #ec6d13;
+}
+
+.ListedWorker-filter svg {
+    font-size: 25px;
+}
+
+.ListedWorker-card {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
+@media (max-width:650px) {
+    .ListedWorker-card {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
