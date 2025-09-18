@@ -14,7 +14,7 @@ const ServiceCard = ({ img, title, description }) => {
         if (token) {
             Navigate(`/Service-Categories/Listed-Workers/${title}`)
         } else {
-            Navigate('/login');
+            Navigate('/customer-login');
             toast.error("Please login first!", {
                 position: "bottom-left",
                 autoClose: 5000,

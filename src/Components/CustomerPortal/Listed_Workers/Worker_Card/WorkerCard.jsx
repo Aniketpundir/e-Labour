@@ -1,8 +1,25 @@
 import React from 'react';
 import "./WorkerCard.css";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-const WorkerCard = ({ image, name, service, rating, daily_wages, status }) => {
+const WorkerCard = ({ image, name, service, rating, daily_wages, status, id }) => {
+
+    const Navigate = useNavigate();
+
+    const token = localStorage.getItem("token")
+
+    const handleClick = () => {
+        if (token) {
+            Navigate(`/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}`)
+
+        } else {
+            Navigate('/customer-login');
+            toast.error("Please login first!", {
+                position: "bottom-left",
+                autoClose: 5000,
+            });
+        }
+    }
 
     const { title } = useParams();
 
@@ -12,7 +29,7 @@ const WorkerCard = ({ image, name, service, rating, daily_wages, status }) => {
 
     return (
         <div className='Worker-Card'>
-            <div className='Worker-Card-Details'>
+            <div onClick={() => { handleClick() }} className='Worker-Card-Details'>
                 <div className='Worker-Card-img'>
                     <img src={image} alt='Worker' />
                     <p className={`status ${isAvailable ? "availabel" : "unavailabel"}`}>

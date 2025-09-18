@@ -12,6 +12,7 @@ import About from "./Pages/About/About"
 import Contact from "./Pages/Contact/Contact"
 import ServiceCategories from './Components/CustomerPortal/ServiceCategories/ServiceCategories'
 import ListedWorkers from './Components/CustomerPortal/Listed_Workers/ListedWorker/ListedWorkers'
+import WorkersDetails from "./Components/CustomerPortal/Listed_Workers/Workers_Details_section/WorkersDetails/WorkersDetails"
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -28,7 +29,7 @@ const router = createBrowserRouter(
                 <Route path='/contact' element={<Contact />} />
                 <Route path='/Service-Categories' element={<ServiceCategories />} />
                 <Route path='/Service-Categories/Listed-Workers/:title' element={<ListedWorkers />} />
-                {/* <Route path='/Service-Categories/Listed-Workers/${title}' element={<ListedWorkers />} /> */}
+                <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id' element={<WorkersDetails />} />
             </Route>
         </Route>
     )

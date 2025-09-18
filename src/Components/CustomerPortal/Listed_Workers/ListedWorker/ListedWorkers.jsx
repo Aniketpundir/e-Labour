@@ -7,7 +7,7 @@ import image1 from "../../../../assets/101.jpg";
 
 const worker_details = [
     {
-        id: "1",
+        _id: "651f9a7b12a4cde5f8b3210d",
         img: image1,
         name: "Liam Carter",
         service: "Plumber",
@@ -16,7 +16,7 @@ const worker_details = [
         status: "Unavailabel"
     },
     {
-        id: "2",
+        _id: "752e1b4d93f5a6c7d8e4201f",
         img: image,
         name: "Liam Carter",
         service: "Plumber",
@@ -25,7 +25,7 @@ const worker_details = [
         status: "Availabel"
     },
     {
-        id: "3",
+        _id: "8c2d7e5a41b9f0a3d6e8124b",
         img: image,
         name: "Liam Carter",
         service: "Plumber",
@@ -34,7 +34,7 @@ const worker_details = [
         status: "Availabel"
     },
     {
-        id: "4",
+        _id: "5fa7c3e9b1d2e4f8a6c0217d",
         img: image,
         name: "Liam Carter",
         service: "Plumber",
@@ -43,7 +43,7 @@ const worker_details = [
         status: "Availabel"
     },
     {
-        id: "5",
+        _id: "9e3a7b5f2d1c8a4e6f0312d9",
         img: image,
         name: "Liam Carter",
         service: "Plumber",
@@ -90,6 +90,7 @@ const ListedWorkers = () => {
                                     rating={items.rating}
                                     daily_wages={items.daily_wages}
                                     status={items.status}
+                                    id={items._id}
                                 />
                             </div>
                         )

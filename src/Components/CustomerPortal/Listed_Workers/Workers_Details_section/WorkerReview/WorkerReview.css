@@ -1,0 +1,172 @@
+.ratings-card {
+    margin-top: 8px;
+    margin-bottom: 40px;
+    margin-left: 60px;
+    margin-right: 60px;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.349);
+    width: 600px;
+    font-family: Arial, sans-serif;
+}
+
+.ratings-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 16px;
+    color: #1a1a1a;
+}
+
+.ratings-summary {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.average-score {
+    text-align: center;
+}
+
+.average-score h1 {
+    font-size: 48px;
+    color: #ec6d13;
+    margin: 0;
+}
+
+.average-score p {
+    font-size: 14px;
+    color: #555;
+    margin-top: 8px;
+}
+
+.ratings-bars {
+    flex: 1;
+}
+
+.rating-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    min-width: 0;
+}
+
+.rating-label {
+    width: 20px;
+    font-weight: 600;
+    flex: 0 0 20px;
+}
+
+.bar-container {
+    background-color: #eef3f8;
+    height: 10px;
+    flex: 1 1 auto;
+    border-radius: 999px;
+    overflow: hidden;
+    min-width: 0;
+    width: auto;
+}
+
+.bar-fill {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, #ec6d13, #d75f0f);
+    transition: width 600ms cubic-bezier(.2, .8, .2, 1);
+}
+
+.rating-percent {
+    width: 46px;
+    text-align: right;
+    font-weight: 600;
+    flex: 0 0 46px;
+}
+
+.reviews-container {
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 10px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+
+.review {
+    border-top: 1px solid #eee;
+    padding-top: 16px;
+    margin-top: 16px;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.review-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.review-time {
+    font-size: 13px;
+    color: #777;
+}
+
+.review-text {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.6;
+}
+
+@media (max-width: 650px) {
+    .ratings-card {
+        margin-left: 20px;
+        margin-right: 10px;
+        width: 90%;
+    }
+
+    .ratings-summary {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .average-score h1 {
+        font-size: 36px;
+    }
+
+    .rating-label,
+    .rating-percent {
+        font-size: 13px;
+    }
+
+    .rating-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 0;
+    }
+
+    .rating-label {
+        flex: 0 0 18px;
+        width: 18px;
+        font-size: 13px;
+    }
+
+    .bar-container {
+        flex: 1 1 auto;
+        min-width: 0;
+        width: auto;
+        height: 10px;
+    }
+
+    .rating-percent {
+        flex: 0 0 40px;
+        width: 40px;
+        font-size: 13px;
+    }
+}
