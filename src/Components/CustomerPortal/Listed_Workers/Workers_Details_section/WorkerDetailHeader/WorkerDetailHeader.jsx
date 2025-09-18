@@ -2,11 +2,18 @@ import React from 'react'
 import "./WorkerDetailHeader.css"
 import { FaCheckCircle } from "react-icons/fa";
 import image from "../../../../../assets/101.jpg"
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import WorkerAvaiable from '../WorkerAvaiable/WorkerAvaiable';
 
 const WorkerDetailHeader = () => {
 
-    const { title } = useParams();
+    const { title, id } = useParams();
+
+    const Navigate = useNavigate();
+
+    const handleClick = () => {
+        Navigate(`/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/booking-section`);
+    }
 
     return (
         <div className="worker-card">
@@ -23,7 +30,7 @@ const WorkerDetailHeader = () => {
                     <span>Verified</span>
                 </div>
             </div>
-            <button className="book-button">Book Worker</button>
+            <button onClick={() => { handleClick() }} className="book-button">Book Worker</button>
         </div>
     );
 };

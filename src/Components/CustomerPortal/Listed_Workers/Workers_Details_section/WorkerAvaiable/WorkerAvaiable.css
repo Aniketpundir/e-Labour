@@ -1,0 +1,54 @@
+.Availablity {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 400px;
+    padding: 15px 30px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.349);
+    border-radius: 20px;
+}
+
+.Availablity-containt {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+}
+
+.Availablity-containt h3 {
+    font-size: 24px;
+    text-align: center;
+}
+
+.Availablity-containt ul {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.statuss {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+    list-style: none;
+    cursor: pointer;
+    border-radius: 9999px;
+}
+
+.availablity {
+    background-color: rgba(0, 128, 0, 0.215);
+    color: #006400;
+}
+
+.unavailablity {
+    background-color: rgba(255, 0, 0, 0.109);
+    color: #8B0000;
+}
+
+@media (max-width:650px) {
+    .Availablity {
+        margin-left: 20px;
+        margin-right: 10px;
+        width: 90%;
+        padding: 10px 20px;
+    }
+}

@@ -4,7 +4,7 @@ import WorkerDetailHeader from '../WorkerDetailHeader/WorkerDetailHeader';
 import WorkerAbout from '../WorkerAbout/WorkerAbout';
 import WorkerSkillls from "../WorkerSkillls/WorkerSkillls"
 import WorkerReview from '../WorkerReview/WorkerReview';
-import WorkerAvaiable from "../WorkerAvaiable/WorkerAvaiable"
+import WorkerAvaiable from "../WorkerAvaiable/WorkerAvaiable";
 
 const WorkersDetails = () => {
     return (

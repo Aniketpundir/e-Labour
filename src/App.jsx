@@ -13,6 +13,7 @@ import Contact from "./Pages/Contact/Contact"
 import ServiceCategories from './Components/CustomerPortal/ServiceCategories/ServiceCategories'
 import ListedWorkers from './Components/CustomerPortal/Listed_Workers/ListedWorker/ListedWorkers'
 import WorkersDetails from "./Components/CustomerPortal/Listed_Workers/Workers_Details_section/WorkersDetails/WorkersDetails"
+import BookWorkers from './Components/CustomerPortal/Book_workers/BookWorkers'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
                 <Route path='/Service-Categories' element={<ServiceCategories />} />
                 <Route path='/Service-Categories/Listed-Workers/:title' element={<ListedWorkers />} />
                 <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id' element={<WorkersDetails />} />
+                <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id/booking-section' element={<BookWorkers />} />
             </Route>
         </Route>
     )
