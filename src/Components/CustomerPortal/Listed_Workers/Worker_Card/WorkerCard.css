@@ -1,17 +1,14 @@
-/* Worker Card Grid Container */
 .worker-card-container {
     gap: 20px;
     padding: 20px;
 }
 
-/* Worker Card Wrapper */
 .Worker-Card {
     margin: 0;
     display: flex;
     flex-direction: column;
 }
 
-/* Worker Card Details */
 .Worker-Card-Details {
     width: 100%;
     display: flex;
@@ -30,10 +27,8 @@
     box-shadow: 0.5px 10px 20px 0.5px #ec6d13c5;
 }
 
-/* Image Container */
 .Worker-Card-img {
     position: relative;
-    /* for badge positioning */
     width: 100%;
     aspect-ratio: 4/4;
     overflow: hidden;
