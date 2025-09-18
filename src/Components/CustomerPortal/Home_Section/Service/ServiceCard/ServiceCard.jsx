@@ -8,7 +8,7 @@ const ServiceCard = ({ img, title, description }) => {
 
     const token = localStorage.getItem("token");
 
-    const handleClik = () => {
+    const handleClick = () => {
         const path = location.pathname;
 
         if (token) {
@@ -22,6 +22,13 @@ const ServiceCard = ({ img, title, description }) => {
         }
     }
 
+    const handleClicked = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
+
     return (
         <>
             <div className='service-card'>
@@ -31,7 +38,7 @@ const ServiceCard = ({ img, title, description }) => {
                 <div className='service-text'>
                     <h3>{title}</h3>
                     <p>{description}</p>
-                    <button onClick={() => { handleClik() }} className='service-btn'>Book Now</button>
+                    <button onClick={() => { handleClick(), handleClicked() }} className='service-btn'>Book Now</button>
                 </div>
             </div>
         </>

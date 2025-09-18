@@ -38,6 +38,13 @@ const TopCategories = () => {
 
     const Navigate = useNavigate();
 
+    const handleClick = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
+
     return (
         <>
             <div className='Top-service'>
@@ -55,7 +62,7 @@ const TopCategories = () => {
                         )
                     })}
                 </div>
-                <button onClick={() => { Navigate('/Service-Categories') }} className='more-service'>More Service...</button>
+                <button onClick={() => { Navigate('/Service-Categories'), handleClick() }} className='more-service'>More Service...</button>
             </div>
         </>
     )

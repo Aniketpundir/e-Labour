@@ -1,8 +1,14 @@
 import React from 'react';
 import "./WorkerCard.css";
+import { useParams } from 'react-router-dom';
 
 const WorkerCard = ({ image, name, service, rating, daily_wages, status }) => {
-    const isAvailable = status === "Availabel"; // Match your status string
+
+    const { title } = useParams();
+
+    console.log(title);
+
+    const isAvailable = status === "Availabel";
 
     return (
         <div className='Worker-Card'>
@@ -17,7 +23,7 @@ const WorkerCard = ({ image, name, service, rating, daily_wages, status }) => {
                     <div className='name-with-avaiable'>
                         <h3>{name}</h3>
                     </div>
-                    <p className='service'>{service}</p>
+                    <p className='service'>{title}</p>
                     <div className='rating'>
                         <p className='rating-counting'>
                             <span>{rating}</span>/5
