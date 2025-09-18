@@ -56,13 +56,21 @@
         padding: 5px;
     }
 
+    .service-text {
+        padding: 20px;
+        justify-content: start;
+        align-items: start;
+        text-align: center;
+    }
+
     .service-text h3 {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 550;
     }
 
     .service-text p {
-        font-size: 12px
+        font-size: 12px;
+        text-align: start;
     }
 
     .service-text button {
