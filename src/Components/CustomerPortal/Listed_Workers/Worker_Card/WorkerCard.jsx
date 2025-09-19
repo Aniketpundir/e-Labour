@@ -21,15 +21,20 @@ const WorkerCard = ({ image, name, service, rating, daily_wages, status, id }) =
         }
     }
 
-    const { title } = useParams();
+    const handleClicked = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
 
-    console.log(title);
+    const { title } = useParams();
 
     const isAvailable = status === "Availabel";
 
     return (
         <div className='Worker-Card'>
-            <div onClick={() => { handleClick() }} className='Worker-Card-Details'>
+            <div onClick={() => { handleClick(), handleClicked() }} className='Worker-Card-Details'>
                 <div className='Worker-Card-img'>
                     <img src={image} alt='Worker' />
                     <p className={`status ${isAvailable ? "availabel" : "unavailabel"}`}>

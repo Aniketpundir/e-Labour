@@ -12,8 +12,15 @@ const WorkerDetailHeader = () => {
     const Navigate = useNavigate();
 
     const handleClick = () => {
-        Navigate(`/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/booking-section`);
+        Navigate(`/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section`);
     }
+
+    const handleClicked = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
 
     return (
         <div className="worker-card">
@@ -30,7 +37,7 @@ const WorkerDetailHeader = () => {
                     <span>Verified</span>
                 </div>
             </div>
-            <button onClick={() => { handleClick() }} className="book-button">Book Worker</button>
+            <button onClick={() => { handleClick(), handleClicked() }} className="book-button">Book Worker</button>
         </div>
     );
 };

@@ -1,0 +1,235 @@
+.checkout-container {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.checkout-box {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* ✅ Worker Profile Card */
+.worker-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 12px;
+    background: #f9fafb;
+    margin-bottom: 20px;
+}
+
+.worker-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.worker-info h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #111827;
+    margin: 0;
+}
+
+.worker-job {
+    font-size: 14px;
+    color: #4b5563;
+    margin: 2px 0;
+}
+
+.worker-id {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+
+.checkout-box h2 {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+/* ✅ Service Date Buttons */
+.button-group {
+    display: flex;
+    margin-bottom: 15px;
+    gap: 10px;
+}
+
+.button-group button {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.button-group button.active,
+.button-group button:hover {
+    background: #ec6d13;
+    color: #fff;
+    border-color: #ec6d13;
+}
+
+/* ✅ Saved Address */
+.saved-address-box {
+    border: 1px solid #d1d5db;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    background: #f9fafb;
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    cursor: pointer;
+    transition: 0.2s;
+    justify-content: center;
+    align-items: center;
+}
+
+.saved-address-box:hover {
+    border-color: #ec6d13;
+}
+
+.saved-address-box input[type="radio"] {
+    margin-top: 4px;
+    cursor: pointer;
+}
+
+.saved-address-box p {
+    margin: 2px 0;
+    font-size: 14px;
+    color: #333;
+}
+
+/* ✅ Address Form */
+.form-section {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.form-section input {
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.row {
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+}
+
+.edit-address {
+    padding: 8px;
+    background-color: #ec6d13;
+    border: none;
+    cursor: pointer;
+}
+
+.edit-address svg {
+    font-size: 26px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.save-address {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+}
+
+.save-address p {
+    color: #000000;
+}
+
+.save-address p span {
+    color: #ec6d13;
+}
+
+/* ✅ Payment */
+.payment-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.payment-methods label {
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ✅ Buttons */
+.pay-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ec6d13;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.pay-btn:hover {
+    background: #ec6d13;
+    color: #fff;
+}
+
+.pay-btn:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
+/* ✅ Responsive */
+@media (max-width: 650px) {
+    .checkout-box {
+        padding: 15px 20px;
+        border-radius: 8px;
+    }
+
+    .button-group {
+        flex-direction: column;
+    }
+
+    .row {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    h2 {
+        font-size: 16px;
+    }
+
+    .form-section input {
+        font-size: 13px;
+        padding: 8px;
+    }
+
+    .pay-btn {
+        font-size: 14px;
+        padding: 10px;
+    }
+}
