@@ -15,6 +15,10 @@ import ListedWorkers from './Components/CustomerPortal/Listed_Workers/ListedWork
 import WorkersDetails from "./Components/CustomerPortal/Listed_Workers/Workers_Details_section/WorkersDetails/WorkersDetails"
 import BookWorkers from './Components/CustomerPortal/Booking_Flow/Book_workers/BookWorkers'
 import BookingConformation from './Components/CustomerPortal/Booking_Flow/Booking_Conformation/BookingConformation'
+import CustomerProfile from './Components/CustomerPortal/CustomerDetails/CustomerProfile/CustomerProfile'
+import CurrentBooking from './Components/CustomerPortal/CustomerDetails/CurrentBooking/CurrentBooking'
+import HelpSection from "./Components/CustomerPortal/CustomerDetails/HelpSection/HelpSection"
+import PastBooking from './Components/CustomerPortal/CustomerDetails/PastBooking/PastBooking'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -33,6 +37,10 @@ const router = createBrowserRouter(
             <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id' element={<WorkersDetails />} />
             <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id/booking-section' element={<BookWorkers />} />
             <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id/Booking-Section/Booking-Conformation' element={<BookingConformation />} />
+            <Route path='/Customer-Profile' element={<CustomerProfile />} />
+            <Route path='/Current-Booking' element={<CurrentBooking />} />
+            <Route path='/Support-Section' element={<HelpSection />} />
+            <Route path='/Past-Booking' element={<PastBooking />} />
         </Route>
     )
 )

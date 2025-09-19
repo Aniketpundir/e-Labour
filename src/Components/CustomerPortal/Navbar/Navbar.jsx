@@ -114,16 +114,16 @@ const Navbar = () => {
                         {showProfileMenu && (
                             <div className="profile-menu">
                                 <ul>
-                                    <Link onClick={() => { handleClicked(), toggleProfileMenu() }} to="#">
+                                    <Link onClick={() => { handleClicked(), toggleProfileMenu() }} to="/Customer-Profile">
                                         <li>Your Profile</li>
                                     </Link>
-                                    <Link onClick={() => { handleClicked(), toggleProfileMenu() }} to="#">
+                                    <Link onClick={() => { handleClicked(), toggleProfileMenu() }} to="/Current-Booking">
                                         <li>Current Booking & Details</li>
                                     </Link>
-                                    <Link onClick={() => { handleClicked(), toggleProfileMenu() }} to="#">
+                                    <Link onClick={() => { handleClicked(), toggleProfileMenu() }} to="/Past-Booking">
                                         <li>Past Jobs / History</li>
                                     </Link>
-                                    <Link onClick={() => { handleClicked(), toggleProfileMenu() }} to="#">
+                                    <Link onClick={() => { handleClicked(), toggleProfileMenu() }} to="/Support-Section">
                                         <li>Support & Help Section</li>
                                     </Link>
                                     <Link to="#">

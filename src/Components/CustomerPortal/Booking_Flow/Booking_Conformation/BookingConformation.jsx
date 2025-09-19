@@ -6,6 +6,12 @@ import { useNavigate } from 'react-router-dom';
 const BookingConformation = () => {
     const Navigate = useNavigate();
 
+    const handleClick = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
     return (
         <div className='Booking-Conformation'>
             <div className='Booking-Conformation-Container'>
@@ -15,8 +21,8 @@ const BookingConformation = () => {
                     <p>Your service has been successfully booked.</p>
                 </div>
                 <div className="Booking-Conformation-Container-button">
-                    <button className='confirm-button' onClick={() => { Navigate('/') }}>Go To Home</button>
-                    <button className='confirm-button' onClick={() => { Navigate('/about') }}>View Booking Details</button>
+                    <button className='confirm-button' onClick={() => { Navigate('/'), handleClick() }}>Go To Home</button>
+                    <button className='confirm-button' onClick={() => { Navigate('/Current-Booking'), handleClick() }}>View Booking Details</button>
                 </div>
             </div>
         </div>
