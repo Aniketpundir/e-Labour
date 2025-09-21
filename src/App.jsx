@@ -55,7 +55,7 @@ const App = () => {
             offset: 100,
             duration: 600,
             easing: "ease-in-sine",
-            delay: 100,
+            delay: 400,
         });
         AOS.refresh();
     }, []);

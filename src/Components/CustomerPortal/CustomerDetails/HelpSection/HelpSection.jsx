@@ -51,14 +51,14 @@ const HelpSection = () => {
             </div>
 
             {/* Complaint and Chat */}
-            <div data-aos="fade-down" className="support-actions">
-                <div data-aos="fade-down" className="card">
+            <div data-aos="fade-up" className="support-actions">
+                <div data-aos="fade-up" className="card">
                     <FaExclamationCircle className="card-icon red" />
                     <h3>Raise a Complaint / Dispute</h3>
                     <p>If you have an issue with a service or booking, please submit a complaint form.</p>
                     <button>Submit Form</button>
                 </div>
-                <div data-aos="fade-down" className="card">
+                <div data-aos="fade-up" className="card">
                     <FaComments className="card-icon green" />
                     <h3>Live Chat or Support Ticket</h3>
                     <p>Connect with our support team in real-time or submit a ticket for assistance.</p>
@@ -67,8 +67,8 @@ const HelpSection = () => {
             </div>
 
             {/* Track Support */}
-            <div data-aos="fade-down" className="track-support">
-                <FaSyncAlt data-aos="fade-down" className="track-icon" />
+            <div data-aos="fade-up" className="track-support">
+                <FaSyncAlt data-aos="fade-up" className="track-icon" />
                 <h3>Track Support Request Status</h3>
                 <label>Request ID</label>
                 <div className="track-input">

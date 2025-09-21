@@ -64,22 +64,22 @@ averageRatings.totalReviews = customers_reviews.length;
 const WorkerReview = () => {
 
     return (
-        <div data-aos="fade-down" className="ratings-card">
-            <h3 data-aos="fade-down" className="ratings-title">Ratings & Reviews</h3>
+        <div data-aos="fade-up" className="ratings-card">
+            <h3 data-aos="fade-up" className="ratings-title">Ratings & Reviews</h3>
 
-            <div data-aos="fade-down" className="ratings-summary">
-                <div data-aos="fade-down" className="average-score">
-                    <h1 data-aos="fade-down">{averageRatings.averageRating}</h1>
-                    <p data-aos="fade-down">Based on {averageRatings.totalReviews} reviews</p>
+            <div data-aos="fade-up" className="ratings-summary">
+                <div data-aos="fade-up" className="average-score">
+                    <h1 data-aos="fade-up">{averageRatings.averageRating}</h1>
+                    <p data-aos="fade-up">Based on {averageRatings.totalReviews} reviews</p>
                 </div>
 
-                <div data-aos="fade-down" className="ratings-bars">
+                <div data-aos="fade-up" className="ratings-bars">
                     {ratingData.map((item) => {
                         const raw = Number(item.percent);
                         const percent = Number.isFinite(raw) ? Math.max(0, Math.min(100, raw)) : 0;
 
                         return (
-                            <div data-aos="fade-down" key={item.stars} className="rating-row">
+                            <div data-aos="fade-up" key={item.stars} className="rating-row">
                                 <span className="rating-label">{item.stars}</span>
 
                                 <div className="bar-container" aria-hidden="true">

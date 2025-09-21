@@ -49,7 +49,7 @@ const PastBooking = () => {
                 <div className='past-booking-history'>
                     {pastBooking.map((items, index) => {
                         return (
-                            <div data-aos="fade-down" key={index} className='past-booking-details'>
+                            <div data-aos="fade-up" key={index} className='past-booking-details'>
                                 <img src={items.img} alt='Worker Image' />
                                 <div className='booking-service'>
                                     <h3>{items.service}</h3>

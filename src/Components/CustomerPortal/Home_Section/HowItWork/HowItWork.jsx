@@ -31,7 +31,7 @@ const HowItWork = () => {
     return (
         <>
             <div className='HowItWork-container'>
-                <h1 data-aos="fade-down">How It Work</h1>
+                <h1 data-aos="fade-up">How It Work</h1>
                 <div className='HowItWork-content'>
                     {howDetails.map((items, index) => {
                         return (

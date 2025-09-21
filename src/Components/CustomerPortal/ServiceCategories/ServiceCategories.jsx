@@ -97,7 +97,7 @@ const ServiceCategories = () => {
                     <div className='service-categories-list'>
                         {Servce_List.map((items, index) => {
                             return (
-                                <div data-aos="fade-down" key={index} className='service-categories-list-card'>
+                                <div data-aos="fade-up" key={index} className='service-categories-list-card'>
                                     <ServiceCard
                                         img={items.img}
                                         title={items.title}

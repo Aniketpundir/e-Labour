@@ -82,7 +82,7 @@ const ListedWorkers = () => {
                 <div className='ListedWorker-card'>
                     {worker_details.map((items, index) => {
                         return (
-                            <div data-aos="fade-down" key={index} className='ListedWorkrs-card-list'>
+                            <div data-aos="fade-up" key={index} className='ListedWorkrs-card-list'>
                                 <WorkerCard
                                     image={items.img}
                                     name={items.name}

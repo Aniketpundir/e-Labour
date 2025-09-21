@@ -13,11 +13,11 @@ const WorkerSkillls = () => {
     ];
 
     return (
-        <div data-aos="fade-down" className="skills-card">
-            <h3 data-aos="fade-down" className="skills-title">Skills</h3>
-            <div data-aos="fade-down" className="skills-list">
+        <div data-aos="fade-up" className="skills-card">
+            <h3 data-aos="fade-up" className="skills-title">Skills</h3>
+            <div data-aos="fade-up" className="skills-list">
                 {skills.map((skill, index) => (
-                    <span data-aos="fade-down" key={index} className="skill-badge">
+                    <span data-aos="fade-up" key={index} className="skill-badge">
                         {skill}
                     </span>
                 ))}
