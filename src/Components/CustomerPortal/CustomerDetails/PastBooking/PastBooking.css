@@ -115,21 +115,26 @@
         text-align: center;
     }
 
+    .past-booking-history {
+        gap: 20px;
+    }
+
     .past-booking-details {
         text-align: center;
-        gap: 8px;
+        justify-content: center;
+        gap: 0px;
         padding: 10px;
     }
 
     .past-booking-details img {
-        width: 100px;
-        height: 100px;
+        width: 80px;
+        height: 80px;
         margin-bottom: 6px;
         border-radius: 10%;
     }
 
     .booking-service h3 {
-        font-size: 14px;
+        font-size: 16px;
         margin-bottom: 0px;
     }
 
