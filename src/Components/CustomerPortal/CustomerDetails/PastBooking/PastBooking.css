@@ -116,17 +116,16 @@
     }
 
     .past-booking-details {
-        flex-direction: column;
-        align-items: center;
         text-align: center;
         gap: 8px;
-        padding: 10px 12px;
+        padding: 10px;
     }
 
     .past-booking-details img {
-        width: 70px;
-        height: 70px;
+        width: 100px;
+        height: 100px;
         margin-bottom: 6px;
+        border-radius: 10%;
     }
 
     .booking-service h3 {
