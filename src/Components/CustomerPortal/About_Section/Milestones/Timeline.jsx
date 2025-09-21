@@ -32,13 +32,13 @@ const milestonesData = [
 
 const Timeline = () => {
   return (
-    <div className="timeline-container">
+    <div data-aos="fade-down" className="timeline-container">
       <h2>Our Milestones</h2>
       <ul className="timeline">
         {milestonesData.map((milestone, index) => (
           <li key={index} className={`milestone-item ${index % 2 === 0 ? 'milestone-item-left' : 'milestone-item-right'}`}>
             <div className="timeline-dot"></div>
-            <div className="milestone-content">
+            <div data-aos="fade-right" className="milestone-content">
               <div className="milestone-header">
                 <span className="milestone-year">{milestone.year} - {milestone.label}</span>
               </div>

@@ -28,7 +28,7 @@ const FeatureHighlights = () => {
             <div className='FeatureHighlights'>
                 {FeatureHighlight.map((items, index) => {
                     return (
-                        <div key={index} className='FeatureHighlights-content'>
+                        <div key={index} data-aos="fade-down" className='FeatureHighlights-content'>
                             <div className='FeatureHighlights-logo'>
                                 {items.icon}
                             </div>

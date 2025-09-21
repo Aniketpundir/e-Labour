@@ -31,7 +31,7 @@ const About_Features = () => {
             <div className='About_Features'>
                 {About_Feature.map((items, index) => {
                     return (
-                        <div key={index} className='About_Features-content'>
+                        <div data-aos="fade-down" key={index} className='About_Features-content'>
                             <span>{items.icon}</span>
                             <h3>{items.title}</h3>
                             <p>{items.description}</p>

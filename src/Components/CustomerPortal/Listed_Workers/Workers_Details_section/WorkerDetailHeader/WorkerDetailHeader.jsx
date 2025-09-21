@@ -23,7 +23,7 @@ const WorkerDetailHeader = () => {
     };
 
     return (
-        <div className="worker-card">
+        <div data-aos="fade-down" className="worker-card">
             <img
                 src={image}
                 alt="Worker"

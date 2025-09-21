@@ -88,7 +88,7 @@ const ServiceCategories = () => {
     return (
         <>
             <div className='service-categories'>
-                <div className='service-categories-hero-image-text'>
+                <div data-aos="fade-down" className='service-categories-hero-image-text'>
                     <h1>Find Trusted Services Effortlessly.</h1>
                     <p>Your one-stop solution for reliable household help. Get it done right.</p>
                 </div>
@@ -97,7 +97,7 @@ const ServiceCategories = () => {
                     <div className='service-categories-list'>
                         {Servce_List.map((items, index) => {
                             return (
-                                <div key={index} className='service-categories-list-card'>
+                                <div data-aos="fade-down" key={index} className='service-categories-list-card'>
                                     <ServiceCard
                                         img={items.img}
                                         title={items.title}

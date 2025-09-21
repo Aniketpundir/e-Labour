@@ -31,11 +31,11 @@ const HowItWork = () => {
     return (
         <>
             <div className='HowItWork-container'>
-                <h1>How It Work</h1>
+                <h1 data-aos="fade-down">How It Work</h1>
                 <div className='HowItWork-content'>
                     {howDetails.map((items, index) => {
                         return (
-                            <div key={index} className='HowItWork-main-content'>
+                            <div key={index} data-aos="fade-up" className='HowItWork-main-content'>
                                 <div className='HowItWork-logo'>
                                     {items.icon}
                                 </div>

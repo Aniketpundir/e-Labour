@@ -1,23 +1,25 @@
 import React from 'react';
+import { useState, useEffect } from "react";
 import "./WorkerCard.css";
+import Cookies from 'js-cookie';
 import { useNavigate, useParams } from 'react-router-dom';
 
 const WorkerCard = ({ image, name, service, rating, daily_wages, status, id }) => {
-
+    const [token, setToken] = useState();
     const Navigate = useNavigate();
 
-    const token = localStorage.getItem("token")
+    useEffect(() => {
+        setToken(Cookies.get("token"));
+    })
 
+
+    const { title } = useParams();
     const handleClick = () => {
         if (token) {
             Navigate(`/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}`)
 
         } else {
             Navigate('/customer-login');
-            toast.error("Please login first!", {
-                position: "bottom-left",
-                autoClose: 5000,
-            });
         }
     }
 
@@ -28,7 +30,6 @@ const WorkerCard = ({ image, name, service, rating, daily_wages, status, id }) =
         });
     };
 
-    const { title } = useParams();
 
     const isAvailable = status === "Availabel";
 

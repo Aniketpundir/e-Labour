@@ -25,13 +25,13 @@ const HelpSection = () => {
     ];
 
     return (
-        <div className="support-help">
-            <h1>Support & Help</h1>
-            <p>Find answers to common questions or get in touch with our support team.</p>
+        <div data-aos="fade-down" className="support-help">
+            <h1 data-aos="fade-down">Support & Help</h1>
+            <p data-aos="fade-down">Find answers to common questions or get in touch with our support team.</p>
 
             {/* FAQ Section */}
-            <div className="faq-section">
-                <div className="faq-header">
+            <div data-aos="fade-down" className="faq-section">
+                <div data-aos="fade-down" className="faq-header">
                     <FaQuestionCircle className="faq-icon" /> Frequently Asked Questions
                 </div>
                 {faqs.map((faq, index) => (
@@ -51,14 +51,14 @@ const HelpSection = () => {
             </div>
 
             {/* Complaint and Chat */}
-            <div className="support-actions">
-                <div className="card">
+            <div data-aos="fade-down" className="support-actions">
+                <div data-aos="fade-down" className="card">
                     <FaExclamationCircle className="card-icon red" />
                     <h3>Raise a Complaint / Dispute</h3>
                     <p>If you have an issue with a service or booking, please submit a complaint form.</p>
                     <button>Submit Form</button>
                 </div>
-                <div className="card">
+                <div data-aos="fade-down" className="card">
                     <FaComments className="card-icon green" />
                     <h3>Live Chat or Support Ticket</h3>
                     <p>Connect with our support team in real-time or submit a ticket for assistance.</p>
@@ -67,8 +67,8 @@ const HelpSection = () => {
             </div>
 
             {/* Track Support */}
-            <div className="track-support">
-                <FaSyncAlt className="track-icon" />
+            <div data-aos="fade-down" className="track-support">
+                <FaSyncAlt data-aos="fade-down" className="track-icon" />
                 <h3>Track Support Request Status</h3>
                 <label>Request ID</label>
                 <div className="track-input">

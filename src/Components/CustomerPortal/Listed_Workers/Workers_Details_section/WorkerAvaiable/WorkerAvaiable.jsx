@@ -8,17 +8,17 @@ const WorkerAvaiable = () => {
 
     return (
         <>
-            <div className='Availablity'>
-                <div className='Availablity-containt'>
+            <div data-aos="fade-down" className='Availablity'>
+                <div data-aos="fade-down" className='Availablity-containt'>
                     <h3>Availablity</h3>
-                    <hr />
+                    <hr data-aos="fade-down" />
                     <ul>
-                        <li className={`statuss ${active === "Availablity" ? "availablity" : "unavailablity"}`}> Today</li>
-                        <hr />
-                        <li className={`statuss ${active === "Availablity" ? "availablity" : "unavailablity"}`}>Tomorrow</li>
-                        <hr />
-                        <li className={`statuss ${active === "Availablity" ? "availablity" : "unavailablity"}`}>Day of Tomorrow</li>
-                        <hr />
+                        <li data-aos="fade-down" className={`statuss ${active === "Availablity" ? "availablity" : "unavailablity"}`}> Today</li>
+                        <hr data-aos="fade-down" />
+                        <li data-aos="fade-down" className={`statuss ${active === "Availablity" ? "availablity" : "unavailablity"}`}>Tomorrow</li>
+                        <hr data-aos="fade-down" />
+                        <li data-aos="fade-down" className={`statuss ${active === "Availablity" ? "availablity" : "unavailablity"}`}>Day of Tomorrow</li>
+                        <hr data-aos="fade-down" />
                     </ul>
                 </div>
             </div >

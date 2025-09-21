@@ -1,12 +1,13 @@
 import React from 'react'
 import "./ServiceCard.css";
+import Cookies from 'js-cookie';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 const ServiceCard = ({ img, title, description }) => {
     const location = useLocation();
     const Navigate = useNavigate();
 
-    const token = localStorage.getItem("token");
+    const token = Cookies.get("token");
 
     const handleClick = () => {
         const path = location.pathname;
@@ -15,10 +16,6 @@ const ServiceCard = ({ img, title, description }) => {
             Navigate(`/Service-Categories/Listed-Workers/${title}`)
         } else {
             Navigate('/customer-login');
-            toast.error("Please login first!", {
-                position: "bottom-left",
-                autoClose: 5000,
-            });
         }
     }
 

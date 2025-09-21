@@ -3,8 +3,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 40px;
-    margin-top: 50px;
+    gap: 10px;
+    margin-top: 20px;
+    margin-bottom: 30px;
 }
 
 .CustomerSignup-form {
@@ -36,6 +37,17 @@
 .CustomerSignup-form p span {
     color: #ec6d13;
     cursor: pointer;
+}
+
+.profile-image {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+.profile-image label {
+    font-size: 14px;
 }
 
 .CustomerSignup-form form input {

@@ -155,24 +155,32 @@ const BookWorkers = () => {
         navigateHandle();
     };
 
+    const handleClick = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
+
     return (
-        <div className="checkout-container">
-            <div className="checkout-box">
-                <div className="worker-profile">
+        <div data-aos="fade-down" className="checkout-container">
+            <div data-aos="fade-down" className="checkout-box">
+                <div data-aos="fade-down" className="worker-profile">
                     <img
+                        data-aos="fade-down"
                         src={image}
                         alt="Worker"
                         className="worker-avatar"
                     />
-                    <div className="worker-info">
-                        <h3>Alexandria Cortez</h3>
-                        <p className="worker-job">{title}</p>
-                        <p className="worker-id">Worker ID: {id}</p>
+                    <div data-aos="fade-down" className="worker-info">
+                        <h3 data-aos="fade-down">Alexandria Cortez</h3>
+                        <p data-aos="fade-down" className="worker-job">{title}</p>
+                        <p data-aos="fade-down" className="worker-id">Worker ID: {id}</p>
                     </div>
                 </div>
 
-                <h2>When would you like your service?</h2>
-                <div className="button-group">
+                <h2 data-aos="fade-down">When would you like your service?</h2>
+                <div data-aos="fade-down" className="button-group">
                     {["Today", "Tomorrow", "Day after"].map((day) => (
                         <button
                             key={day}
@@ -187,7 +195,7 @@ const BookWorkers = () => {
                 <h2>Address</h2>
 
                 {!showForm ? (
-                    <div>
+                    <div data-aos="fade-down">
                         {addresses.map((addr) => (
                             <div key={addr.id} className="saved-address-box">
                                 <label>
@@ -238,7 +246,7 @@ const BookWorkers = () => {
                         </button>
                     </div>
                 ) : (
-                    <form className="form-section" onSubmit={handleAddAddress}>
+                    <form data-aos="fade-down" className="form-section" onSubmit={handleAddAddress}>
                         <input
                             type="text"
                             name="name"
@@ -327,7 +335,7 @@ const BookWorkers = () => {
                 )}
 
                 <h2>Payment Details</h2>
-                <div className="payment-methods">
+                <div data-aos="fade-down" className="payment-methods">
                     <label>
                         <input
                             type="radio"
@@ -340,7 +348,7 @@ const BookWorkers = () => {
                     </label>
                 </div>
 
-                <button onClick={() => { handleBooking() }} className="pay-btn">Book Now</button>
+                <button onClick={() => { handleBooking(), handleClick() }} className="pay-btn">Book Now</button>
             </div>
         </div>
     );

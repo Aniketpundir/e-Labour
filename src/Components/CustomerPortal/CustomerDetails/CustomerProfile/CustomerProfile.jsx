@@ -40,14 +40,14 @@ const CustomerProfile = () => {
 
     return (
         <>
-            <div className='customer-profile'>
-                <div className='customer-profile-container'>
+            <div data-aos="fade-down" className='customer-profile'>
+                <div data-aos="fade-down" className='customer-profile-container'>
                     <h1>Your Profile</h1>
-                    <div className='customer-profile-content'>
-                        <div className='customer-image-section'>
+                    <div data-aos="fade-down" className='customer-profile-content'>
+                        <div data-aos="fade-down" className='customer-image-section'>
                             {customerDetails.map((items, index) => {
                                 return (
-                                    <div key={index} className='customer-image-name'>
+                                    <div data-aos="fade-down" key={index} className='customer-image-name'>
                                         <img src={items.img} alt='Customer Profile' />
                                         <h3>{items.name}</h3>
                                         <p>{items.email}</p>
@@ -57,7 +57,7 @@ const CustomerProfile = () => {
                             })}
 
                         </div>
-                        <div className='customer-profile-address'>
+                        <div data-aos="fade-down" className='customer-profile-address'>
                             <h3>Your Addresses</h3>
                             Your address will be saved when you book a worker. (जब आप किसी कर्मचारी को बुक करेंगे तो आपका पता शामिल कर लिया जाएगा।)<p></p>
                             {customerDetails.map((customer) => (

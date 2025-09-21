@@ -13,11 +13,11 @@ const WorkerSkillls = () => {
     ];
 
     return (
-        <div className="skills-card">
-            <h3 className="skills-title">Skills</h3>
-            <div className="skills-list">
+        <div data-aos="fade-down" className="skills-card">
+            <h3 data-aos="fade-down" className="skills-title">Skills</h3>
+            <div data-aos="fade-down" className="skills-list">
                 {skills.map((skill, index) => (
-                    <span key={index} className="skill-badge">
+                    <span data-aos="fade-down" key={index} className="skill-badge">
                         {skill}
                     </span>
                 ))}

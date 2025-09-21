@@ -62,11 +62,11 @@ const ListedWorkers = () => {
     return (
         <>
             <div className='ListedWorker'>
-                <div className='ListedWorker-text'>
+                <div data-aos="fade-down" className='ListedWorker-text'>
                     <h1>Find a Worker</h1>
                     <p>Brower our network of trusted professionals.</p>
                 </div>
-                <div className='ListedWorker-filter'>
+                <div data-aos="fade-down" className='ListedWorker-filter'>
                     <select defaultValue="" onClick={() => { handleClick() }} className="category-select" name="category">
                         <option value="" disabled onClick={() => { handleChange }}>Category</option>
                         <option value="option1">Option 1</option>
@@ -82,7 +82,7 @@ const ListedWorkers = () => {
                 <div className='ListedWorker-card'>
                     {worker_details.map((items, index) => {
                         return (
-                            <div key={index} className='ListedWorkrs-card-list'>
+                            <div data-aos="fade-down" key={index} className='ListedWorkrs-card-list'>
                                 <WorkerCard
                                     image={items.img}
                                     name={items.name}

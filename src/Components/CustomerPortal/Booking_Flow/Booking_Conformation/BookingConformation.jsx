@@ -13,10 +13,10 @@ const BookingConformation = () => {
         });
     };
     return (
-        <div className='Booking-Conformation'>
-            <div className='Booking-Conformation-Container'>
+        <div data-aos="fade-down" className='Booking-Conformation'>
+            <div data-aos="fade-down" className='Booking-Conformation-Container'>
                 <MdOutlineVerified />
-                <div className='Booking-Conformation-Container-text'>
+                <div data-aos="fade-down" className='Booking-Conformation-Container-text'>
                     <h2>Booking Confirmed!</h2>
                     <p>Your service has been successfully booked.</p>
                 </div>

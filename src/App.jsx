@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import AOS from "aos";
+import 'aos/dist/aos.css';
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import LandingPage from "./Pages/LandingPage/LandingPage"
 import CustomerSignup from './Components/CustomerPortal/CustomerSignup/CustomerSignup'
@@ -47,6 +49,17 @@ const router = createBrowserRouter(
 
 
 const App = () => {
+
+    useEffect(() => {
+        AOS.init({
+            offset: 100,
+            duration: 600,
+            easing: "ease-in-sine",
+            delay: 100,
+        });
+        AOS.refresh();
+    }, []);
+
     return (
         <div>
             <RouterProvider router={router} />

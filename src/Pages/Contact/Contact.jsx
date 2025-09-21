@@ -80,7 +80,7 @@ const Contact = () => {
                 <h1>Get In Touch</h1>
                 <p className='heading'>Have questions? We're here to help.</p>
                 <div className='contact-container'>
-                    <div className='contact-left'>
+                    <div data-aos="fade-down" className='contact-left'>
                         <form>
                             <input type='text' value={data.name} name='name' onChange={handleChange} placeholder='Name' required />
 
@@ -92,7 +92,7 @@ const Contact = () => {
                             <button>Submit</button>
                         </form>
                     </div>
-                    <div className='contact-right'>
+                    <div data-aos="fade-up" className='contact-right'>
                         <div className='Content-detail'>
                             <h3>Contact details</h3>
                             {contactDetails.map((items, index) => {

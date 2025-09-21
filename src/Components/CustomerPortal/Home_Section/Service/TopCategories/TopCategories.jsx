@@ -48,11 +48,11 @@ const TopCategories = () => {
     return (
         <>
             <div className='Top-service'>
-                <h1>Service Categories</h1>
+                <h1 data-aos="fade-up">Service Categories</h1>
                 <div className='Top-Category'>
                     {service.map((items, index) => {
                         return (
-                            <div key={index} className='Top-Categories'>
+                            <div key={index} data-aos="fade-up" className='Top-Categories'>
                                 <ServiceCard
                                     img={items.img}
                                     title={items.title}

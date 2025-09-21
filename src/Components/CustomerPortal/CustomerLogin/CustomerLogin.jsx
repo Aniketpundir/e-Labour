@@ -26,9 +26,9 @@ const CustomerLogin = () => {
     console.log(data)
     return (
         <>
-            <div className='CustomerLogin'>
-                <div className='CustomerLogin-content'>
-                    <div className='CustomerLogin-text-form'>
+            <div data-aos="fade-right" className='CustomerLogin'>
+                <div data-aos="fade-right" className='CustomerLogin-content'>
+                    <div data-aos="fade-right" className='CustomerLogin-text-form'>
                         <h1>Customer Login</h1>
                         <h5>Welcome back! Please login to your account</h5>
                         <form>

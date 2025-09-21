@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
+import Cookies from "js-cookie";
 import "./Navbar.css";
 import logo from "../../../assets/logo.jpg";
 import profileImg from "../../../assets/profile_img.png";
@@ -41,8 +42,13 @@ const Navbar = () => {
     }, [location]);
 
     useEffect(() => {
-        localStorage.setItem("token", "123456");
-        setToken(localStorage.getItem("token"));
+        // set token in cookies
+        // Cookies.set("token", "123456", /*{ expires: 7, path: "/"}*/)
+
+        //Access token from cookie
+
+        const myToken = Cookies.get("token");
+        // setToken(myToken);
     }, []);
 
     const toggleProfileMenu = () => setShowProfileMenu((prev) => !prev);

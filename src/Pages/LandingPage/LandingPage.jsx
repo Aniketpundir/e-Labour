@@ -6,14 +6,14 @@ const LandingPage = () => {
     const navigate = useNavigate();
     return (
         <>
-            <div className='landing-page'>
-                <div className='landing-content'>
-                    <div className='landing-text'>
-                        <h1>Join Our Platform</h1>
-                        <p>Connect with skilled professionals of find work that matters. Choose your path below.</p>
+            <div data-aos="fade-down" className='landing-page'>
+                <div data-aos="fade-down" className='landing-content'>
+                    <div data-aos="fade-down" className='landing-text'>
+                        <h1 data-aos="fade-down">Join Our Platform</h1>
+                        <p data-aos="fade-down">Connect with skilled professionals of find work that matters. Choose your path below.</p>
 
                     </div>
-                    <div className='landing-button'>
+                    <div data-aos="fade-down" className='landing-button'>
                         <button className='forCustomer' onClick={() => {
                             navigate("/customer-signup")
                         }}>SignUp as a Customer</button>

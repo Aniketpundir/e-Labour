@@ -205,9 +205,9 @@ const CurrentBooking = () => {
     );
 
     return (
-        <div className="container">
+        <div data-aos="fade-down" className="container">
             {/* Left Panel */}
-            <div className="left-panel">
+            <div data-aos="fade-down" className="left-panel">
                 <h2>My Bookings</h2>
                 <p className="subtitle">
                     View and manage your upcoming service bookings.
@@ -236,7 +236,7 @@ const CurrentBooking = () => {
                         {/* Render details under clicked card on mobile */}
                         {isMobile && selectedWorker.id === worker.id && (
                             <>
-                                <div className="profile-header mobile-profile">
+                                <div data-aos="fade-down" className="profile-header mobile-profile">
                                     <img src={worker.img} alt={worker.name} className="profile-avatar" />
                                     <div>
                                         <h2>{worker.name}</h2>
@@ -259,19 +259,19 @@ const CurrentBooking = () => {
 
             {/* Right Panel for Desktop */}
             {!isMobile && (
-                <div className="right-panel">
-                    <div className="profile-header">
-                        <img
+                <div data-aos="fade-down" className="right-panel">
+                    <div data-aos="fade-down" className="profile-header">
+                        <img data-aos="fade-down"
                             src={selectedWorker.img}
                             alt={selectedWorker.name}
                             className="profile-avatar"
                         />
-                        <div>
+                        <div data-aos="fade-down">
                             <h2>{selectedWorker.name}</h2>
                             <p>{selectedWorker.role}</p>
                             <p className="experience">{selectedWorker.experience}</p>
                         </div>
-                        <button
+                        <button data-aos="fade-down"
                             className="call-btn"
                             onClick={() => (window.location.href = `tel:${selectedWorker.number}`)}
                         >

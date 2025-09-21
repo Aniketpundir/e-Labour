@@ -45,7 +45,7 @@ const How_Work = () => {
                 <div className='How-Works-content'>
                     {How_Works.map((items, index) => {
                         return (
-                            <div key={index} className='How-Works-container'>
+                            <div data-aos="fade-up" key={index} className='How-Works-container'>
                                 <span>{items.icon}</span>
                                 <h3>{items.id}. {items.title}</h3>
                                 <p>{items.description}</p>
@@ -53,7 +53,7 @@ const How_Work = () => {
                         )
                     })}
                 </div>
-                <button onClick={() => {
+                <button data-aos="fade-down" onClick={() => {
                     handleClick()
                 }}>Find a Worker Now</button>
             </div>
