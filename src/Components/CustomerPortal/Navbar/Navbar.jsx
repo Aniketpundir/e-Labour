@@ -43,7 +43,7 @@ const Navbar = () => {
 
     useEffect(() => {
         // set token in cookies
-        // Cookies.set("token", "123456", /*{ expires: 7, path: "/"}*/)
+        Cookies.set("token", "123456", /*{ expires: 7, path: "/"}*/)
 
         //Access token from cookie
 
