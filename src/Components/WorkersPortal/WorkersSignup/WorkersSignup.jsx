@@ -7,7 +7,7 @@ import "./WorkersSignup.css";
 import OTPButton from "../../OtpButton/OtpButton";
 import ImageCropper from "../../ImageCrop/ImageCropper";
 import { getCroppedImg } from "../../ImageCrop/cropImage.js";
-//
+///////////////////
 
 const WorkersSignup = () => {
     const [showPassword, setShowPassword] = useState(false);
