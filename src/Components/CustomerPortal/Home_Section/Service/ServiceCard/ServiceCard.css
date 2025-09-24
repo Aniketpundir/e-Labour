@@ -52,6 +52,7 @@
     .service-card {
         display: flex;
         flex-direction: column;
+        height: 35vh;
     }
 
     .service-img {
