@@ -35,8 +35,8 @@
     .Top-Category {
         margin: 20px 0;
         display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        gap: 10px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 23px;
     }
 
     .Top-service .more-service {
