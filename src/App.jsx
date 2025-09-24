@@ -8,7 +8,6 @@ import CustomerLogin from './Components/CustomerPortal/CustomerLogin/CustomerLog
 import WorkersSignup from './Components/WorkersPortal/WorkersSignup/WorkersSignup'
 import WorkersLogin from './Components/WorkersPortal/WorkersLogin/WorkersLogin'
 import Layout from './Components/CustomerPortal/Layout/Layout'
-import WorkerLayout from "./Components/WorkersPortal/Layout/Layout";
 import Home from './Pages/Home/Home'
 import HowItWorks from "./Pages/HowItWorkrs/HowItWorkrs"
 import About from "./Pages/About/About"
@@ -22,6 +21,15 @@ import CustomerProfile from './Components/CustomerPortal/CustomerDetails/Custome
 import CurrentBooking from './Components/CustomerPortal/CustomerDetails/CurrentBooking/CurrentBooking'
 import HelpSection from "./Components/CustomerPortal/CustomerDetails/HelpSection/HelpSection"
 import PastBooking from './Components/CustomerPortal/CustomerDetails/PastBooking/PastBooking'
+
+// Worker portal section imports here.
+import WorkerLayout from "./Components/WorkersPortal/Layout/Layout";
+import WorkerProfile from "./Components/WorkersPortal/WokerProfile/WokerProfile";
+import JobDashboard from "./Components/WorkersPortal/JobDashboard/JobDashboard";
+import JobRequest from "./Components/WorkersPortal/JobRequest/JobRequest";
+import Review from "./Components/WorkersPortal/Reviews/Reviews";
+
+
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -46,8 +54,12 @@ const router = createBrowserRouter(
                 <Route path='/Support-Section' element={<HelpSection />} />
                 <Route path='/Past-Booking' element={<PastBooking />} />
             </Route>
-            <Route path='/worker-dashboard' element={<WorkerLayout />}>
 
+            <Route path='/worker-Profile' element={<WorkerLayout />}>
+                <Route path='/worker-Profile' element={<WorkerProfile />} />
+                <Route path='/worker-Profile/Dashboard' element={<JobDashboard />} />
+                <Route path='/worker-Profile/Job-Request' element={<JobRequest />} />
+                <Route path='/worker-Profile/Rating&Reviews' element={<Review />} />
             </Route>
         </Route>
     )

@@ -3,6 +3,11 @@
     box-shadow: 0.5px 10px 20px 0.5px rgba(128, 128, 128, 0.478);
     transition: 0.5s;
     border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
 }
 
 .service-card:hover {

@@ -18,7 +18,7 @@ const LandingPage = () => {
                             navigate("/customer-signup")
                         }}>SignUp as a Customer</button>
                         <button className='forWorkers' onClick={() => {
-                            navigate("/workers-signup")
+                            navigate("/worker-Profile")
                         }}>SignUp as a Workers</button>
                     </div>
                 </div>
