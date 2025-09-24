@@ -1,4 +1,7 @@
 .service-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     width: 100%;
     box-shadow: 0.5px 10px 20px 0.5px rgba(128, 128, 128, 0.478);
     transition: 0.5s;
@@ -32,9 +35,9 @@
     text-align: center;
 }
 
-.service-text button {
-    margin: 15px 0 10px;
-    padding: 7px 70px;
+.service-btn {
+    margin: 15px 10px 10px;
+    padding: 7px 30px;
     cursor: pointer;
     background-color: #ec6d13;
     color: #fff;
@@ -43,34 +46,55 @@
     transition: background-color 0.3s ease;
 }
 
-.service-text button:hover {
+.service-btn:hover {
     background-color: #d85f0f;
 }
 
 /* ===== Responsive for ≤650px ===== */
 @media (max-width: 650px) {
+    .service-card {
+        display: flex;
+        flex-direction: row;
+        border-radius: 10px;
+        gap: 10px;
+    }
+
     .service-img {
-        height: 20vh;
+        width: 40%;
+        height: 10vh;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .service-img img {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 0px;
+        border-bottom-left-radius: 10px;
     }
 
     .service-text {
         padding: 10px;
-        justify-content: flex-start;
-        align-items: flex-start;
+        justify-content: center;
+        align-items: center;
         text-align: start;
-        gap: 5px;
+        gap: 8px;
     }
 
     .service-text h3 {
         font-size: 16px;
         font-weight: 550;
+        text-align: center;
     }
 
     .service-text p {
         font-size: 11px;
+        text-align: center;
     }
 
-    .service-text button {
+    .service-btn {
+        font-size: 14px;
         padding: 8px 20px;
     }
 }

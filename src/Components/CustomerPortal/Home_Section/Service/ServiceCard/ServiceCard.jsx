@@ -35,8 +35,8 @@ const ServiceCard = ({ img, title, description }) => {
                 <div className='service-text'>
                     <h3>{title}</h3>
                     <p>{description}</p>
-                    <button onClick={() => { handleClick(), handleClicked() }} className='service-btn'>Book Now</button>
                 </div>
+                <button onClick={() => { handleClick(), handleClicked() }} className='service-btn'>Book Now</button>
             </div>
         </>
     )
