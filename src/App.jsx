@@ -59,7 +59,7 @@ const App = () => {
     useEffect(() => {
         AOS.init({
             offset: 100,
-            duration: 300,
+            duration: 500,
             easing: "ease-in-sine",
             delay: 100,
         });
