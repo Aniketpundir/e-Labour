@@ -47,7 +47,6 @@
     background-color: #d85f0f;
 }
 
-/* ===== Responsive for ≤650px ===== */
 @media (max-width: 650px) {
     .service-card {
         display: flex;
@@ -79,5 +78,11 @@
     .service-btn {
         padding: 8px 20px;
         margin: 10px 20px;
+    }
+}
+
+@media (max-width:420px) {
+    .service-card {
+        height: 35vh;
     }
 }
