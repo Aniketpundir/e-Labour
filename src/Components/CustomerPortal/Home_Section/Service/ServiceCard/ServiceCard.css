@@ -80,9 +80,3 @@
         margin: 10px 20px;
     }
 }
-
-@media (max-width:420px) {
-    .service-card {
-        height: 35vh;
-    }
-}
