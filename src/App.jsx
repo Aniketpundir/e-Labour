@@ -8,6 +8,7 @@ import CustomerLogin from './Components/CustomerPortal/CustomerLogin/CustomerLog
 import WorkersSignup from './Components/WorkersPortal/WorkersSignup/WorkersSignup'
 import WorkersLogin from './Components/WorkersPortal/WorkersLogin/WorkersLogin'
 import Layout from './Components/CustomerPortal/Layout/Layout'
+import WorkerLayout from "./Components/WorkersPortal/Layout/Layout";
 import Home from './Pages/Home/Home'
 import HowItWorks from "./Pages/HowItWorkrs/HowItWorkrs"
 import About from "./Pages/About/About"
@@ -24,25 +25,30 @@ import PastBooking from './Components/CustomerPortal/CustomerDetails/PastBooking
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path='/' element={<Layout />}>
-            <Route path='/landing-page' element={<LandingPage />} />
-            <Route path='/customer-signup' element={<CustomerSignup />} />
-            <Route path='/customer-login' element={<CustomerLogin />} />
-            <Route path='/workers-signup' element={<WorkersSignup />} />
-            <Route path='/workers-login' element={<WorkersLogin />} />
-            <Route path='/' element={<Home />} />
-            <Route path='/howItWorks' element={<HowItWorks />} />
-            <Route path='/about' element={<About />} />
-            <Route path='/contact' element={<Contact />} />
-            <Route path='/Service-Categories' element={<ServiceCategories />} />
-            <Route path='/Service-Categories/Listed-Workers/:title' element={<ListedWorkers />} />
-            <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id' element={<WorkersDetails />} />
-            <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id/booking-section' element={<BookWorkers />} />
-            <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id/Booking-Section/Booking-Conformation' element={<BookingConformation />} />
-            <Route path='/Customer-Profile' element={<CustomerProfile />} />
-            <Route path='/Current-Booking' element={<CurrentBooking />} />
-            <Route path='/Support-Section' element={<HelpSection />} />
-            <Route path='/Past-Booking' element={<PastBooking />} />
+        <Route>
+            <Route path='/' element={<Layout />}>
+                <Route path='/landing-page' element={<LandingPage />} />
+                <Route path='/customer-signup' element={<CustomerSignup />} />
+                <Route path='/customer-login' element={<CustomerLogin />} />
+                <Route path='/workers-signup' element={<WorkersSignup />} />
+                <Route path='/workers-login' element={<WorkersLogin />} />
+                <Route path='/' element={<Home />} />
+                <Route path='/howItWorks' element={<HowItWorks />} />
+                <Route path='/about' element={<About />} />
+                <Route path='/contact' element={<Contact />} />
+                <Route path='/Service-Categories' element={<ServiceCategories />} />
+                <Route path='/Service-Categories/Listed-Workers/:title' element={<ListedWorkers />} />
+                <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id' element={<WorkersDetails />} />
+                <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id/booking-section' element={<BookWorkers />} />
+                <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id/Booking-Section/Booking-Conformation' element={<BookingConformation />} />
+                <Route path='/Customer-Profile' element={<CustomerProfile />} />
+                <Route path='/Current-Booking' element={<CurrentBooking />} />
+                <Route path='/Support-Section' element={<HelpSection />} />
+                <Route path='/Past-Booking' element={<PastBooking />} />
+            </Route>
+            <Route path='/worker-dashboard' element={<WorkerLayout />}>
+
+            </Route>
         </Route>
     )
 )

@@ -1,5 +1,4 @@
 import React from 'react'
-import "./About.css";
 import Header from '../../Components/CustomerPortal/About_Section/Header/Header';
 import Our_Mission from '../../Components/CustomerPortal/About_Section/Our_Mission/Our_Mission';
 import About_Features from '../../Components/CustomerPortal/About_Section/About_Features/About_Features';

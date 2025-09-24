@@ -1,5 +1,4 @@
 import React from 'react'
-import "./Home.css";
 import HeroSection from '../../Components/CustomerPortal/Home_Section/Hero_Section/HeroSection';
 import TopCategories from '../../Components/CustomerPortal/Home_Section/Service/TopCategories/TopCategories';
 import HowItWork from "../../Components/CustomerPortal/Home_Section/HowItWork/HowItWork"

@@ -1,5 +1,4 @@
 import React from 'react'
-import "./HowItWorkrs.css";
 import Header from '../../Components/CustomerPortal/How_It_Works_Section/Header/Header';
 import How_Work from '../../Components/CustomerPortal/How_It_Works_Section/How_Work/How_Work';
 
