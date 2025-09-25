@@ -71,7 +71,7 @@ const Navbar = () => {
         //Access token from cookie
 
         const myToken = Cookies.get("token");
-        // setToken(myToken);
+        setToken(myToken);
     }, []);
 
     const toggleProfileMenu = () => setShowProfileMenu((prev) => !prev);
