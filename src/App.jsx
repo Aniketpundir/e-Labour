@@ -29,6 +29,8 @@ import JobDashboard from "./Components/WorkersPortal/JobDashboard/JobDashboard";
 import JobRequest from "./Components/WorkersPortal/JobRequest/JobRequest";
 import Review from "./Components/WorkersPortal/Reviews/Reviews";
 import { StoreProvider } from './Context/StoreContext';
+import AddWorkersDetails from './Components/WorkersPortal/AddWorkersDetails/AddWorkersDetails';
+import SubmissionSuccess from './Components/WorkersPortal/SubmissionSuccess/SubmissionSuccess';
 
 
 
@@ -61,6 +63,8 @@ const router = createBrowserRouter(
                 <Route path='/worker-profile/Dashboard' element={<JobDashboard />} />
                 <Route path='/worker-profile/Job-Request' element={<JobRequest />} />
                 <Route path='/worker-profile/Rating&Reviews' element={<Review />} />
+                <Route path='/worker-profile/add-workers-details' element={<AddWorkersDetails />} />
+                <Route path='/worker-profile/submission-success' element={<SubmissionSuccess />} />
             </Route>
         </Route>
     )

@@ -52,7 +52,6 @@ const Navbar = () => {
     }, [location]);
 
     useEffect((e) => {
-        // e.preventDefault();
         const path = location.pathname;
         if (path === "/worker-profile") {
             setHideWorkerPanel(true);
@@ -62,8 +61,12 @@ const Navbar = () => {
             setHideWorkerPanel(true);
         } else if (path === "/worker-profile/Rating&Reviews") {
             setHideWorkerPanel(true);
+        } else if (path === "/worker-profile/add-workers-details") {
+            setHideWorkerPanel(true);
+        } else if (path === "/worker-profile/submission-success") {
+            setHideWorkerPanel(true);
         }
-    }, []);
+    }, [location]);
 
     useEffect(() => {
         // set token in cookies

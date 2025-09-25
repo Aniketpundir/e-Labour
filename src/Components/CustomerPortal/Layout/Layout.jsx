@@ -4,12 +4,25 @@ import Navbar from '../Navbar/Navbar'
 import Footer from '../Footer/Footer';
 
 const Layout = () => {
-
     const location = useLocation();
 
-    const hideLayoutPaths = ["/landing-page", "/customer-signup", "/customer-login", "/workers-signup", "/workers-login"];
+    const hideLayoutPaths = [
+        "/landing-page",
+        "/customer-signup",
+        "/customer-login",
+        "/workers-signup",
+        "/workers-login",
+        "/worker-profile/add-workers-details",
+        "/worker-profile/submission-success"
+    ];
 
-    const shouldHideLayout = hideLayoutPaths.includes(location.pathname.toLowerCase());
+    let currentPath = location.pathname.toLowerCase();
+
+    if (currentPath.endsWith('/') && currentPath.length > 1) {
+        currentPath = currentPath.slice(0, -1);
+    }
+
+    const shouldHideLayout = hideLayoutPaths.includes(currentPath);
 
     return (
         <div>

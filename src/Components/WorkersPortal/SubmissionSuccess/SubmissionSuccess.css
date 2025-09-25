@@ -1,0 +1,136 @@
+.success-container {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #f9fafb;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+.success-icon {
+    font-size: 60px;
+    color: #22c55e;
+    margin-bottom: 15px;
+}
+
+.success-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.success-subtitle {
+    font-size: 16px;
+    color: #4b5563;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+.dashboard-btn {
+    background: #d75f0f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 30px;
+    transition: background 0.3s ease;
+}
+
+.dashboard-btn:hover {
+    background: #d75f0fcc;
+}
+
+.next-steps {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+}
+
+.next-steps h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #111827;
+    margin-bottom: 15px;
+}
+
+.next-steps ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.next-steps li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+}
+
+.next-steps .icon {
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.next-steps p {
+    color: #374151;
+    font-size: 15px;
+}
+
+@media (max-width: 650px) {
+    .success-container {
+        padding: 15px;
+        min-height: 95vh;
+    }
+
+    .success-icon {
+        font-size: 50px;
+        margin-bottom: 10px;
+    }
+
+    .success-title {
+        font-size: 20px;
+        margin-bottom: 8px;
+    }
+
+    .success-subtitle {
+        font-size: 15px;
+        max-width: 90%;
+        margin-bottom: 15px;
+    }
+
+    .dashboard-btn {
+        padding: 12px 25px;
+        font-size: 15px;
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 25px;
+    }
+
+    .next-steps {
+        padding: 15px;
+        margin: 0 10px;
+    }
+
+    .next-steps h2 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .next-steps li {
+        margin-bottom: 12px;
+    }
+
+    .next-steps p {
+        font-size: 14px;
+    }
+}

@@ -4,6 +4,12 @@ import { useNavigate } from 'react-router-dom';
 
 const LandingPage = () => {
     const navigate = useNavigate();
+    const handleClick = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
     return (
         <>
             <div data-aos="fade-down" className='landing-page'>
@@ -18,7 +24,7 @@ const LandingPage = () => {
                             navigate("/customer-signup")
                         }}>SignUp as a Customer</button>
                         <button className='forWorkers' onClick={() => {
-                            navigate("/worker-profile")
+                            navigate("/workers-signup"), handleClick();
                         }}>SignUp as a Workers</button>
                     </div>
                 </div>

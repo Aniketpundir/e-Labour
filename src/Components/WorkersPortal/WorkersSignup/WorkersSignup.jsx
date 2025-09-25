@@ -16,8 +16,6 @@ const WorkersSignup = () => {
     const [croppedImage, setCroppedImage] = useState(null);
     const [showCropper, setShowCropper] = useState(false);
 
-    const dispatch = useDispatch();
-    const { loading, error } = useSelector(state => state.workersAuth);
     const Navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -59,6 +57,13 @@ const WorkersSignup = () => {
         formData.append("checkbox", checkbox);
     };
 
+    const handleClick = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
+
     return (
         <div className="WorkersSignup">
             <div className="WorkersSignup-form">
@@ -66,8 +71,6 @@ const WorkersSignup = () => {
                 <p>
                     Already have an account? <span onClick={() => Navigate("/workers-login")}>Sign in</span>
                 </p>
-
-                {error && <p className="error">{error}</p>}
 
                 <form onSubmit={handleSubmit}>
                     {/* Profile picture */}
@@ -94,8 +97,8 @@ const WorkersSignup = () => {
                     <h5>
                         <input type="checkbox" onClick={handleCheckbox} /> I agree to the <span>Terms & Conditions</span>
                     </h5>
-                    <button type="submit" className="submit-button" disabled={loading}>
-                        {loading ? "Creating..." : "Create Worker Account"}
+                    <button onClick={() => { Navigate("/worker-profile/add-workers-details"), handleClick() }} type="submit" className="submit-button">
+                        Create Worker Account
                     </button>
                 </form>
             </div>
