@@ -7,9 +7,9 @@ export const StoreContext = createContext();
 
 export const StoreProvider = (props) => {
     // Backend URL
-    const URL = "https://e-labour-backend.onrender.com/";
+    const URL_LINK = "https://e-labour-backend.onrender.com/";
     const contextValue = {
-        URL,
+        URL_LINK,
     }
     return (
         <StoreContext.Provider value={contextValue}>

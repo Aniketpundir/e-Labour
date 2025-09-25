@@ -14,7 +14,7 @@ import axios from "axios";
 import { StoreContext } from "../../../Context/StoreContext.jsx";
 
 const CustomerSignup = () => {
-    const { URL } = useContext(StoreContext)
+    const { URL_LINK } = useContext(StoreContext)
     const role = "customer";
     const [showPassword, setShowPassword] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
@@ -25,6 +25,8 @@ const CustomerSignup = () => {
         mobileNumber: "",
         password: ""
     });
+
+    console.log(URL_LINK)
 
     const email = data.email;
 
@@ -66,7 +68,7 @@ const CustomerSignup = () => {
         setImage(null);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.append("name", data.fullName);
@@ -77,11 +79,25 @@ const CustomerSignup = () => {
         formData.append("isTAndCAgree", checkbox);
         formData.append("image", file);
         formData.append("role", role);
+
+        let newUrl = URL_LINK;
+        newUrl += "api/users/register";
+
+        try {
+            const res = await axios.post(newUrl, formData);
+            if (!res.data.success) {
+                alert(res.data.success)
+            } else {
+                alert(res.data.message)
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
     };
 
     const sendOTP = async (e) => {
         e.preventDefault();
-        let newUrl = URL;
+        let newUrl = URL_LINK;
         newUrl += "api/otp";
         console.log("Send");
 
@@ -188,7 +204,7 @@ const CustomerSignup = () => {
                             required
                         />
                         <p onClick={() => setShowPassword(!showPassword)} className="hide-show">
-                            {showPassword ? <BiHide /> : <BiShow />}
+                            {showPassword ? <BiShow /> : <BiHide />}
                         </p>
                     </div>
 
