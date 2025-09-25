@@ -55,11 +55,11 @@ const router = createBrowserRouter(
                 <Route path='/Past-Booking' element={<PastBooking />} />
             </Route>
 
-            <Route path='/worker-Profile' element={<WorkerLayout />}>
-                <Route path='/worker-Profile' element={<WorkerProfile />} />
-                <Route path='/worker-Profile/Dashboard' element={<JobDashboard />} />
-                <Route path='/worker-Profile/Job-Request' element={<JobRequest />} />
-                <Route path='/worker-Profile/Rating&Reviews' element={<Review />} />
+            <Route path='/worker-profile' element={<WorkerLayout />}>
+                <Route path='/worker-profile' element={<WorkerProfile />} />
+                <Route path='/worker-profile/Dashboard' element={<JobDashboard />} />
+                <Route path='/worker-profile/Job-Request' element={<JobRequest />} />
+                <Route path='/worker-profile/Rating&Reviews' element={<Review />} />
             </Route>
         </Route>
     )

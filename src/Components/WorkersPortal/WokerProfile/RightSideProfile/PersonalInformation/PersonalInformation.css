@@ -1,0 +1,65 @@
+.info-card {
+    width: 100%;
+    margin: 20px 10px;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0.5px 10px 20px 0.5px rgba(128, 128, 128, 0.478);
+    background-color: #fff;
+    transition: 0.5s all;
+}
+
+.info-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0.5px 10px 20px 0.5px #ec6d13a5;
+}
+
+.info-card h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 40px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-label {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 2px;
+}
+
+.info-value {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 500;
+}
+
+/* --- Mobile Fix: Media Query (<= 650px) --- */
+@media (max-width: 650px) {
+    .info-card {
+        max-width: 100%;
+        margin: 15px 0;
+        /* Full width, less vertical margin */
+        padding: 15px 20px;
+        /* Reduced padding */
+        box-shadow: none;
+        /* Simplify card appearance */
+        border-radius: 0;
+    }
+
+    .info-grid {
+        /* Collapse to a single column */
+        grid-template-columns: 1fr;
+        gap: 15px 0;
+    }
+}

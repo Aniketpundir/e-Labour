@@ -37,13 +37,13 @@ const Navbar = () => {
             setActiveItem("About");
         } else if (path === "/contact") {
             setActiveItem("Contact");
-        } else if (path === "/worker-Profile") {
+        } else if (path === "/worker-profile") {
             setActiveItem("Profile");
-        } else if (path === "/worker-Profile/Dashboard") {
+        } else if (path === "/worker-profile/Dashboard") {
             setActiveItem("Dashboard");
-        } else if (path === "/worker-Profile/Job-Request") {
+        } else if (path === "/worker-profile/Job-Request") {
             setActiveItem("Job Request");
-        } else if (path === "/worker-Profile/Rating&Reviews") {
+        } else if (path === "/worker-profile/Rating&Reviews") {
             setActiveItem("Rating & Reviews")
         } else {
             setActiveItem("");
@@ -51,18 +51,19 @@ const Navbar = () => {
         }
     }, [location]);
 
-    useEffect(() => {
+    useEffect((e) => {
+        // e.preventDefault();
         const path = location.pathname;
-        if (path === "/worker-Profile") {
+        if (path === "/worker-profile") {
             setHideWorkerPanel(true);
-        } else if (path === "/worker-Profile/Dashboard") {
+        } else if (path === "/worker-profile/Dashboard") {
             setHideWorkerPanel(true);
-        } else if (path === "/worker-Profile/Job-Request") {
+        } else if (path === "/worker-profile/Job-Request") {
             setHideWorkerPanel(true);
-        } else if (path === "/worker-Profile/Rating&Reviews") {
+        } else if (path === "/worker-profile/Rating&Reviews") {
             setHideWorkerPanel(true);
         }
-    }, [location]);
+    }, []);
 
     useEffect(() => {
         // set token in cookies
@@ -71,7 +72,7 @@ const Navbar = () => {
         //Access token from cookie
 
         const myToken = Cookies.get("token");
-        setToken(myToken);
+        // setToken(myToken);
     }, []);
 
     const toggleProfileMenu = () => setShowProfileMenu((prev) => !prev);
@@ -129,7 +130,7 @@ const Navbar = () => {
                     </ul>
                     :
                     <ul>
-                        <Link to="/worker-Profile">
+                        <Link to="/worker-profile">
                             <li
                                 className={`button ${activeItem === "Profile" ? "clicked" : ""}`}
                                 onClick={() => { handleClick("Profile"), handleClick() }}
@@ -137,7 +138,7 @@ const Navbar = () => {
                                 Profile
                             </li>
                         </Link>
-                        <Link to="/worker-Profile/Dashboard">
+                        <Link to="/worker-profile/Dashboard">
                             <li
                                 className={`button ${activeItem === "Dashboard" ? "clicked" : ""}`}
                                 onClick={() => { handleClick("Dashboard"), handleClick() }}
@@ -145,7 +146,7 @@ const Navbar = () => {
                                 Dashboard
                             </li>
                         </Link>
-                        <Link to="/worker-Profile/Job-Request">
+                        <Link to="/worker-profile/Job-Request">
                             <li
                                 className={`button ${activeItem === "Job Request" ? "clicked" : ""}`}
                                 onClick={() => { handleClick("Job Request"), handleClick() }}
@@ -153,7 +154,7 @@ const Navbar = () => {
                                 Job Request
                             </li>
                         </Link>
-                        <Link to="/worker-Profile/Rating&Reviews">
+                        <Link to="/worker-profile/Rating&Reviews">
                             <li
                                 className={`button ${activeItem === "Rating & Reviews" ? "clicked" : ""}`}
                                 onClick={() => { handleClick("Rating & Reviews"), handleClick() }}
@@ -244,12 +245,36 @@ const Navbar = () => {
                     </ul>
                     :
                     <ul>
-                        <Link to="/contact">
+                        <Link to="/worker-profile">
                             <li
-                                className={activeItem === "Contact" ? "clicked" : ""}
-                                onClick={() => { handleClick("Contact"), handleClicked() }}
+                                className={`button ${activeItem === "Profile" ? "clicked" : ""}`}
+                                onClick={() => { handleClick("Profile"), handleClick() }}
+                            >
+                                Profile
+                            </li>
+                        </Link>
+                        <Link to="/worker-profile/Dashboard">
+                            <li
+                                className={`button ${activeItem === "Dashboard" ? "clicked" : ""}`}
+                                onClick={() => { handleClick("Dashboard"), handleClick() }}
                             >
                                 Dashboard
+                            </li>
+                        </Link>
+                        <Link to="/worker-profile/Job-Request">
+                            <li
+                                className={`button ${activeItem === "Job Request" ? "clicked" : ""}`}
+                                onClick={() => { handleClick("Job Request"), handleClick() }}
+                            >
+                                Job Request
+                            </li>
+                        </Link>
+                        <Link to="/worker-profile/Rating&Reviews">
+                            <li
+                                className={`button ${activeItem === "Rating & Reviews" ? "clicked" : ""}`}
+                                onClick={() => { handleClick("Rating & Reviews"), handleClick() }}
+                            >
+                                Rating & Reviews
                             </li>
                         </Link>
                     </ul>
