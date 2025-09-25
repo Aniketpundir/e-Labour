@@ -28,6 +28,7 @@ import WorkerProfile from "./Components/WorkersPortal/WokerProfile/WokerProfile"
 import JobDashboard from "./Components/WorkersPortal/JobDashboard/JobDashboard";
 import JobRequest from "./Components/WorkersPortal/JobRequest/JobRequest";
 import Review from "./Components/WorkersPortal/Reviews/Reviews";
+import { StoreProvider } from './Context/StoreContext';
 
 
 
@@ -79,8 +80,11 @@ const App = () => {
     }, []);
 
     return (
+
         <div>
-            <RouterProvider router={router} />
+            <StoreProvider>
+                <RouterProvider router={router} />
+            </StoreProvider>
         </div>
     )
 }

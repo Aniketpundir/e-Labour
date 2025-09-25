@@ -1,8 +1,6 @@
 // WorkersLogin.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { loginWorker } from "../../../redux/slices/WorkersAuthSlice";
 import "./WorkersLogin.css";
 import workersLoginImg from "../../../assets/workers_login_img.png";
 
@@ -19,13 +17,6 @@ const WorkersLogin = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        dispatch(loginWorker(data))
-            .unwrap()
-            .then(() => {
-                alert("Login successful!");
-                Navigate("/dashboard"); // change to your route
-            })
-            .catch(err => alert(err));
     };
 
     return (

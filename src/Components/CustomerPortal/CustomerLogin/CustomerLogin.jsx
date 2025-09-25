@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from '../../../redux/slices/CustomerAuthSlice.js';
 import "./CustomerLogin.css";
 import customerLoginImg from "../../../assets/customer_login_img.png";
+import { StoreContext } from '../../../Context/StoreContext';
+import axios from 'axios';
 
 const CustomerLogin = () => {
-    const dispatch = useDispatch();
+    const role = ""
     const Navigate = useNavigate();
+    const { URL } = useContext(StoreContext);
+    console.log(URL);
 
     // ✅ Correct key and fallback
-    const { loading, error, user } = useSelector((state) => state.UserAuth || {});
 
     const [showPassword, setShowPassword] = useState(false);
     const [data, setData] = useState({
         email: "",
         password: ""
     });
+
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -26,18 +29,11 @@ const CustomerLogin = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(loginUser(data))
-            .then((res) => {
-                if (res.meta.requestStatus === "fulfilled") {
-                    alert("Login Successful!");
-                    Navigate("/");
-                } else {
-                    alert("Login Failed: " + res.payload);
-                }
-                console.log(res);
-            });
+        let newURL = URL;
+
+        const res = await axios
     };
 
     return (
@@ -72,12 +68,9 @@ const CustomerLogin = () => {
                             </p>
                         </div>
 
-                        <button type="submit" className='login-button' disabled={loading}>
-                            {loading ? "Logging in..." : "Login as Customer"}
+                        <button type="submit" className='login-button'>
+                            Login as Customer
                         </button>
-
-                        {error && <p className="error-msg">{error}</p>}
-
                         <p>
                             Don't have an account?{" "}
                             <span onClick={() => Navigate("/customer-signup")}>

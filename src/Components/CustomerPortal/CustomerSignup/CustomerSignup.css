@@ -112,6 +112,10 @@
     border-radius: 4px;
 }
 
+.hide-show svg {
+    font-size: 13px;
+}
+
 .CustomerSignup-form form h5 {
     font-weight: 500;
     font-size: 14px;

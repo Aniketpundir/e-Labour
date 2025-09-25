@@ -1,0 +1,75 @@
+.job-list-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0.5px 10px 20px 0.5px rgba(128, 128, 128, 0.478);
+    color: #333;
+}
+
+.job-list-header {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1fr;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f7f7f7;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    font-weight: bold;
+    color: #888;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.job-list-row {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1fr;
+    padding: 15px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    align-items: center;
+}
+
+.job-list-row:last-child {
+    border-bottom: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.row-item {
+    font-size: 0.95rem;
+}
+
+.job-title {
+    font-weight: 600;
+    margin-bottom: 3px;
+    color: #444;
+}
+
+.job-time {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.status-pill {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.status-confirmed {
+    background-color: #e6f7e9;
+    color: #38a169;
+}
+
+.status-pending {
+    background-color: #fff8e1;
+    color: #f6ad55;
+}
+
+.status-cancelled {
+    background-color: #fde8e8;
+    color: #e53e3e;
+}

@@ -1,13 +1,9 @@
-// WorkersSignup.jsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { signupWorker } from "../../../redux/slices/WorkersAuthSlice";
 import "./WorkersSignup.css";
 import OTPButton from "../../OtpButton/OtpButton";
 import ImageCropper from "../../ImageCrop/ImageCropper";
 import { getCroppedImg } from "../../ImageCrop/cropImage.js";
-///////////////////
 
 const WorkersSignup = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -61,19 +57,6 @@ const WorkersSignup = () => {
         formData.append("mobileNumber", data.mobileNumber);
         formData.append("password", data.password);
         formData.append("checkbox", checkbox);
-
-        if (croppedImage) {
-            const blob = await fetch(croppedImage).then(r => r.blob());
-            formData.append("profileImage", blob, "profile.jpg");
-        } else if (file) formData.append("profileImage", file);
-
-        dispatch(signupWorker(formData))
-            .unwrap()
-            .then(() => {
-                alert("Signup successful!");
-                Navigate("/workers-login");
-            })
-            .catch(err => alert(err));
     };
 
     return (

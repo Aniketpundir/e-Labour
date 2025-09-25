@@ -1,0 +1,71 @@
+/* General page styling */
+.job-requests-page {
+    /* margin-top: 80px; */
+    max-width: 760px;
+    /* Constrain content width */
+    margin: 80px auto;
+    /* Center the page content */
+    padding: 0 20px;
+    /* Add some horizontal padding */
+    font-family: 'Inter', sans-serif;
+    /* A modern font */
+    color: #333;
+}
+
+.page-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #1a202c;
+    /* Darker title */
+    margin-bottom: 30px;
+}
+
+/* Notification Banner */
+.notification-banner {
+    display: flex;
+    align-items: center;
+    background-color: #eff6ff;
+    /* Light blue background */
+    color: #2563eb;
+    /* Darker blue text */
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.bell-icon {
+    margin-right: 12px;
+    color: #2563eb;
+}
+
+.notification-banner span {
+    flex-grow: 1;
+    /* Allow the text to take available space */
+}
+
+.view-all-button {
+    background: none;
+    border: none;
+    color: #2563eb;
+    font-weight: 600;
+    margin-left: 20px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.view-all-button:hover {
+    background-color: #e0f2fe;
+}
+
+/* List of Job Cards */
+.job-cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    /* Space between job cards */
+}

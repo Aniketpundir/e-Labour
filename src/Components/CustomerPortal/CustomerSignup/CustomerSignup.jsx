@@ -1,25 +1,32 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux';
-import { signupUser } from "../../../redux/slices/CustomerAuthSlice.js";
 import "./CustomerSignup.css";
 import OTPButton from "../../OtpButton/OtpButton";
+////////
+
+import { BiShow } from "react-icons/bi";
+import { BiHide } from "react-icons/bi";
 
 // 👇 Import cropper components
 import ImageCropper from "../../ImageCrop/ImageCropper";
 import { getCroppedImg } from "../../ImageCrop/cropImage.js";
+import axios from "axios";
+import { StoreContext } from "../../../Context/StoreContext.jsx";
 
 const CustomerSignup = () => {
-    const dispatch = useDispatch();
+    const { URL } = useContext(StoreContext)
+    const role = "customer";
     const [showPassword, setShowPassword] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
     const [data, setData] = useState({
         fullName: "",
-        emailId: "",
+        email: "",
         opt: "",
         mobileNumber: "",
         password: ""
     });
+
+    const email = data.email;
 
     const [file, setFile] = useState(null);
     const [image, setImage] = useState(null);
@@ -27,9 +34,6 @@ const CustomerSignup = () => {
     const [showCropper, setShowCropper] = useState(false);
 
     const Navigate = useNavigate();
-
-    // ✅ Access Redux state safely
-    const { loading, error } = useSelector((state) => state.UserAuth || {}); // <-- FIXED
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -65,23 +69,33 @@ const CustomerSignup = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("fullName", data.fullName);
-        formData.append("emailId", data.emailId);
+        formData.append("name", data.fullName);
+        formData.append("email", data.email);
         formData.append("opt", data.opt);
-        formData.append("mobileNumber", data.mobileNumber);
+        formData.append("phone", data.mobileNumber);
         formData.append("password", data.password);
-        formData.append("checkbox", checkbox);
-        formData.append("profileImage", file);
-
-        dispatch(signupUser(formData)).then((res) => {
-            if (res.meta.requestStatus === "fulfilled") {
-                alert("Signup Success!");
-                Navigate("/customer-login");
-            } else {
-                alert("Signup Failed: " + res.payload);
-            }
-        });
+        formData.append("isTAndCAgree", checkbox);
+        formData.append("image", file);
+        formData.append("role", role);
     };
+
+    const sendOTP = async (e) => {
+        e.preventDefault();
+        let newUrl = URL;
+        newUrl += "api/otp";
+        console.log("Send");
+
+        try {
+            const res = await axios.post(newUrl, { email });
+            if (!res.data.success) {
+                alert("Enter email first.")
+            } else {
+                alert(res.data.message);
+            }
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 
     return (
         <div className="CustomerSignup">
@@ -135,8 +149,8 @@ const CustomerSignup = () => {
                     <input
                         placeholder="Email address"
                         type="email"
-                        name="emailId"
-                        value={data.emailId}
+                        name="email"
+                        value={data.email}
                         onChange={handleChange}
                         required
                     />
@@ -150,7 +164,9 @@ const CustomerSignup = () => {
                             onChange={handleChange}
                             required
                         />
-                        <OTPButton />
+                        <span onClick={sendOTP}>
+                            <OTPButton />
+                        </span>
                     </div>
 
                     <input
@@ -172,7 +188,7 @@ const CustomerSignup = () => {
                             required
                         />
                         <p onClick={() => setShowPassword(!showPassword)} className="hide-show">
-                            {showPassword ? "Hide.." : "Show"}
+                            {showPassword ? <BiHide /> : <BiShow />}
                         </p>
                     </div>
 
@@ -181,11 +197,9 @@ const CustomerSignup = () => {
                         <span>Terms & Conditions</span>
                     </h5>
 
-                    <button type="submit" className="submit-button" disabled={loading}>
-                        {loading ? "Creating Account..." : "Create Customer Account"}
+                    <button type="submit" className="submit-button">
+                        Create Customer Account
                     </button>
-
-                    {error && <p style={{ color: "red" }}>{error}</p>}
                 </form>
             </div>
 
