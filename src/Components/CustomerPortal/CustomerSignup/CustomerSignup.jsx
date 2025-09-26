@@ -26,7 +26,7 @@ const CustomerSignup = () => {
         password: ""
     });
 
-    console.log(URL_LINK)
+    // console.log(URL_LINK)
 
     const email = data.email;
 
@@ -73,7 +73,7 @@ const CustomerSignup = () => {
         const formData = new FormData();
         formData.append("name", data.fullName);
         formData.append("email", data.email);
-        formData.append("opt", data.opt);
+        // formData.append("opt", data.opt);
         formData.append("phone", data.mobileNumber);
         formData.append("password", data.password);
         formData.append("isTAndCAgree", checkbox);
@@ -171,7 +171,7 @@ const CustomerSignup = () => {
                         required
                     />
 
-                    <div className="otp-section">
+                    {/* <div className="otp-section">
                         <input
                             placeholder="Enter One Time Password(OTP)"
                             type="text"
@@ -183,7 +183,7 @@ const CustomerSignup = () => {
                         <span onClick={sendOTP}>
                             <OTPButton />
                         </span>
-                    </div>
+                    </div> */}
 
                     <input
                         placeholder="Mobile Number"

@@ -6,8 +6,6 @@ import workersLoginImg from "../../../assets/workers_login_img.png";
 
 const WorkersLogin = () => {
     const [data, setData] = useState({ email: "", password: "" });
-    const dispatch = useDispatch();
-    const { loading, error } = useSelector(state => state.workersAuth);
     const Navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -25,12 +23,10 @@ const WorkersLogin = () => {
                 <div className="WorkerLogin-text-form">
                     <h1>Worker Login</h1>
                     <h5>Welcome back! Please login to your account</h5>
-                    {error && <p className="error">{error}</p>}
                     <form onSubmit={handleLogin}>
                         <input placeholder="Enter your email" type="email" name="email" value={data.email} onChange={handleChange} required />
                         <input placeholder="Password" type="password" name="password" value={data.password} onChange={handleChange} required />
-                        <button className="login-button" disabled={loading}>
-                            {loading ? "Logging in..." : "Login as Worker"}
+                        <button className="login-button">Login as Worker
                         </button>
                         <p>
                             Don't have an account? <span onClick={() => Navigate("/workers-signup")}>Sign up here</span>

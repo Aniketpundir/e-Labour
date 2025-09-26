@@ -6,17 +6,17 @@ import { StoreContext } from '../../../Context/StoreContext';
 import axios from 'axios';
 
 const CustomerLogin = () => {
-    const role = ""
+    // const role = "customer";
     const Navigate = useNavigate();
-    const { URL } = useContext(StoreContext);
-    console.log(URL);
+    const { URL_LINK } = useContext(StoreContext);
 
     // ✅ Correct key and fallback
 
     const [showPassword, setShowPassword] = useState(false);
     const [data, setData] = useState({
         email: "",
-        password: ""
+        password: "",
+        role: "customer",
     });
 
 
@@ -31,9 +31,24 @@ const CustomerLogin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        let newURL = URL;
+        const formData = new FormData();
 
-        const res = await axios
+
+        let newURL = URL_LINK;
+        newURL += "api/users/login";
+
+        try {
+            const res = await axios.post(newURL, data);
+            console.log(res);
+            if (res.data.success) {
+                alert(res.data.message);
+            } else {
+                alert(res.data.message);
+                console.log(res.data.message)
+            }
+        } catch (error) {
+            alert(error.message);
+        }
     };
 
     return (
