@@ -11,6 +11,7 @@ import { StoreContext } from "../../../Context/StoreContext.jsx";
 const WorkersSignup = () => {
     const role = "worker"
     const { URL_LINK } = useContext(StoreContext);
+    console.log(URL_LINK);
     const [showPassword, setShowPassword] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
     const [data, setData] = useState({
