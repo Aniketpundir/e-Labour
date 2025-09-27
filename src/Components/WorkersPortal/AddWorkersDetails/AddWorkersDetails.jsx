@@ -27,6 +27,7 @@ const AddWorkersDetails = () => {
         profilePhoto: random[0]?.image || null,
         mobile: random[0]?.number || "",
         email: random[0]?.email || "",
+        bio: "",
 
         // Full Address
         state: "",
@@ -168,6 +169,7 @@ const AddWorkersDetails = () => {
         formData.append("salary", Data.salary);
         formData.append("emergencyContact", Data.emergencyContact);
         formData.append("reference", Data.reference);
+        formData.append("bio", Data.bio);
 
         try {
             const res = await axios.post(URL_LINK + "/", formData);
@@ -225,6 +227,10 @@ const AddWorkersDetails = () => {
                         <div className="form-group">
                             <label>Email Address *</label>
                             <input type="email" name="email" value={Data.email} readOnly />
+                        </div>
+                        <div className="form-group">
+                            <label>Bio *</label>
+                            <textarea type="text" name="bio" value={Data.bio} onChange={handleChange}></textarea>
                         </div>
                     </div>
                 </section>
