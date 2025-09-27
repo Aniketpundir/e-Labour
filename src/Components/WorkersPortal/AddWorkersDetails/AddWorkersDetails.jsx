@@ -208,7 +208,7 @@ const AddWorkersDetails = () => {
                     </div>
                 </section>
 
-                <section className="profile-section">
+                {/* <section className="profile-section">
                     <h3>2. Identity Verification</h3>
                     <div className="form-grid">
                         <div className="form-group">
@@ -230,7 +230,7 @@ const AddWorkersDetails = () => {
                             />
                         </div>
                     </div>
-                </section>
+                </section> */}
 
                 <section className="profile-section">
                     <h3>3. Professional Details</h3>
@@ -316,7 +316,7 @@ const AddWorkersDetails = () => {
                     </div>
                 </section>
 
-                <section className="profile-section">
+                {/* <section className="profile-section">
                     <h3>5. Banking & Payments</h3>
                     <div className="form-grid">
                         <div className="form-group">
@@ -350,7 +350,7 @@ const AddWorkersDetails = () => {
                             />
                         </div>
                     </div>
-                </section>
+                </section> */}
 
                 <section className="profile-section">
                     <h3>6. Emergency & References</h3>
@@ -378,7 +378,7 @@ const AddWorkersDetails = () => {
                     </div>
                 </section>
 
-                <section className="profile-section">
+                {/* <section className="profile-section">
                     <h3>7. Document Upload</h3>
                     <input
                         type="file"
@@ -386,7 +386,7 @@ const AddWorkersDetails = () => {
                         multiple
                         onChange={handleChange}
                     />
-                </section>
+                </section> */}
 
                 <div className="btn-group">
                     <button onClick={() => { Navigate("/worker-profile/submission-success"), handleClick() }} type="submit" className="btn submit">

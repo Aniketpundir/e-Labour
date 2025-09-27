@@ -79,7 +79,7 @@ const WorkersSignup = () => {
             Cookies.set("workerToken", workerToken, /*{ expires: 7, path: "/"}*/)
             Navigate("/worker-profile/add-workers-details");
         } catch (error) {
-            console.log(error.message);
+            console.log(error);
         }
     };
 
