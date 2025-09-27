@@ -365,7 +365,7 @@ const AddWorkersDetails = () => {
                     <div className="form-grid">
                         <div className="form-group">
                             <label>Working Hours *</label>
-                            <input type="text" name="workingHours" value={Data.workingHours} onChange={handleChange} />
+                            <input type="text" placeholder="e.g. 9:00AM to 5:00PM" name="workingHours" value={Data.workingHours} onChange={handleChange} />
                         </div>
                         <div className="form-group available-checkbox">
                             <label>Available on Weekends *</label>
@@ -373,7 +373,7 @@ const AddWorkersDetails = () => {
                         </div>
                         <div className="form-group">
                             <label>Expected Salary *</label>
-                            <input type="text" name="salary" value={Data.salary} onChange={handleChange} />
+                            <input placeholder="e.g. 450/day" type="text" name="salary" value={Data.salary} onChange={handleChange} />
                         </div>
                     </div>
                 </section>
@@ -384,11 +384,11 @@ const AddWorkersDetails = () => {
                     <div className="form-grid">
                         <div className="form-group">
                             <label>Emergency Contact</label>
-                            <input type="text" name="emergencyContact" value={Data.emergencyContact} onChange={handleChange} />
+                            <input type="text" name="emergencyContact" value={Data.emergencyContact} placeholder="Enter Emergency Contact" onChange={handleChange} />
                         </div>
                         <div className="form-group">
                             <label>Reference Name *</label>
-                            <input type="text" name="reference" value={Data.reference} onChange={handleChange} />
+                            <input placeholder="Enter Reference Name" type="text" name="reference" value={Data.reference} onChange={handleChange} />
                         </div>
                     </div>
                 </section>

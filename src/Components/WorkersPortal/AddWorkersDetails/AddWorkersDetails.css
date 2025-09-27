@@ -108,7 +108,7 @@ h2 {
 
 .available-checkbox {
     display: flex !important;
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: center;
     align-items: center;
     gap: 20px;
