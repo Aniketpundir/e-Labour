@@ -149,8 +149,9 @@ const AddWorkersDetails = () => {
 
 
     ///////////////
+    // console.log(Data);
 
-    const skills = [
+    const workerSkill = [
         "Plumbing",
         "Electrical",
         "Painting",
@@ -313,56 +314,62 @@ const AddWorkersDetails = () => {
                         </div>
 
                         {/* ✅ Skills Input */}
-                        <div className="form-group seleted-skills">
+                        <div className="form-group selected-skills">
                             <label>Skills</label>
-                            <div className="skills-input seleted-skills">
+                            {/* Display all selected skills with individual remove buttons */}
+                            <div className="skills-list seleted-skills " style={{ marginTop: "10px" }}>
                                 {Data.skills.map((skill, index) => (
-                                    <span key={index} className="skill-tag">
+                                    <span
+                                        key={index}
+                                        className="worker-skill-tag"
+                                    >
                                         {skill}
                                         <button
-                                            className="skill-button"
                                             type="button"
-                                            onClick={() => removeSkill(skill)}
+                                            onClick={() =>
+                                                setData((prev) => ({
+                                                    ...prev,
+                                                    skills: prev.skills.filter((s) => s !== skill),
+                                                }))
+                                            }
                                         >
                                             ×
                                         </button>
                                     </span>
                                 ))}
-
-                                {/* 🆕 Dropdown instead of free text input */}
-                                <select
-                                    name="skillInput"
-                                    value={Data.skillInput}
-                                    onChange={handleChange}
-                                >
-                                    <option value="">-- Select Skill --</option>
-                                    {skills.map((skill, index) => (
-                                        <option key={index} value={skill}>
-                                            {skill}
-                                        </option>
-                                    ))}
-                                </select>
-
-                                {/* 🆕 Add button to push dropdown value into skills list */}
-                                <button
-                                    type="button"
-                                    className="add-skill-btn"
-                                    onClick={() => {
-                                        if (Data.skillInput && !Data.skills.includes(Data.skillInput)) {
-                                            setData((prev) => ({
-                                                ...prev,
-                                                skills: [...prev.skills, Data.skillInput],
-                                                skillInput: "",
-                                            }));
-                                        }
-                                    }}
-                                >
-                                    Add
-                                </button>
                             </div>
 
-                        </div>
+                            {/* Dropdown to select a skill */}
+                            <select
+                                name="skillInput"
+                                value={Data.skillInput}
+                                onChange={handleChange}
+                            >
+                                <option value="">-- Select Skill --</option>
+                                {workerSkill.map((skill, index) => (
+                                    <option key={index} value={skill}>
+                                        {skill}
+                                    </option>
+                                ))}
+                            </select>
 
+                            {/* Add Skill button */}
+                            <button
+                                type="button"
+                                className="add-skill-btn"
+                                onClick={() => {
+                                    if (Data.skillInput && !Data.skills.includes(Data.skillInput)) {
+                                        setData((prev) => ({
+                                            ...prev,
+                                            skills: [...prev.skills, Data.skillInput],
+                                            skillInput: "",
+                                        }));
+                                    }
+                                }}
+                            >
+                                Add Skill
+                            </button>
+                        </div>
                         <div className="form-group">
                             <label>Work Experience</label>
                             <input
@@ -371,16 +378,6 @@ const AddWorkersDetails = () => {
                                 value={Data.experience}
                                 onChange={handleChange}
                                 placeholder="Enter experience"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>Local Area</label>
-                            <input
-                                type="text"
-                                name="area"
-                                value={Data.area}
-                                onChange={handleChange}
-                                placeholder="Enter location"
                             />
                         </div>
                     </div>

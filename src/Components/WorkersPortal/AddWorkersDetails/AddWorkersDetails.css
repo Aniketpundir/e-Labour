@@ -42,10 +42,9 @@ h2 {
 }
 
 .seleted-skills {
-    max-height: 200px;
+    max-height: 50px;
     overflow-y: auto;
     padding-right: 10px;
-    scrollbar-width: none;
     -ms-overflow-style: none;
 }
 
@@ -159,6 +158,39 @@ textarea {
     background: #d75f0f;
     color: white;
 }
+
+.worker-skill-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    margin: 5px 5px 0 0;
+    background-color: #d75f0f;
+    /* Tag background color */
+    color: #fff;
+    /* Text color */
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.worker-skill-tag button {
+    margin-left: 8px;
+    border: none;
+    background: transparent;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.2s;
+}
+
+.worker-skill-tag button:hover {
+    color: #000;
+    /* Change color on hover */
+}
+
 
 /* ✅ Responsive */
 @media (max-width: 650px) {
