@@ -313,9 +313,9 @@ const AddWorkersDetails = () => {
                         </div>
 
                         {/* ✅ Skills Input */}
-                        <div className="form-group">
+                        <div className="form-group seleted-skills">
                             <label>Skills</label>
-                            <div className="skills-input">
+                            <div className="skills-input seleted-skills">
                                 {Data.skills.map((skill, index) => (
                                     <span key={index} className="skill-tag">
                                         {skill}

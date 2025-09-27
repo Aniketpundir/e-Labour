@@ -41,6 +41,14 @@ h2 {
     flex-direction: column;
 }
 
+.seleted-skills {
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 10px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
 .form-group label {
     margin-bottom: 5px;
     font-weight: bold;
