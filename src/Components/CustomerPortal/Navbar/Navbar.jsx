@@ -10,7 +10,6 @@ import { img } from "framer-motion/client";
 
 const Navbar = () => {
     const [activeItem, setActiveItem] = useState("Home");
-    const [token, setToken] = useState("");
     const [showMenu, setShowMenu] = useState(false);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [hideWorkerPanel, setHideWorkerPanel] = useState(false);
@@ -213,6 +212,7 @@ const Navbar = () => {
                                             <li onClick={() => {
                                                 Cookies.remove("customerToken");
                                                 setCustomerToken("");
+                                                navigate("/");
                                             }}>Logout</li>
                                         </Link>
                                     </ul>
@@ -222,7 +222,7 @@ const Navbar = () => {
                     ) : WorkerToken
                         ? (
                             <div className="worker-image-logout">
-                                <button onClick={() => { Cookies.remove("WorkerToken"); setWorkerToken("") }}>Logout</button>
+                                <button onClick={() => { Cookies.remove("WorkerToken"); setWorkerToken(""); navigate("/") }}>Logout</button>
                                 <div className="profile-section">
                                     <img
                                         src={image}
