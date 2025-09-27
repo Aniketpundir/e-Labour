@@ -3,18 +3,23 @@ import "./WorkerReview.css";
 import image from "../../../../../assets/image.jpeg"
 import image1 from "../../../../../assets/101.jpg"
 
-const averageRatings = {
-    averageRating: 4.8,
+const ratingData = {
+    average: 4.7,
     totalReviews: 125,
-}
+    breakdown: {
+        5: 62,
+        4: 38,
+        3: 12,
+        2: 7,
+        1: 6,
+    },
+};
 
-const ratingData = [
-    { stars: 5, percent: 70 },
-    { stars: 4, percent: 20 },
-    { stars: 3, percent: 5 },
-    { stars: 2, percent: 3 },
-    { stars: 1, percent: 2 },
-];
+// Function to calculate percentage
+const calculatePercent = (count) => {
+    if (!ratingData.totalReviews) return 0;
+    return ((count / ratingData.totalReviews) * 100).toFixed(1);
+};
 
 const customers_reviews = [
     {
@@ -59,8 +64,6 @@ const customers_reviews = [
     },
 ]
 
-averageRatings.totalReviews = customers_reviews.length;
-
 const WorkerReview = () => {
 
     return (
@@ -69,18 +72,17 @@ const WorkerReview = () => {
 
             <div data-aos="fade-up" className="ratings-summary">
                 <div data-aos="fade-up" className="average-score">
-                    <h1 data-aos="fade-up">{averageRatings.averageRating}</h1>
-                    <p data-aos="fade-up">Based on {averageRatings.totalReviews} reviews</p>
+                    <h1 data-aos="fade-up">{ratingData.average}</h1>
+                    <p data-aos="fade-up">Based on {ratingData.totalReviews} reviews</p>
                 </div>
 
                 <div data-aos="fade-up" className="ratings-bars">
-                    {ratingData.map((item) => {
-                        const raw = Number(item.percent);
-                        const percent = Number.isFinite(raw) ? Math.max(0, Math.min(100, raw)) : 0;
+                    {Object.entries(ratingData.breakdown).map(([stars, count]) => {
+                        const percent = calculatePercent(count);
 
                         return (
-                            <div data-aos="fade-up" key={item.stars} className="rating-row">
-                                <span className="rating-label">{item.stars}</span>
+                            <div data-aos="fade-up" key={stars} className="rating-row">
+                                <span className="rating-label">{stars}</span>
 
                                 <div className="bar-container" aria-hidden="true">
                                     <div

@@ -11,7 +11,6 @@ import { StoreContext } from "../../../Context/StoreContext.jsx";
 const WorkersSignup = () => {
     const role = "worker"
     const { URL_LINK } = useContext(StoreContext);
-    console.log(URL_LINK);
     const [showPassword, setShowPassword] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
     const [data, setData] = useState({
@@ -79,7 +78,7 @@ const WorkersSignup = () => {
             Cookies.set("workerToken", workerToken, /*{ expires: 7, path: "/"}*/)
             Navigate("/worker-profile/add-workers-details");
         } catch (error) {
-            console.log(error);
+            console.log(error.message);
         }
     };
 

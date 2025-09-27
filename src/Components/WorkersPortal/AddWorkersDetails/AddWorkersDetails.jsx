@@ -156,7 +156,7 @@ const AddWorkersDetails = () => {
                 <section className="profile-section">
                     <h3>1. Personal Information</h3>
                     <div className="form-grid">
-                        <div className="worker-profile-image2">
+                        <div className="worker-profile-photo">
                             <label>Profile Photo *</label>
                             <img src={Data.profilePhoto} />
                         </div>

@@ -186,7 +186,7 @@ textarea {
     color: #000;
 }
 
-.worker-profile-image2 {
+.worker-profile-photo {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -196,13 +196,13 @@ textarea {
 
 }
 
-.worker-profile-image2 label {
+.worker-profile-photo label {
     margin-bottom: 5px;
     font-weight: bold;
     font-size: 14px;
 }
 
-.worker-profile-image2 img {
+.worker-profile-photo img {
     height: 120px;
     width: 120px;
     border-radius: 10px;

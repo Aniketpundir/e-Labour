@@ -7,7 +7,7 @@ const ServiceCard = ({ img, title, description }) => {
     const location = useLocation();
     const Navigate = useNavigate();
 
-    const token = Cookies.get("token");
+    const token = Cookies.get("customerToken");
 
     const handleClick = () => {
         const path = location.pathname;
