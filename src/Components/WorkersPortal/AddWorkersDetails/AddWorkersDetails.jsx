@@ -1,13 +1,20 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { StoreContext } from "../../../Context/StoreContext";
 import image from "../../../assets/101.jpg";
 import "./AddWorkersDetails.css";
+import Cookies from "js-cookie";
 
 const AddWorkersDetails = () => {
     const { URL_LINK } = useContext(StoreContext);
     const navigate = useNavigate();
+    const [workerToken, setWorkerToken] = useState("");
+
+    useEffect(() => {
+        setWorkerToken(localStorage.getItem("workerToken"));
+    }, []);
+
 
     const random = [
         {
@@ -21,7 +28,7 @@ const AddWorkersDetails = () => {
     const [Data, setData] = useState({
         // Personal Information
         fullName: random[0]?.name || "",
-        fatherName: "",
+        fName: "",
         dob: "",
         gender: "",
         profilePhoto: random[0]?.image || null,
@@ -36,15 +43,15 @@ const AddWorkersDetails = () => {
         zipCode: "",
 
         // Professional Details
-        category: "",
+        workCategory: "",
         skills: [],
         skillInput: "",
         experience: "",
 
         // Availability & Work Preference
-        workingHours: "",
+        workingHr: "",
         weekends: false,
-        salary: "",
+        rate: "",
 
         // Emergency & References
         emergencyContact: "",
@@ -146,33 +153,39 @@ const AddWorkersDetails = () => {
         }
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const formData = new FormData();
-        formData.append("fullName", Data.fullName);
-        formData.append("fatherName", Data.fatherName);
-        formData.append("dob", Data.dob);
-        formData.append("gender", Data.gender);
-        formData.append("profilePhoto", Data.profilePhoto);
-        formData.append("mobile", Data.mobile);
-        formData.append("email", Data.email);
-        formData.append("state", Data.state);
-        formData.append("city", Data.city);
-        formData.append("street", Data.street);
-        formData.append("zipCode", Data.zipCode);
-        formData.append("category", Data.category);
-        formData.append("skills", Data.skills);
-        formData.append("experience", Data.experience);
-        formData.append("workingHours", Data.workingHours);
-        formData.append("weekends", Data.weekends);
-        formData.append("salary", Data.salary);
-        formData.append("emergencyContact", Data.emergencyContact);
-        formData.append("reference", Data.reference);
-        formData.append("bio", Data.bio);
+        // const formData = new FormData();
+
+        // formData.append("fName", Data.fName);
+        // formData.append("dob", Data.dob);
+        // formData.append("gender", Data.gender);
+        // formData.append("workworkCategory", Data.workCategory);
+        // formData.append("workingHr", Data.workingHr);
+        // formData.append("weekends", Data.weekends);
+        // formData.append("skills", Data.skills);
+        // formData.append("experience", Data.experience);
+        // formData.append("emergencyContact", Data.emergencyContact);
+        // formData.append("reference", Data.reference);
+        // formData.append("rate", Data.rate);
+        // formData.append("bio", Data.bio);
+        // formData.append("street", Data.street);
+        // formData.append("city", Data.city);
+        // formData.append("state", Data.state);
+        // formData.append("zipCode", Data.zipCode);
+
+        // formData.append("fName", Data.fullName);
+        // formData.append("profilePhoto", Data.profilePhoto);
+        // formData.append("mobile", Data.mobile);
+        // formData.append("email", Data.email);
+
+        let newUrl = URL_LINK;
+        newUrl += "api/workers/worker/info";
 
         try {
-            const res = await axios.post(URL_LINK + "/", formData);
+            const res = await axios.post(newUrl, Data, { headers: { token: workerToken } });
             if (res.data.success) {
                 alert("Profile submitted successfully!");
                 window.scrollTo({ top: 0, behavior: "smooth" });
@@ -205,7 +218,7 @@ const AddWorkersDetails = () => {
                         </div>
                         <div className="form-group">
                             <label>Father’s Name *</label>
-                            <input type="text" name="fatherName" value={Data.fatherName} onChange={handleChange} required />
+                            <input type="text" name="fName" value={Data.fName} onChange={handleChange} required />
                         </div>
                         <div className="form-group">
                             <label>Date of Birth *</label>
@@ -215,9 +228,9 @@ const AddWorkersDetails = () => {
                             <label>Gender *</label>
                             <select name="gender" value={Data.gender} onChange={handleChange} required>
                                 <option value="">Select</option>
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Other</option>
+                                <option>male</option>
+                                <option>female</option>
+                                <option>other</option>
                             </select>
                         </div>
                         <div className="form-group">
@@ -255,7 +268,7 @@ const AddWorkersDetails = () => {
                                     <input
                                         value={districtQuery}
                                         onChange={(e) => setDistrictQuery(e.target.value)}
-                                        placeholder={selectedState ? `Type district or post office in ${selectedState}` : "Type district, town, post office or PIN"}
+                                        placeholder="Enter your Pin code (Zip code)"
                                     />
                                 </label>
                             </div>
@@ -326,8 +339,8 @@ const AddWorkersDetails = () => {
                     <h3>3. Professional Details</h3>
                     <div className="form-grid">
                         <div className="form-group">
-                            <label>Work Category *</label>
-                            <select name="category" value={Data.category} onChange={handleChange}>
+                            <label>Work workCategory *</label>
+                            <select name="workCategory" value={Data.workCategory} onChange={handleChange}>
                                 <option value="">Select</option>
                                 <option>Plumber</option>
                                 <option>Electrician</option>
@@ -353,7 +366,7 @@ const AddWorkersDetails = () => {
                         </div>
 
                         <div className="form-group">
-                            <label>Work Experience *</label>
+                            <label>Work experience *</label>
                             <input type="text" name="experience" value={Data.experience} onChange={handleChange} placeholder="Enter experience" />
                         </div>
                     </div>
@@ -365,15 +378,15 @@ const AddWorkersDetails = () => {
                     <div className="form-grid">
                         <div className="form-group">
                             <label>Working Hours *</label>
-                            <input type="text" placeholder="e.g. 9:00AM to 5:00PM" name="workingHours" value={Data.workingHours} onChange={handleChange} />
+                            <input type="text" placeholder="e.g. 9:00AM to 5:00PM" name="workingHr" value={Data.workingHr} onChange={handleChange} />
                         </div>
                         <div className="form-group available-checkbox">
-                            <label>Available on Weekends *</label>
+                            <label>Available on weekends *</label>
                             <input type="checkbox" name="weekends" checked={Data.weekends} onChange={handleChange} />
                         </div>
                         <div className="form-group">
-                            <label>Expected Salary *</label>
-                            <input placeholder="e.g. 450/day" type="text" name="salary" value={Data.salary} onChange={handleChange} />
+                            <label>Expected rate *</label>
+                            <input placeholder="e.g. 450/day" type="text" name="rate" value={Data.rate} onChange={handleChange} />
                         </div>
                     </div>
                 </section>

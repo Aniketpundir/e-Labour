@@ -34,7 +34,7 @@ const WorkersLogin = () => {
             } else {
                 alert(res.data.message);
             }
-            Cookies.set("WorkerToken", workerToken, /*{ expires: 7, path: "/"}*/)
+            localStorage.setItem("workerToken", workerToken)
         } catch (error) {
             console.log(error.message);
         }

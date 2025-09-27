@@ -48,7 +48,7 @@ const CustomerLogin = () => {
             } else {
                 console.log(res.data.message)
             }
-            Cookies.set("customerToken", customerToken,/*{ expires: 7, path: "/"}*/);
+            localStorage.setItem("customerToken", customerToken);
             Navigate("/");
         } catch (error) {
             alert(error.message);

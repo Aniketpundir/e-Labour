@@ -4,22 +4,22 @@ import Cookies from "js-cookie";
 import "./Navbar.css";
 import logo from "../../../assets/logo.jpg";
 import profileImg from "../../../assets/profile_img.png";
-import { FaBars, FaTimes } from "react-icons/fa";
 import image from "../../../assets/101.jpg"
+import { FaBars } from "react-icons/fa";
 
 const Navbar = () => {
-    const [activeItem, setActiveItem] = useState("Home");
     const [showMenu, setShowMenu] = useState(false);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [hideWorkerPanel, setHideWorkerPanel] = useState(false);
     const [WorkerToken, setWorkerToken] = useState("");
     const [customerToken, setCustomerToken] = useState("");
+    const [activeItem, setActiveItem] = useState();
     const navigate = useNavigate();
     const location = useLocation();
 
     useEffect(() => {
-        setWorkerToken(Cookies.get("WorkerToken"));
-        setCustomerToken(Cookies.get("customerToken"));
+        setWorkerToken(localStorage.getItem("workerToken"));
+        setCustomerToken(localStorage.getItem("customerToken"));
     }, [])
 
     const handleClick = (name) => {
@@ -57,7 +57,6 @@ const Navbar = () => {
             setHideWorkerPanel(false)
         }
     }, [location]);
-
     useEffect((e) => {
         const path = location.pathname;
         if (path === "/worker-profile") {
@@ -74,16 +73,6 @@ const Navbar = () => {
             setHideWorkerPanel(true);
         }
     }, [location]);
-
-    useEffect(() => {
-        // set token in cookies
-        // Cookies.set("token", "123456", /*{ expires: 7, path: "/"}*/)
-
-        //Access token from cookie
-
-        const myToken = Cookies.get("token");
-        // setToken(myToken);
-    }, []);
 
     const toggleProfileMenu = () => setShowProfileMenu((prev) => !prev);
     const toggleHamburger = () => setShowMenu((prev) => !prev);
@@ -209,7 +198,7 @@ const Navbar = () => {
                                         </Link>
                                         <Link to="#">
                                             <li onClick={() => {
-                                                Cookies.remove("customerToken");
+                                                localStorage.removeItem("customerToken");
                                                 setCustomerToken("");
                                                 navigate("/");
                                             }}>Logout</li>
@@ -221,7 +210,7 @@ const Navbar = () => {
                     ) : WorkerToken
                         ? (
                             <div className="worker-image-logout">
-                                <button onClick={() => { Cookies.remove("WorkerToken"); setWorkerToken(""); navigate("/") }}>Logout</button>
+                                <button onClick={() => { localStorage.removeItem("workerToken"); setWorkerToken(""); navigate("/") }}>Logout</button>
                                 <div className="profile-section">
                                     <img
                                         src={image}
