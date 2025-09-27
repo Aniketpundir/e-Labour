@@ -1,11 +1,15 @@
-// WorkersLogin.jsx
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./WorkersLogin.css";
+import { StoreContext } from "../../../Context/StoreContext.jsx";
 import workersLoginImg from "../../../assets/workers_login_img.png";
+import axios from "axios";
+import Cookies from "js-cookie";
+
 
 const WorkersLogin = () => {
-    const [data, setData] = useState({ email: "", password: "" });
+    const { URL_LINK } = useContext(StoreContext);
+    const [data, setData] = useState({ email: "", password: "", role: "worker" });
     const Navigate = useNavigate();
 
     const handleChange = (e) => {
@@ -13,8 +17,25 @@ const WorkersLogin = () => {
         setData(prev => ({ ...prev, [name]: value }));
     };
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
+        let newUrl = URL_LINK;
+        newUrl += "api/users/login";
+
+        try {
+            const res = await axios.post(newUrl, data);
+            // cccc@gmail.com
+            const workerToken = res.data.token;
+            if (res.data.success) {
+                alert(res.data.message);
+                Navigate("/worker-profile");
+            } else {
+                alert(res.data.message);
+            }
+            Cookies.set("WorkerToken", workerToken, /*{ expires: 7, path: "/"}*/)
+        } catch (error) {
+            console.log(error.message);
+        }
     };
 
     return (

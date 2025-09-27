@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 import "./CustomerSignup.css";
 import OTPButton from "../../OtpButton/OtpButton";
 ////////
@@ -85,11 +86,14 @@ const CustomerSignup = () => {
 
         try {
             const res = await axios.post(newUrl, formData);
+            const customerToken = res.data.token;
             if (!res.data.success) {
                 alert(res.data.success)
             } else {
                 alert(res.data.message)
             }
+            Cookies.set("customerToken", customerToken,/*{ expires: 7, path: "/"}*/)
+            Navigate("/");
         } catch (error) {
             console.log(error.message);
         }

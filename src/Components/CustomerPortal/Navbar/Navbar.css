@@ -91,6 +91,7 @@
     cursor: pointer;
     border: 2px solid #eee;
     transition: border-color 0.3s ease;
+    margin-top: 26px;
 }
 
 .profile-section img:hover {

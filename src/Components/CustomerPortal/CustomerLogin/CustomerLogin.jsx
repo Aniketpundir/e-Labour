@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import "./CustomerLogin.css";
+import Cookies from "js-cookie";
 import customerLoginImg from "../../../assets/customer_login_img.png";
 import { StoreContext } from '../../../Context/StoreContext';
 import axios from 'axios';
@@ -39,13 +40,14 @@ const CustomerLogin = () => {
 
         try {
             const res = await axios.post(newURL, data);
-            console.log(res);
+            const customerToken = res.data.token;
             if (res.data.success) {
                 alert(res.data.message);
             } else {
-                alert(res.data.message);
                 console.log(res.data.message)
             }
+            Cookies.set("customerToken", customerToken,/*{ expires: 7, path: "/"}*/);
+            Navigate("/");
         } catch (error) {
             alert(error.message);
         }

@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./WorkersSignup.css";
+import Cookies from "js-cookie";
 import OTPButton from "../../OtpButton/OtpButton";
 import ImageCropper from "../../ImageCrop/ImageCropper";
 import { getCroppedImg } from "../../ImageCrop/cropImage.js";
+import axios from "axios";
+import { StoreContext } from "../../../Context/StoreContext.jsx";
 
 const WorkersSignup = () => {
+    const role = "worker"
+    const { URL_LINK } = useContext(StoreContext);
     const [showPassword, setShowPassword] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
     const [data, setData] = useState({
@@ -49,12 +54,32 @@ const WorkersSignup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData();
-        formData.append("fullName", data.fullName);
-        formData.append("emailId", data.emailId);
-        formData.append("opt", data.opt);
-        formData.append("mobileNumber", data.mobileNumber);
+        formData.append("email", data.emailId);
+        formData.append("phone", data.mobileNumber);
         formData.append("password", data.password);
-        formData.append("checkbox", checkbox);
+        formData.append("name", data.fullName);
+        formData.append("role", role);
+        formData.append("isTAndCAgree", checkbox);
+        if (file) {
+            formData.append("image", file);
+        }
+
+        let newUrl = URL_LINK;
+        newUrl += "api/users/register";
+
+        try {
+            const res = await axios.post(newUrl, formData);
+            const workerToken = res.data.token;
+            if (res.status.success) {
+                alert(res.data.message);
+            } else {
+                alert(res.data.message);
+            }
+            Cookies.set("workerToken", workerToken, /*{ expires: 7, path: "/"}*/)
+            Navigate("/worker-profile/add-workers-details");
+        } catch (error) {
+            console.log(error.message);
+        }
     };
 
     const handleClick = () => {
@@ -79,16 +104,17 @@ const WorkersSignup = () => {
                         {croppedImage ? (
                             <img src={croppedImage} alt="Profile Preview" style={{ width: 100, height: 100, borderRadius: "50%", objectFit: "cover", marginBottom: 10 }} />
                         ) : <div style={{ width: 100, height: 100, borderRadius: "50%", background: "#ddd", marginBottom: 10 }} />}
+
                         <input type="file" accept="image/*" onChange={handleFileChange} />
                     </div>
 
                     {/* Inputs */}
                     <input placeholder="Full Name" type="text" name="fullName" value={data.fullName} onChange={handleChange} required />
                     <input placeholder="Email address" type="email" name="emailId" value={data.emailId} onChange={handleChange} required />
-                    <div className="otp-section">
+                    {/* <div className="otp-section">
                         <input placeholder="Enter OTP" type="text" name="opt" value={data.opt} onChange={handleChange} required />
                         <OTPButton />
-                    </div>
+                    </div> */}
                     <input placeholder="Mobile Number" type="text" name="mobileNumber" value={data.mobileNumber} onChange={handleChange} required />
                     <div className="input-field1">
                         <input placeholder="Password" type={showPassword ? "text" : "password"} name="password" value={data.password} onChange={handleChange} required />
@@ -97,7 +123,7 @@ const WorkersSignup = () => {
                     <h5>
                         <input type="checkbox" onClick={handleCheckbox} /> I agree to the <span>Terms & Conditions</span>
                     </h5>
-                    <button onClick={() => { Navigate("/worker-profile/add-workers-details"), handleClick() }} type="submit" className="submit-button">
+                    <button onClick={() => { handleClick() }} type="submit" className="submit-button">
                         Create Worker Account
                     </button>
                 </form>
