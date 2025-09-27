@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./AddWorkersDetails.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { StoreContext } from "../../../Context/StoreContext"
 
 const AddWorkersDetails = () => {
-    const Navigate = useNavigate();
+    const { URL_LINK } = useContext(StoreContext)
     const [Data, setData] = useState({
+        // Personal Information
         fullName: "",
         fatherName: "",
         dob: "",
@@ -12,29 +15,27 @@ const AddWorkersDetails = () => {
         profilePhoto: null,
         mobile: "",
         email: "",
-        address: "",
-        aadhar: "",
-        aadharDoc: null,
-        category: "",
-        skills: [], // ✅ array banaya hai
-        skillInput: "", // ✅ skill input ke liye
-        experience: "",
-        area: "",
-        workingHours: "",
-        weekends: false,
-        salary: "",
-        bankName: "",
-        accountNumber: "",
-        ifsc: "",
-        emergencyContact: "",
-        reference: "",
-        documents: [], // multiple files
-        ///////////
 
+        // Full Address
         state: "",
         city: "",
         street: "",
         zipCode: "",
+
+        // Professional Details
+        category: "",
+        skills: [], // ✅ array banaya hai
+        skillInput: "", // ✅ skill input ke liye
+        experience: "",
+
+        // Availability & Work Preference
+        workingHours: "",
+        weekends: false,
+        salary: "",
+
+        // Emergency & References
+        emergencyContact: "",
+        reference: "",
     });
 
     // Handle input change
@@ -62,81 +63,52 @@ const AddWorkersDetails = () => {
         }
     };
 
-    // ✅ skill add karne ka function
-    const handleSkillKeyDown = (e) => {
-        if (e.key === "Enter" && Data.skillInput.trim() !== "") {
-            e.preventDefault();
-            if (!Data.skills.includes(Data.skillInput.trim())) {
-                setData((prev) => ({
-                    ...prev,
-                    skills: [...prev.skills, prev.skillInput.trim()],
-                    skillInput: "",
-                }));
-            }
-        }
-    };
-
-    // ✅ skill remove karne ka function
-    const removeSkill = (skill) => {
-        setData((prev) => ({
-            ...prev,
-            skills: prev.skills.filter((s) => s !== skill),
-        }));
-    };
-
     // Submit handler
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData();
-        formData.append("fullName", Data.fullName);
+        // Personal Information
+        formData.append("fullName", Data.fullName); // Already filled
         formData.append("fatherName", Data.fatherName);
         formData.append("dob", Data.dob);
         formData.append("gender", Data.gender);
-        if (Data.profilePhoto) formData.append("profilePhoto", Data.profilePhoto);
-        formData.append("mobile", Data.mobile);
-        formData.append("email", Data.email);
-        formData.append("address", Data.address);
-        formData.append("aadhar", Data.aadhar);
-        if (Data.aadharDoc) formData.append("aadharDoc", Data.aadharDoc);
+        formData.append("profilePhoto", Data.profilePhoto); // Already filled
+        formData.append("mobile", Data.mobile); // Already filled
+        formData.append("email", Data.email); // Already filled
+
+        // Full Address
+        formData.append("state", Data.state);
+        formData.append("city", Data.city);
+        formData.append("street".Data.street);
+        formData.append("zipCode", Data.zipCode);
+
+        // Professional Details
         formData.append("category", Data.category);
-
-        // ✅ skills ko JSON ke form me bhejna
         formData.append("skills", JSON.stringify(Data.skills));
-
         formData.append("experience", Data.experience);
-        formData.append("area", Data.area);
+
+        // Availability & Work Preference
         formData.append("workingHours", Data.workingHours);
         formData.append("weekends", Data.weekends);
         formData.append("salary", Data.salary);
-        formData.append("bankName", Data.bankName);
-        formData.append("accountNumber", Data.accountNumber);
-        formData.append("ifsc", Data.ifsc);
+
+        // Emergency & References
         formData.append("emergencyContact", Data.emergencyContact);
         formData.append("reference", Data.reference);
 
-        // ✅ multiple documents
-        if (Data.documents.length > 0) {
-            Data.documents.forEach((file) => {
-                formData.append("documents", file);
-            });
-        }
-
-        for (let [key, value] of formData.entries()) {
-            console.log(key, value);
-        }
+        let newURL = URL_LINK;
+        newURL += "/";
 
         try {
-            const res = await fetch("http://localhost:5000/api/workers", {
-                method: "POST",
-                body: formData, // ✅ fixed
-            });
-
-            const data = await res.json();
-            console.log("✅ Submitted successfully:", data);
-            alert("Profile submitted successfully!");
+            const res = await axios.post(newURL, formData);
+            if (res.status.success) {
+                alert("Profile submitted successfully!");
+            } else {
+                alert("Profile not submitted.");
+            }
         } catch (error) {
-            console.error("❌ Error submitting profile:", error);
+            console.error("error submitting profile:", error);
         }
     };
 
@@ -146,10 +118,6 @@ const AddWorkersDetails = () => {
             behavior: "smooth"
         });
     };
-
-
-    ///////////////
-    // console.log(Data);
 
     const workerSkill = [
         "Plumbing",

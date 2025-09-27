@@ -1,6 +1,6 @@
 .profile-container {
     max-width: 900px;
-    margin: 80px auto;
+    margin: 30px auto;
     padding: 20px;
     background: #fff;
     border-radius: 8px;
@@ -54,7 +54,6 @@ h2 {
     font-size: 14px;
 }
 
-/* ✅ Skills styling */
 .skills-input {
     display: flex;
     flex-wrap: wrap;
@@ -107,7 +106,6 @@ h2 {
     background: #ffebe0;
 }
 
-/* Available checkbox */
 .available-checkbox {
     display: flex !important;
     flex-direction: row;
@@ -165,9 +163,7 @@ textarea {
     padding: 5px 12px;
     margin: 5px 5px 0 0;
     background-color: #d75f0f;
-    /* Tag background color */
     color: #fff;
-    /* Text color */
     border-radius: 20px;
     font-size: 14px;
     font-weight: 500;
@@ -188,15 +184,13 @@ textarea {
 
 .worker-skill-tag button:hover {
     color: #000;
-    /* Change color on hover */
 }
 
 
-/* ✅ Responsive */
 @media (max-width: 650px) {
     .profile-container {
         padding: 15px;
-        margin: 80px 15px;
+        margin: 20px 15px;
     }
 
     h2 {
