@@ -230,7 +230,7 @@ const AddWorkersDetails = () => {
                         </div>
                         <div className="form-group">
                             <label>Bio *</label>
-                            <textarea type="text" name="bio" value={Data.bio} onChange={handleChange}></textarea>
+                            <textarea placeholder="Enter about your self." type="text" name="bio" value={Data.bio} onChange={handleChange}></textarea>
                         </div>
                     </div>
                 </section>
