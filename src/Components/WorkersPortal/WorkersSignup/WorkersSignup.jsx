@@ -7,6 +7,8 @@ import ImageCropper from "../../ImageCrop/ImageCropper";
 import { getCroppedImg } from "../../ImageCrop/cropImage.js";
 import axios from "axios";
 import { StoreContext } from "../../../Context/StoreContext.jsx";
+import { BiShow } from "react-icons/bi";
+import { BiHide } from "react-icons/bi";
 
 const WorkersSignup = () => {
     const role = "worker"
@@ -118,7 +120,7 @@ const WorkersSignup = () => {
                     <input placeholder="Mobile Number" type="text" name="mobileNumber" value={data.mobileNumber} onChange={handleChange} required />
                     <div className="input-field1">
                         <input placeholder="Password" type={showPassword ? "text" : "password"} name="password" value={data.password} onChange={handleChange} required />
-                        <p onClick={() => setShowPassword(!showPassword)} className="hide-show">{showPassword ? "Hide" : "Show"}</p>
+                        <p onClick={() => setShowPassword(!showPassword)} className="hide-show">{showPassword ? <BiShow /> : <BiHide />}</p>
                     </div>
                     <h5>
                         <input type="checkbox" onClick={handleCheckbox} /> I agree to the <span>Terms & Conditions</span>

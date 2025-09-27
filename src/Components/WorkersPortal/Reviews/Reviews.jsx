@@ -1,7 +1,7 @@
 import React from "react";
 import "./Reviews.css";
 
-const RatingsReviews = () => {
+const Reviews = () => {
     // Ratings data (raw counts, not percentages)
     const ratingData = {
         average: 4.7,
@@ -154,4 +154,4 @@ const RatingsReviews = () => {
     );
 };
 
-export default RatingsReviews;
+export default Reviews;

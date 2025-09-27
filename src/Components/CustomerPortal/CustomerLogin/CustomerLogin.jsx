@@ -5,6 +5,8 @@ import Cookies from "js-cookie";
 import customerLoginImg from "../../../assets/customer_login_img.png";
 import { StoreContext } from '../../../Context/StoreContext';
 import axios from 'axios';
+import { BiShow } from "react-icons/bi";
+import { BiHide } from "react-icons/bi";
 
 const CustomerLogin = () => {
     // const role = "customer";
@@ -81,7 +83,7 @@ const CustomerLogin = () => {
                                 onClick={() => setShowPassword(!showPassword)}
                                 className="hide-show"
                             >
-                                {showPassword ? "Hide" : "Show"}
+                                {showPassword ? <BiShow /> : <BiHide />}
                             </p>
                         </div>
 

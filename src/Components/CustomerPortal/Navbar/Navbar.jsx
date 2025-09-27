@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import "./Navbar.css";
@@ -6,7 +6,6 @@ import logo from "../../../assets/logo.jpg";
 import profileImg from "../../../assets/profile_img.png";
 import { FaBars, FaTimes } from "react-icons/fa";
 import image from "../../../assets/101.jpg"
-import { img } from "framer-motion/client";
 
 const Navbar = () => {
     const [activeItem, setActiveItem] = useState("Home");
