@@ -317,7 +317,7 @@ const AddWorkersDetails = () => {
                         <div className="form-group selected-skills">
                             <label>Skills</label>
                             {/* Display all selected skills with individual remove buttons */}
-                            <div className="skills-list seleted-skills " style={{ marginTop: "10px" }}>
+                            <div className="skills-list seleted-skills ">
                                 {Data.skills.map((skill, index) => (
                                     <span
                                         key={index}
@@ -361,7 +361,7 @@ const AddWorkersDetails = () => {
                                     if (Data.skillInput && !Data.skills.includes(Data.skillInput)) {
                                         setData((prev) => ({
                                             ...prev,
-                                            skills: [...prev.skills, Data.skillInput],
+                                            skills: [Data.skillInput, ...prev.skills],
                                             skillInput: "",
                                         }));
                                     }
@@ -370,6 +370,7 @@ const AddWorkersDetails = () => {
                                 Add Skill
                             </button>
                         </div>
+
                         <div className="form-group">
                             <label>Work Experience</label>
                             <input
