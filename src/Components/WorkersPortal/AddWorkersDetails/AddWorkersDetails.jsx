@@ -16,7 +16,8 @@ const AddWorkersDetails = () => {
         aadhar: "",
         aadharDoc: null,
         category: "",
-        skills: "",
+        skills: [], // ✅ array banaya hai
+        skillInput: "", // ✅ skill input ke liye
         experience: "",
         area: "",
         workingHours: "",
@@ -28,7 +29,14 @@ const AddWorkersDetails = () => {
         emergencyContact: "",
         reference: "",
         documents: [], // multiple files
+        ///////////
+
+        state: "",
+        city: "",
+        street: "",
+        zipCode: "",
     });
+
     // Handle input change
     const handleChange = (e) => {
         const { name, value, type, checked, files } = e.target;
@@ -54,6 +62,28 @@ const AddWorkersDetails = () => {
         }
     };
 
+    // ✅ skill add karne ka function
+    const handleSkillKeyDown = (e) => {
+        if (e.key === "Enter" && Data.skillInput.trim() !== "") {
+            e.preventDefault();
+            if (!Data.skills.includes(Data.skillInput.trim())) {
+                setData((prev) => ({
+                    ...prev,
+                    skills: [...prev.skills, prev.skillInput.trim()],
+                    skillInput: "",
+                }));
+            }
+        }
+    };
+
+    // ✅ skill remove karne ka function
+    const removeSkill = (skill) => {
+        setData((prev) => ({
+            ...prev,
+            skills: prev.skills.filter((s) => s !== skill),
+        }));
+    };
+
     // Submit handler
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -70,7 +100,10 @@ const AddWorkersDetails = () => {
         formData.append("aadhar", Data.aadhar);
         if (Data.aadharDoc) formData.append("aadharDoc", Data.aadharDoc);
         formData.append("category", Data.category);
-        formData.append("skills", Data.skills);
+
+        // ✅ skills ko JSON ke form me bhejna
+        formData.append("skills", JSON.stringify(Data.skills));
+
         formData.append("experience", Data.experience);
         formData.append("area", Data.area);
         formData.append("workingHours", Data.workingHours);
@@ -113,6 +146,20 @@ const AddWorkersDetails = () => {
             behavior: "smooth"
         });
     };
+
+
+    ///////////////
+
+    const skills = [
+        "Plumbing",
+        "Electrical",
+        "Painting",
+        "Carpentry",
+        "Masonry",
+        "Welding",
+        "Mechanic",
+        "Gardening"
+    ];
 
     return (
         <div className="profile-container">
@@ -196,41 +243,57 @@ const AddWorkersDetails = () => {
                                 placeholder="Enter email"
                             />
                         </div>
-                        <div className="form-group">
-                            <label>Full Address</label>
-                            <textarea
-                                name="address"
-                                value={Data.address}
-                                onChange={handleChange}
-                                placeholder="Enter address"
-                            ></textarea>
-                        </div>
                     </div>
                 </section>
 
-                {/* <section className="profile-section">
-                    <h3>2. Identity Verification</h3>
+
+                {/* ///// */}
+
+
+                <section className="profile-section">
+                    <h3>2. Full Address</h3>
                     <div className="form-grid">
                         <div className="form-group">
-                            <label>Aadhar Card</label>
+                            <label>State</label>
                             <input
                                 type="text"
-                                name="aadhar"
-                                value={Data.aadhar}
+                                name="state"
+                                value={Data.state}
                                 onChange={handleChange}
-                                placeholder="Enter Aadhar number"
+                                placeholder="Enter your state name."
                             />
                         </div>
                         <div className="form-group">
-                            <label>Upload Document</label>
+                            <label>City</label>
                             <input
-                                type="file"
-                                name="aadharDoc"
+                                type="text"
+                                name="city"
+                                value={Data.city}
                                 onChange={handleChange}
+                                placeholder="Enter your city name."
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Locality</label>
+                            <input
+                                type="text"
+                                name="street"
+                                value={Data.street}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Pin Code (Zip Code)</label>
+                            <input
+                                type="text"
+                                name="zipCode"
+                                value={Data.zipCode}
+                                onChange={handleChange}
+                                placeholder="Enter you Pin code (Zip Code) here."
                             />
                         </div>
                     </div>
-                </section> */}
+                </section>
 
                 <section className="profile-section">
                     <h3>3. Professional Details</h3>
@@ -248,16 +311,58 @@ const AddWorkersDetails = () => {
                                 <option>Painter</option>
                             </select>
                         </div>
+
+                        {/* ✅ Skills Input */}
                         <div className="form-group">
                             <label>Skills</label>
-                            <input
-                                type="text"
-                                name="skills"
-                                value={Data.skills}
-                                onChange={handleChange}
-                                placeholder="Enter skills"
-                            />
+                            <div className="skills-input">
+                                {Data.skills.map((skill, index) => (
+                                    <span key={index} className="skill-tag">
+                                        {skill}
+                                        <button
+                                            className="skill-button"
+                                            type="button"
+                                            onClick={() => removeSkill(skill)}
+                                        >
+                                            ×
+                                        </button>
+                                    </span>
+                                ))}
+
+                                {/* 🆕 Dropdown instead of free text input */}
+                                <select
+                                    name="skillInput"
+                                    value={Data.skillInput}
+                                    onChange={handleChange}
+                                >
+                                    <option value="">-- Select Skill --</option>
+                                    {skills.map((skill, index) => (
+                                        <option key={index} value={skill}>
+                                            {skill}
+                                        </option>
+                                    ))}
+                                </select>
+
+                                {/* 🆕 Add button to push dropdown value into skills list */}
+                                <button
+                                    type="button"
+                                    className="add-skill-btn"
+                                    onClick={() => {
+                                        if (Data.skillInput && !Data.skills.includes(Data.skillInput)) {
+                                            setData((prev) => ({
+                                                ...prev,
+                                                skills: [...prev.skills, Data.skillInput],
+                                                skillInput: "",
+                                            }));
+                                        }
+                                    }}
+                                >
+                                    Add
+                                </button>
+                            </div>
+
                         </div>
+
                         <div className="form-group">
                             <label>Work Experience</label>
                             <input
@@ -294,7 +399,7 @@ const AddWorkersDetails = () => {
                                 placeholder="e.g. 9am - 6pm"
                             />
                         </div>
-                        <div className="form-group">
+                        <div className="form-group available-checkbox">
                             <label>Available on Weekends</label>
                             <input
                                 type="checkbox"
@@ -316,44 +421,8 @@ const AddWorkersDetails = () => {
                     </div>
                 </section>
 
-                {/* <section className="profile-section">
-                    <h3>5. Banking & Payments</h3>
-                    <div className="form-grid">
-                        <div className="form-group">
-                            <label>Bank Name</label>
-                            <input
-                                type="text"
-                                name="bankName"
-                                value={Data.bankName}
-                                onChange={handleChange}
-                                placeholder="Enter bank name"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>Account Number</label>
-                            <input
-                                type="text"
-                                name="accountNumber"
-                                value={Data.accountNumber}
-                                onChange={handleChange}
-                                placeholder="Enter account number"
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>IFSC Code</label>
-                            <input
-                                type="text"
-                                name="ifsc"
-                                value={Data.ifsc}
-                                onChange={handleChange}
-                                placeholder="Enter IFSC"
-                            />
-                        </div>
-                    </div>
-                </section> */}
-
                 <section className="profile-section">
-                    <h3>6. Emergency & References</h3>
+                    <h3>5. Emergency & References</h3>
                     <div className="form-grid">
                         <div className="form-group">
                             <label>Emergency Contact</label>
@@ -378,23 +447,13 @@ const AddWorkersDetails = () => {
                     </div>
                 </section>
 
-                {/* <section className="profile-section">
-                    <h3>7. Document Upload</h3>
-                    <input
-                        type="file"
-                        name="documents"
-                        multiple
-                        onChange={handleChange}
-                    />
-                </section> */}
-
                 <div className="btn-group">
                     <button onClick={() => { Navigate("/worker-profile/submission-success"), handleClick() }} type="submit" className="btn submit">
                         Submit Profile
                     </button>
                 </div>
             </form>
-        </div>
+        </div >
     );
 };
 
