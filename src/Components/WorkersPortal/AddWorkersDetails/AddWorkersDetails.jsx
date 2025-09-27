@@ -149,13 +149,25 @@ const AddWorkersDetails = () => {
         e.preventDefault();
 
         const formData = new FormData();
-        Object.keys(Data).forEach(key => {
-            if (key === "skills") {
-                formData.append(key, JSON.stringify(Data[key]));
-            } else {
-                formData.append(key, Data[key]);
-            }
-        });
+        formData.append("fullName", Data.fullName);
+        formData.append("fatherName", Data.fatherName);
+        formData.append("dob", Data.dob);
+        formData.append("gender", Data.gender);
+        formData.append("profilePhoto", Data.profilePhoto);
+        formData.append("mobile", Data.mobile);
+        formData.append("email", Data.email);
+        formData.append("state", Data.state);
+        formData.append("city", Data.city);
+        formData.append("street", Data.street);
+        formData.append("zipCode", Data.zipCode);
+        formData.append("category", Data.category);
+        formData.append("skills", Data.skills);
+        formData.append("experience", Data.experience);
+        formData.append("workingHours", Data.workingHours);
+        formData.append("weekends", Data.weekends);
+        formData.append("salary", Data.salary);
+        formData.append("emergencyContact", Data.emergencyContact);
+        formData.append("reference", Data.reference);
 
         try {
             const res = await axios.post(URL_LINK + "/", formData);
@@ -238,7 +250,6 @@ const AddWorkersDetails = () => {
                                         value={districtQuery}
                                         onChange={(e) => setDistrictQuery(e.target.value)}
                                         placeholder={selectedState ? `Type district or post office in ${selectedState}` : "Type district, town, post office or PIN"}
-                                        required
                                     />
                                 </label>
                             </div>
