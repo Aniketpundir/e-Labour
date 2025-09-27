@@ -1,20 +1,31 @@
 import React, { useContext, useState } from "react";
 import "./AddWorkersDetails.css";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { StoreContext } from "../../../Context/StoreContext"
+import image from "../../../assets/101.jpg";
 
 const AddWorkersDetails = () => {
+
+    const random = [
+        {
+            name: "Aniket",
+            image: image,
+            number: "9528756292",
+            email: "Aniketpundir@gmail.com",
+
+        }
+    ]
     const { URL_LINK } = useContext(StoreContext)
     const [Data, setData] = useState({
         // Personal Information
-        fullName: "",
+        fullName: random[0]?.name || "",
         fatherName: "",
         dob: "",
         gender: "",
-        profilePhoto: null,
-        mobile: "",
-        email: "",
+        profilePhoto: random[0]?.image || null,
+        mobile: random[0]?.number || "",
+        email: random[0]?.email || "",
 
         // Full Address
         state: "",
@@ -37,6 +48,7 @@ const AddWorkersDetails = () => {
         emergencyContact: "",
         reference: "",
     });
+
 
     // Handle input change
     const handleChange = (e) => {
@@ -119,6 +131,8 @@ const AddWorkersDetails = () => {
         });
     };
 
+    console.log(Data);
+
     const workerSkill = [
         "Plumbing",
         "Electrical",
@@ -142,41 +156,50 @@ const AddWorkersDetails = () => {
                 <section className="profile-section">
                     <h3>1. Personal Information</h3>
                     <div className="form-grid">
+                        <div className="worker-profile-image">
+                            <label>Profile Photo *</label>
+                            <img src={Data.profilePhoto} />
+                        </div>
                         <div className="form-group">
-                            <label>Full Name</label>
+                            <label>Full Name *</label>
                             <input
                                 type="text"
                                 name="fullName"
                                 value={Data.fullName}
                                 onChange={handleChange}
                                 placeholder="Enter full name"
+                                readOnly
+                                required
                             />
                         </div>
                         <div className="form-group">
-                            <label>Father’s Name</label>
+                            <label>Father’s Name *</label>
                             <input
                                 type="text"
                                 name="fatherName"
                                 value={Data.fatherName}
                                 onChange={handleChange}
                                 placeholder="Enter father’s name"
+                                required
                             />
                         </div>
                         <div className="form-group">
-                            <label>Date of Birth</label>
+                            <label>Date of Birth *</label>
                             <input
                                 type="date"
                                 name="dob"
                                 value={Data.dob}
                                 onChange={handleChange}
+                                required
                             />
                         </div>
                         <div className="form-group">
-                            <label>Gender</label>
+                            <label>Gender *</label>
                             <select
                                 name="gender"
                                 value={Data.gender}
                                 onChange={handleChange}
+                                required
                             >
                                 <option value="">Select</option>
                                 <option>Male</option>
@@ -185,31 +208,27 @@ const AddWorkersDetails = () => {
                             </select>
                         </div>
                         <div className="form-group">
-                            <label>Profile Photo</label>
-                            <input
-                                type="file"
-                                name="profilePhoto"
-                                onChange={handleChange}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <label>Mobile Number</label>
+                            <label>Mobile Number *</label>
                             <input
                                 type="text"
                                 name="mobile"
                                 value={Data.mobile}
                                 onChange={handleChange}
                                 placeholder="Enter mobile number"
+                                required
+                                readOnly
                             />
                         </div>
                         <div className="form-group">
-                            <label>Email Address</label>
+                            <label>Email Address *</label>
                             <input
                                 type="email"
                                 name="email"
                                 value={Data.email}
                                 onChange={handleChange}
                                 placeholder="Enter email"
+                                readOnly
+                                required
                             />
                         </div>
                     </div>
@@ -223,7 +242,7 @@ const AddWorkersDetails = () => {
                     <h3>2. Full Address</h3>
                     <div className="form-grid">
                         <div className="form-group">
-                            <label>State</label>
+                            <label>State *</label>
                             <input
                                 type="text"
                                 name="state"
@@ -233,7 +252,7 @@ const AddWorkersDetails = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label>City</label>
+                            <label>City *</label>
                             <input
                                 type="text"
                                 name="city"
@@ -243,7 +262,7 @@ const AddWorkersDetails = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Locality</label>
+                            <label>Locality *</label>
                             <input
                                 type="text"
                                 name="street"
@@ -252,7 +271,7 @@ const AddWorkersDetails = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Pin Code (Zip Code)</label>
+                            <label>Pin Code (Zip Code) *</label>
                             <input
                                 type="text"
                                 name="zipCode"
@@ -268,7 +287,7 @@ const AddWorkersDetails = () => {
                     <h3>3. Professional Details</h3>
                     <div className="form-grid">
                         <div className="form-group">
-                            <label>Work Category</label>
+                            <label>Work Category *</label>
                             <select
                                 name="category"
                                 value={Data.category}
@@ -283,7 +302,7 @@ const AddWorkersDetails = () => {
 
                         {/* ✅ Skills Input */}
                         <div className="form-group selected-skills">
-                            <label>Skills</label>
+                            <label>Skills *</label>
                             {/* Display all selected skills with individual remove buttons */}
                             <div className="skills-list seleted-skills ">
                                 {Data.skills.map((skill, index) => (
@@ -340,7 +359,7 @@ const AddWorkersDetails = () => {
                         </div>
 
                         <div className="form-group">
-                            <label>Work Experience</label>
+                            <label>Work Experience *</label>
                             <input
                                 type="text"
                                 name="experience"
@@ -356,7 +375,7 @@ const AddWorkersDetails = () => {
                     <h3>4. Availability & Work Preference</h3>
                     <div className="form-grid">
                         <div className="form-group">
-                            <label>Working Hours</label>
+                            <label>Working Hours *</label>
                             <input
                                 type="text"
                                 name="workingHours"
@@ -366,7 +385,7 @@ const AddWorkersDetails = () => {
                             />
                         </div>
                         <div className="form-group available-checkbox">
-                            <label>Available on Weekends</label>
+                            <label>Available on Weekends *</label>
                             <input
                                 type="checkbox"
                                 name="weekends"
@@ -375,7 +394,7 @@ const AddWorkersDetails = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Expected Salary</label>
+                            <label>Expected Salary *</label>
                             <input
                                 type="text"
                                 name="salary"
@@ -388,7 +407,7 @@ const AddWorkersDetails = () => {
                 </section>
 
                 <section className="profile-section">
-                    <h3>5. Emergency & References</h3>
+                    <h3>5. Emergency & References *</h3>
                     <div className="form-grid">
                         <div className="form-group">
                             <label>Emergency Contact</label>
@@ -401,7 +420,7 @@ const AddWorkersDetails = () => {
                             />
                         </div>
                         <div className="form-group">
-                            <label>Reference Name</label>
+                            <label>Reference Name *</label>
                             <input
                                 type="text"
                                 name="reference"

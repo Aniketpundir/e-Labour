@@ -186,6 +186,30 @@ textarea {
     color: #000;
 }
 
+.worker-profile-image {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: start;
+    align-items: start;
+
+}
+
+.worker-profile-image label {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.worker-profile-image img {
+    height: 120px;
+    width: 120px;
+    border-radius: 10px;
+    object-fit: cover;
+    margin-top: -1px;
+}
+
 
 @media (max-width: 650px) {
     .profile-container {

@@ -134,6 +134,14 @@
     color: inherit;
 }
 
+.worker-image-logout {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
 .hamburger-icon {
     display: none;
     cursor: pointer;

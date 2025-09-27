@@ -5,6 +5,8 @@ import "./Navbar.css";
 import logo from "../../../assets/logo.jpg";
 import profileImg from "../../../assets/profile_img.png";
 import { FaBars, FaTimes } from "react-icons/fa";
+import image from "../../../assets/101.jpg"
+import { img } from "framer-motion/client";
 
 const Navbar = () => {
     const [activeItem, setActiveItem] = useState("Home");
@@ -12,8 +14,15 @@ const Navbar = () => {
     const [showMenu, setShowMenu] = useState(false);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [hideWorkerPanel, setHideWorkerPanel] = useState(false);
+    const [WorkerToken, setWorkerToken] = useState("");
+    const [customerToken, setCustomerToken] = useState("");
     const navigate = useNavigate();
     const location = useLocation();
+
+    useEffect(() => {
+        setWorkerToken(Cookies.get("WorkerToken"));
+        setCustomerToken(Cookies.get("customerToken"));
+    }, [])
 
     const handleClick = (name) => {
         setActiveItem(name);
@@ -170,40 +179,60 @@ const Navbar = () => {
             </div>
 
             <div className="navbar-right">
-                {!token ? (
-                    <button
-                        onClick={() => {
-                            navigate("/landing-page");
-                        }}
-                    >
+                {!WorkerToken && !customerToken ? (
+                    <button onClick={() => navigate("/landing-page")}>
                         Sign Up
                     </button>
-                ) : (
-                    <div className="profile-section">
-                        <img src={profileImg} alt="Profile" onClick={toggleProfileMenu} />
-                        {showProfileMenu && (
-                            <div className="profile-menu">
-                                <ul>
-                                    <Link onClick={() => { handleClicked(), toggleProfileMenu() }} to="/Customer-Profile">
-                                        <li>Your Profile</li>
-                                    </Link>
-                                    <Link onClick={() => { handleClicked(), toggleProfileMenu() }} to="/Current-Booking">
-                                        <li>Current Booking & Details</li>
-                                    </Link>
-                                    <Link onClick={() => { handleClicked(), toggleProfileMenu() }} to="/Past-Booking">
-                                        <li>Past Jobs / History</li>
-                                    </Link>
-                                    <Link onClick={() => { handleClicked(), toggleProfileMenu() }} to="/Support-Section">
-                                        <li>Support & Help Section</li>
-                                    </Link>
-                                    <Link to="#">
-                                        <li>Logout</li>
-                                    </Link>
-                                </ul>
-                            </div>
-                        )}
-                    </div>
-                )}
+                ) : customerToken ?
+                    (
+                        <div className="profile-section">
+                            <img
+                                src={profileImg}
+                                alt="Profile"
+                                onClick={customerToken ? toggleProfileMenu : undefined} // menu only for customers
+                                style={{ cursor: customerToken ? "pointer" : "default" }}
+                            />
+
+                            {/* Show menu only for customer */}
+                            {customerToken && showProfileMenu && (
+                                <div className="profile-menu">
+                                    <ul>
+                                        <Link onClick={() => { handleClicked(); toggleProfileMenu(); }} to="/Customer-Profile">
+                                            <li>Your Profile</li>
+                                        </Link>
+                                        <Link onClick={() => { handleClicked(); toggleProfileMenu(); }} to="/Current-Booking">
+                                            <li>Current Booking & Details</li>
+                                        </Link>
+                                        <Link onClick={() => { handleClicked(); toggleProfileMenu(); }} to="/Past-Booking">
+                                            <li>Past Jobs / History</li>
+                                        </Link>
+                                        <Link onClick={() => { handleClicked(); toggleProfileMenu(); }} to="/Support-Section">
+                                            <li>Support & Help Section</li>
+                                        </Link>
+                                        <Link to="#">
+                                            <li onClick={() => {
+                                                Cookies.remove("customerToken");
+                                                setCustomerToken("");
+                                            }}>Logout</li>
+                                        </Link>
+                                    </ul>
+                                </div>
+                            )}
+                        </div>
+                    ) : WorkerToken
+                        ? (
+                            <div className="worker-image-logout">
+                                <button onClick={() => { Cookies.remove("WorkerToken"); setWorkerToken("") }}>Logout</button>
+                                <div className="profile-section">
+                                    <img
+                                        src={image}
+                                        alt="Profile"
+                                        onClick={customerToken ? toggleProfileMenu : undefined}
+                                        style={{ cursor: customerToken ? "pointer" : "default" }}
+                                    />
+                                </div>
+                            </div>) :
+                        null}
             </div>
 
             <div className={`side-drawer ${showMenu ? "show" : ""}`}>
