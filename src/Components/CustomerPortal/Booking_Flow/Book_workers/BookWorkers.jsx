@@ -143,28 +143,33 @@ const BookWorkers = () => {
             workerName: "Alexandria Cortez",
             service: title,
             serviceDate: serviceDate,
-            addressId: selectedAddrObj._id,  // 🔹 Yaha sirf id bheji
+            addressId: selectedAddrObj,// 🔹 Yaha sirf id bheji
             paymentMethod: paymentMethod,
         };
 
-        try {
-            // ⬇️ Line ~188 (Backend pe POST request add kiya)
-            const res = await axios.post(`${URL_LINK}api/bookings`, bookingData, {
-                headers: { token: customerToken },
-            });
+        console.log(bookingData)
 
-            if (res.data.success) {
-                alert("Booking Successful ✅");
-                Navigate(
-                    `/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section/Booking-Conformation`
-                );
-            } else {
-                alert("Booking failed ❌");
-            }
-        } catch (err) {
-            console.error("Booking error:", err);
-            alert("Something went wrong while booking!");
-        }
+        // try {
+        //     // ⬇️ Line ~188 (Backend pe POST request add kiya)
+        //     const res = await axios.post(`${URL_LINK}api/bookings`, bookingData, {
+        //         headers: { token: customerToken },
+        //     });
+
+        //     if (res.data.success) {
+        //         alert("Booking Successful ✅");
+        //         Navigate(
+        //             `/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section/Booking-Conformation`
+        //         );
+        //     } else {
+        //         alert("Booking failed ❌");
+        //     }
+        // } catch (err) {
+        //     console.error("Booking error:", err);
+        //     alert("Something went wrong while booking!");
+        // }
+        alert("Booking Successful ✅");
+        Navigate(
+            `/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section/Booking-Conformation`)
     };
 
     // ✅ Post Office Lookup
