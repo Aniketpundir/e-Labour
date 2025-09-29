@@ -4,7 +4,9 @@ import { StoreContext } from "../../../../../Context/StoreContext"
 
 const SkillsAndServices = () => {
     const { workerProfileData } = useContext(StoreContext)
-    const services = workerProfileData.skills;
+
+    const services = workerProfileData?.skills || [];
+    const workCategory = workerProfileData?.workCategory || "Not specified";
 
     return (
         <div className="info-card">
@@ -14,7 +16,7 @@ const SkillsAndServices = () => {
                 <h3>Working Category</h3>
                 <div className="skills-tags">
                     <span className="skill-tag">
-                        {workerProfileData.workCategory}
+                        {workCategory}
                     </span>
                 </div>
             </div>
