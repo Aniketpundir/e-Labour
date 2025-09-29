@@ -6,6 +6,7 @@ import logo from "../../../assets/logo.jpg";
 import profileImg from "../../../assets/profile_img.png";
 import image from "../../../assets/101.jpg"
 import { FaBars } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 import { StoreContext } from "../../../Context/StoreContext";
 
 const Navbar = () => {
