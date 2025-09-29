@@ -15,7 +15,7 @@ import axios from "axios";
 import { StoreContext } from "../../../Context/StoreContext.jsx";
 
 const CustomerSignup = () => {
-    const { URL_LINK } = useContext(StoreContext)
+    const { URL_LINK, customerToken } = useContext(StoreContext)
     const role = "customer";
     const [showPassword, setShowPassword] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
@@ -34,7 +34,7 @@ const CustomerSignup = () => {
     const [croppedImage, setCroppedImage] = useState(null);
     const [showCropper, setShowCropper] = useState(false);
 
-    const Navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -84,16 +84,18 @@ const CustomerSignup = () => {
 
         try {
             const res = await axios.post(newUrl, formData);
+            console.log(res);
             const customerToken = res.data.token;
-            if (!res.data.success) {
+            if (res.data.success) {
                 alert(res.data.success)
+                navigate("/");
                 localStorage.setItem("customerToken", customerToken)
-                Navigate("/");
                 window.location.reload();
             } else {
                 alert(res.data.message)
             }
 
+            window.location.reload();
         } catch (error) {
             console.log(error.message);
         }
@@ -123,7 +125,7 @@ const CustomerSignup = () => {
                 <h2>Create your customer account</h2>
                 <p>
                     Already have an account?{" "}
-                    <span onClick={() => Navigate("/customer-login")}>Sign in</span>
+                    <span onClick={() => navigate("/customer-login")}>Sign in</span>
                 </p>
 
                 <form onSubmit={handleSubmit}>

@@ -143,14 +143,13 @@ const BookWorkers = () => {
             workerName: "Alexandria Cortez",
             service: title,
             serviceDate: serviceDate,
-            addressId: selectedAddrObj,// 🔹 Yaha sirf id bheji
+            addressId: selectedAddrObj,
             paymentMethod: paymentMethod,
         };
 
         console.log(bookingData)
 
         // try {
-        //     // ⬇️ Line ~188 (Backend pe POST request add kiya)
         //     const res = await axios.post(`${URL_LINK}api/bookings`, bookingData, {
         //         headers: { token: customerToken },
         //     });
@@ -315,7 +314,7 @@ const BookWorkers = () => {
                                 <div style={{ marginTop: "20px" }} className="post-form">
                                     <div className="post-form-row">
                                         <label>
-                                            <span>State</span>
+                                            <span>State / Union territory</span>
                                             <select>
                                                 <option value="">-- Select State (optional) --</option>
                                                 {STATES.map((s) => <option key={s} value={s}>{s}</option>)}
@@ -411,15 +410,16 @@ const BookWorkers = () => {
                                     onChange={handleChange}
                                     required
                                 />
-                                <input
-                                    type="text"
-                                    name="state"
-                                    placeholder="Enter your state"
-                                    value={newAddress.state || ""}
-                                    onChange={handleChange}
-                                    required
-                                />
+
                             </div>
+                            <input
+                                type="text"
+                                name="state"
+                                placeholder="Enter your state"
+                                value={newAddress.state || ""}
+                                onChange={handleChange}
+                                required
+                            />
                             <input
                                 type="text"
                                 name="zip"
