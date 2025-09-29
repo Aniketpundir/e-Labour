@@ -9,16 +9,12 @@ const Emergency = () => {
             <div className="info-grid">
                 <div className="info-item">
                     <div className="info-label">Emergency Contact Number</div>
-                    <div className="info-value">{workerProfileData.emergencyInfo
-                        &&
-                        workerProfileData.emergencyInfo.contact}
+                    <div className="info-value">{workerProfileData?.emergencyInfo?.contact || "—"}
                     </div>
                 </div>
                 <div className="info-item">
                     <div className="info-label">Emergency Person Name</div>
-                    <div className="info-value">{workerProfileData.emergencyInfo
-                        &&
-                        workerProfileData.emergencyInfo.name}
+                    <div className="info-value">{workerProfileData?.emergencyInfo?.name || "—"}
                     </div>
                 </div>
             </div>

@@ -14,27 +14,20 @@ const LeftSideProfile = () => {
                 <div className='worker-left-side-details'>
                     <div className='name-and-image-container'>
                         <div className='worker-profile-image'>
-                            <img src={workerProfileData.workerId
-                                &&
-                                workerProfileData.workerId.avatar
-                                &&
-                                workerProfileData.workerId.avatar.image} alt='Worker Profile Image' />
+                            <img src={workerProfileData.workerId && workerProfileData.workerId.avatar && workerProfileData.workerId.avatar.image} alt='Worker Profile Image' />
                         </div>
                         <div className='worker-name'>
-                            <h2>{workerProfileData.workerId
-                                &&
-                                workerProfileData.workerId.name}</h2>
-                            <p>{workerProfileData.workCategory}</p>
-                            <p>Experience: {workerProfileData.experience} years</p>
-                            <p>Rate: {workerProfileData.rate}/Day</p>
-                            <p>Timing: {workerProfileData.workingHr}</p>
+                            <p>{workerProfileData?.workCategory || <p>.</p>}</p>
+                            <p>Experience: {workerProfileData?.experience || <p>.</p>} years</p>
+                            <p>Rate: {workerProfileData?.rate || <p>.</p>}/Day</p>
+                            <p>Timing: {workerProfileData?.workingHr || <p>.</p>}</p>
                             <span><MdOutlineVerified /> verified</span>
                         </div>
                         <button> <CiEdit /> Profile</button>
                     </div>
                     <div className='worker-about'>
                         <h3>About</h3>
-                        <p>{workerProfileData.bio}</p>
+                        <p>{workerProfileData?.bio || <p>.</p>}</p>
                     </div>
                 </div>
             </div>

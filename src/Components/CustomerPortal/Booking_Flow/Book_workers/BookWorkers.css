@@ -18,10 +18,12 @@
 }
 
 /* ✅ Worker Profile Card */
-.worker-profile {
+.worker-profiles {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 15px;
+    justify-self: center;
     padding: 15px;
     border-radius: 12px;
     background: #f9fafb;
@@ -29,13 +31,14 @@
 }
 
 .worker-avatar {
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
 }
 
 .worker-info h3 {
+    text-align: center;
     font-size: 18px;
     font-weight: bold;
     color: #111827;
@@ -43,6 +46,7 @@
 }
 
 .worker-job {
+    text-align: center;
     font-size: 14px;
     color: #4b5563;
     margin: 2px 0;

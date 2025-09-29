@@ -1,65 +1,53 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import "./BookWorkers.css";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import image from "../../../../assets/101.jpg";
+import { StoreContext } from "../../../../Context/StoreContext";
 
 const STATES = [
-    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat",
-    "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh",
-    "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab",
-    "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh",
-    "Uttarakhand", "West Bengal", "Andaman and Nicobar Islands", "Chandigarh",
+    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
+    "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka",
+    "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya",
+    "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim",
+    "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand",
+    "West Bengal", "Andaman and Nicobar Islands", "Chandigarh",
     "Dadra and Nagar Haveli and Daman and Diu", "Lakshadweep", "Puducherry"
 ];
 
 const BookWorkers = () => {
+    const {
+        URL_LINK,
+        customerToken,
+        addresses,
+        loadingAddr,
+        selectedAddress,
+        setSelectedAddress,
+        fetchAddresses,
+    } = useContext(StoreContext);
+
     const [serviceDate, setServiceDate] = useState("Tomorrow");
     const [paymentMethod, setPaymentMethod] = useState("");
     const [showForm, setShowForm] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [editId, setEditId] = useState(null);
 
-    const [addresses, setAddresses] = useState([]);
-    const [selectedAddress, setSelectedAddress] = useState(null);
-    const [loadingAddr, setLoadingAddr] = useState(false);
-
     const Navigate = useNavigate();
     const { title, id } = useParams();
 
+    // ✅ Address State
     const [newAddress, setNewAddress] = useState({
         name: "",
         phone: "",
         street: "",
         city: "",
+        postOffice: "",
         state: "",
         zip: "",
         save: false,
     });
-
-    // ✅ Fetch all addresses from backend
-    const fetchAddresses = async () => {
-        try {
-            setLoadingAddr(true);
-            const res = await axios.get(`${API_BASE}/user`);
-            if (res.data && Array.isArray(res.data)) {
-                setAddresses(res.data);
-                if (res.data.length > 0) {
-                    setSelectedAddress(res.data[0]._id);
-                }
-            }
-        } catch (err) {
-            console.error("Error fetching addresses:", err);
-        } finally {
-            setLoadingAddr(false);
-        }
-    };
-
-    useEffect(() => {
-        fetchAddresses();
-    }, []);
 
     // ✅ Handle input change
     const handleChange = (e) => {
@@ -70,22 +58,29 @@ const BookWorkers = () => {
         });
     };
 
-    // ✅ Save or Update address (API)
+    // ✅ Save or Update Address
     const handleAddAddress = async (e) => {
         e.preventDefault();
-
         try {
+            let baseUrl = URL_LINK + "api/addresses";
+
             if (editMode) {
-                // Update existing address
-                await axios.patch(`${API_BASE}/${editId}`, newAddress);
+                await axios.patch(`${baseUrl}/${editId}`, newAddress, {
+                    headers: { token: customerToken },
+                });
+                alert("Address Updated Successfully ✅");
+                fetchAddresses();
             } else if (newAddress.save) {
-                // Add new address
-                await axios.post(`${API_BASE}`, newAddress);
+                const res = await axios.post(baseUrl, newAddress, {
+                    headers: { token: customerToken },
+                });
+                if (res.data.success) {
+                    alert("Address Added Successfully ✅");
+                    fetchAddresses();
+                }
             }
 
-            // Refresh list
-            fetchAddresses();
-
+            // Reset form
             setShowForm(false);
             setEditMode(false);
             setEditId(null);
@@ -94,6 +89,7 @@ const BookWorkers = () => {
                 phone: "",
                 street: "",
                 city: "",
+                postOffice: "",
                 state: "",
                 zip: "",
                 save: false,
@@ -103,18 +99,30 @@ const BookWorkers = () => {
         }
     };
 
-    // ✅ Edit address (populate form)
+    // ✅ Edit address
     const handleEdit = (addr) => {
-        setNewAddress({ ...addr, save: true });
+        setNewAddress({
+            name: addr.name || "",
+            phone: addr.phone || "",
+            street: addr.street || "",
+            city: addr.city || "",
+            postOffice: addr.postOffice || "",
+            state: addr.state || "",
+            zip: addr.zip || "",
+            save: true,
+        });
         setShowForm(true);
         setEditMode(true);
         setEditId(addr._id);
     };
 
-    // ✅ Delete address (API)
+    // ✅ Delete address
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`${API_BASE}/${id}`);
+            await axios.delete(`${URL_LINK}api/addresses/${id}`, {
+                headers: { token: customerToken },
+            });
+            alert("Address Deleted Successfully ❌");
             fetchAddresses();
         } catch (err) {
             console.error("Error deleting address:", err);
@@ -122,28 +130,44 @@ const BookWorkers = () => {
     };
 
     // ✅ Booking
-    const handleBooking = () => {
-        const selectedAddrObj = addresses.find((addr) => addr._id === selectedAddress);
+    const handleBooking = async () => {
+        const selectedAddrObj = addresses.find(
+            (addr) => addr._id === selectedAddress
+        );
         if (!selectedAddrObj) return alert("Please select an address!");
         if (!paymentMethod) return alert("Please select a payment method!");
 
+        // ✅ Sirf address ki ID bhejna hai
         const bookingData = {
-            workerName: "Alexandria Cortez",
             workerId: id,
-            serviceDate,
-            address: selectedAddrObj,
-            paymentMethod,
+            workerName: "Alexandria Cortez",
             service: title,
+            serviceDate: serviceDate,
+            addressId: selectedAddrObj._id,  // 🔹 Yaha sirf id bheji
+            paymentMethod: paymentMethod,
         };
 
-        console.log("Booking Data:", bookingData);
+        try {
+            // ⬇️ Line ~188 (Backend pe POST request add kiya)
+            const res = await axios.post(`${URL_LINK}api/bookings`, bookingData, {
+                headers: { token: customerToken },
+            });
 
-        Navigate(
-            `/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section/Booking-Conformation`
-        );
+            if (res.data.success) {
+                alert("Booking Successful ✅");
+                Navigate(
+                    `/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section/Booking-Conformation`
+                );
+            } else {
+                alert("Booking failed ❌");
+            }
+        } catch (err) {
+            console.error("Booking error:", err);
+            alert("Something went wrong while booking!");
+        }
     };
 
-    // ✅ Post Office Lookup States
+    // ✅ Post Office Lookup
     const [districtQuery, setDistrictQuery] = useState("");
     const [postOffices, setPostOffices] = useState([]);
     const [loadingPO, setLoadingPO] = useState(false);
@@ -204,7 +228,7 @@ const BookWorkers = () => {
         <div className="checkout-container">
             <div className="checkout-box">
                 {/* Worker profile */}
-                <div className="worker-profile">
+                <div className="worker-profiles">
                     <img src={image} alt="Worker" className="worker-avatar" />
                     <div className="worker-info">
                         <h3>Alexandria Cortez</h3>
@@ -247,8 +271,12 @@ const BookWorkers = () => {
                                         <p>
                                             <b>{addr.name}</b> ({addr.phone})
                                         </p>
-                                        <p>{addr.street}, {addr.city}</p>
-                                        <p>{addr.state} - {addr.zip}</p>
+                                        <p>
+                                            {addr.street}, {addr.city}, {addr.postOffice}
+                                        </p>
+                                        <p>
+                                            {addr.state} - {addr.zip}
+                                        </p>
                                     </div>
                                 </label>
                                 <div className="row">
@@ -272,7 +300,7 @@ const BookWorkers = () => {
                     </div>
                 ) : (
                     <>
-                        {/* ✅ Post Office Lookup (only when adding/editing address) */}
+                        {/* ✅ Post Office Lookup */}
                         <section className="post-page">
                             <div className="post-card">
                                 <h1 className="post-title">Search your nearest location by your post office.</h1>
@@ -318,7 +346,7 @@ const BookWorkers = () => {
                                                             ...prev,
                                                             state: po.state,
                                                             city: po.district,
-                                                            street: po.name,
+                                                            postOffice: po.name,
                                                             zip: po.pincode,
                                                         }));
                                                         setPostOffices([]);
@@ -341,7 +369,7 @@ const BookWorkers = () => {
                                 type="text"
                                 name="name"
                                 placeholder="Enter your full name"
-                                value={newAddress.name}
+                                value={newAddress.name || ""}
                                 onChange={handleChange}
                                 required
                             />
@@ -349,7 +377,7 @@ const BookWorkers = () => {
                                 type="text"
                                 name="phone"
                                 placeholder="Enter your phone number"
-                                value={newAddress.phone}
+                                value={newAddress.phone || ""}
                                 onChange={handleChange}
                                 required
                             />
@@ -357,7 +385,7 @@ const BookWorkers = () => {
                                 type="text"
                                 name="street"
                                 placeholder="Enter your street address"
-                                value={newAddress.street}
+                                value={newAddress.street || ""}
                                 onChange={handleChange}
                                 required
                             />
@@ -366,7 +394,15 @@ const BookWorkers = () => {
                                     type="text"
                                     name="city"
                                     placeholder="Enter your city"
-                                    value={newAddress.city}
+                                    value={newAddress.city || ""}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <input
+                                    type="text"
+                                    name="postOffice"
+                                    placeholder="Enter your Post Office"
+                                    value={newAddress.postOffice || ""}
                                     onChange={handleChange}
                                     required
                                 />
@@ -374,7 +410,7 @@ const BookWorkers = () => {
                                     type="text"
                                     name="state"
                                     placeholder="Enter your state"
-                                    value={newAddress.state}
+                                    value={newAddress.state || ""}
                                     onChange={handleChange}
                                     required
                                 />
@@ -383,7 +419,7 @@ const BookWorkers = () => {
                                 type="text"
                                 name="zip"
                                 placeholder="Enter your ZIP code"
-                                value={newAddress.zip}
+                                value={newAddress.zip || ""}
                                 onChange={handleChange}
                                 required
                             />
@@ -392,7 +428,7 @@ const BookWorkers = () => {
                                 <input
                                     type="checkbox"
                                     name="save"
-                                    checked={newAddress.save}
+                                    checked={!!newAddress.save}
                                     onChange={handleChange}
                                 />
                                 <p>

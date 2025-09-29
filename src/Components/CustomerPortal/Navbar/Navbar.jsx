@@ -218,11 +218,7 @@ const Navbar = () => {
                                 <button onClick={() => { localStorage.removeItem("workerToken"); setWorkerToken(""); navigate("/") }}>Logout</button>
                                 <div className="profile-section">
                                     <img
-                                        src={workerProfileData.workerId
-                                            &&
-                                            workerProfileData.workerId.avatar
-                                            &&
-                                            workerProfileData.workerId.avatar.image}
+                                        src={workerProfileData?.workerId?.avatar?.image || profileImg}
                                         alt="Profile"
                                         onClick={customerToken ? toggleProfileMenu : undefined}
                                         style={{ cursor: customerToken ? "pointer" : "default" }}

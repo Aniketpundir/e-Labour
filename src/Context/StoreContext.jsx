@@ -45,11 +45,48 @@ export const StoreProvider = (props) => {
         customerProfile();
     }, [customerToken]);
 
+    // Fetch worker for customer showing
+    const [addresses, setAddresses] = useState([]);
+    const [loadingAddr, setLoadingAddr] = useState(false);
+    const [selectedAddress, setSelectedAddress] = useState(null);
+
+
+
+    const fetchAddresses = async () => {
+        try {
+            let newUrl = `${URL_LINK}api/addresses/user`;
+            setLoadingAddr(true);
+
+            const res = await axios.get(newUrl, {
+                headers: { token: customerToken }
+            });
+
+            setAddresses(res.data.addresses);
+
+            // Fix here
+            const addresses = res.data?.data || res.data;
+
+            if (Array.isArray(addresses)) {
+                setAddresses(addresses);
+                if (addresses.length > 0) {
+                    setSelectedAddress(addresses[0]._id);
+                }
+            }
+        } catch (err) {
+            console.error("Error fetching addresses:", err);
+        } finally {
+            setLoadingAddr(false);
+        }
+    };
+
+    useEffect(() => {
+        if (!customerToken) return;
+        fetchAddresses();
+    }, [customerToken])
 
     // Worker Profile
 
     const [workerProfileData, setWorkerProfileData] = useState([]);
-    console.log(workerProfileData);
     useEffect(() => {
         if (!workerToken) return;
         const workerProfile = async () => {
@@ -76,6 +113,12 @@ export const StoreProvider = (props) => {
 
         // Customer Profile
         customerProfileData,
+
+        addresses,
+        loadingAddr,
+        selectedAddress,
+        setSelectedAddress,
+        fetchAddresses,
 
         // Worker Profile
         workerProfileData,
