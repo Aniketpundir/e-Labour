@@ -25,7 +25,7 @@ const SubmissionSuccess = () => {
             </p>
 
             {/* Button */}
-            <button onClick={() => { Navigate("/worker-profile"), handleClick() }} className="dashboard-btn">Go to Dashboard</button>
+            <button onClick={() => { Navigate("/worker-profile"), handleClick(), window.location.reload() }} className="dashboard-btn">Go to Dashboard</button>
 
             {/* What's Next Section */}
             <div className="next-steps">

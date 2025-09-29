@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import "./CustomerProfile.css";
 import image from "../../../../assets/101.jpg";
 import { address } from 'framer-motion/client';
+import { StoreContext } from '../../../../Context/StoreContext';
 
 const CustomerProfile = () => {
+
+    const { customerProfileData } = useContext(StoreContext);
 
     const customerDetails = [
         {
@@ -38,6 +41,8 @@ const CustomerProfile = () => {
         }
     ]
 
+    console.log(customerProfileData.customer)
+
     return (
         <>
             <div data-aos="fade-down" className='customer-profile'>
@@ -45,17 +50,15 @@ const CustomerProfile = () => {
                     <h1>Your Profile</h1>
                     <div data-aos="fade-down" className='customer-profile-content'>
                         <div data-aos="fade-down" className='customer-image-section'>
-                            {customerDetails.map((items, index) => {
-                                return (
-                                    <div data-aos="fade-down" key={index} className='customer-image-name'>
-                                        <img src={items.img} alt='Customer Profile' />
-                                        <h3>{items.name}</h3>
-                                        <p>{items.email}</p>
-                                        <p>{items.number}</p>
-                                    </div>
-                                )
-                            })}
-
+                            <div data-aos="fade-down" className='customer-image-name'>
+                                <img src={customerProfileData.customer &&
+                                    customerProfileData.customer.avatar &&
+                                    customerProfileData.customer.avatar.image} alt='Customer Profile' />
+                                <h3>{customerProfileData.customer.name}</h3>
+                                <p>{customerProfileData.customer.email
+                                }</p>
+                                <p>{customerProfileData.customer.phone}</p>
+                            </div>
                         </div>
                         <div data-aos="fade-down" className='customer-profile-address'>
                             <h3>Your Addresses</h3>

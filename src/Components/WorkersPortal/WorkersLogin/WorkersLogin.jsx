@@ -30,13 +30,16 @@ const WorkersLogin = () => {
             const workerToken = res.data.token;
             if (res.data.success) {
                 alert(res.data.message);
+                localStorage.setItem("workerToken", workerToken)
                 Navigate("/worker-profile");
+                window.location.reload();
             } else {
                 alert(res.data.message);
             }
-            localStorage.setItem("workerToken", workerToken)
+
+
         } catch (error) {
-            console.log(error.message);
+            alert(error);
         }
     };
 

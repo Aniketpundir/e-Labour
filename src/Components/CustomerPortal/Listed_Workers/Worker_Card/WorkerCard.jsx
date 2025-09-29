@@ -9,7 +9,7 @@ const WorkerCard = ({ image, name, service, rating, daily_wages, status, id }) =
     const Navigate = useNavigate();
 
     useEffect(() => {
-        setToken(Cookies.get("customerToken"));
+        setToken(localStorage.getItem("customerToken"));
     })
 
 

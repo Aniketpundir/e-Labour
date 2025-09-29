@@ -157,30 +157,6 @@ const AddWorkersDetails = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // const formData = new FormData();
-
-        // formData.append("fName", Data.fName);
-        // formData.append("dob", Data.dob);
-        // formData.append("gender", Data.gender);
-        // formData.append("workworkCategory", Data.workCategory);
-        // formData.append("workingHr", Data.workingHr);
-        // formData.append("weekends", Data.weekends);
-        // formData.append("skills", Data.skills);
-        // formData.append("experience", Data.experience);
-        // formData.append("emergencyContact", Data.emergencyContact);
-        // formData.append("reference", Data.reference);
-        // formData.append("rate", Data.rate);
-        // formData.append("bio", Data.bio);
-        // formData.append("street", Data.street);
-        // formData.append("city", Data.city);
-        // formData.append("state", Data.state);
-        // formData.append("zipCode", Data.zipCode);
-
-        // formData.append("fName", Data.fullName);
-        // formData.append("profilePhoto", Data.profilePhoto);
-        // formData.append("mobile", Data.mobile);
-        // formData.append("email", Data.email);
-
         let newUrl = URL_LINK;
         newUrl += "api/workers/worker/info";
 

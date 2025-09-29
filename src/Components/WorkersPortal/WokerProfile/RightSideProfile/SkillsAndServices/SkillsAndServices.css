@@ -35,7 +35,9 @@
     border-radius: 20px;
     font-size: 0.9rem;
     white-space: nowrap;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .services-list {

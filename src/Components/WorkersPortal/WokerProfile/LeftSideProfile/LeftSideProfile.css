@@ -1,10 +1,9 @@
-/* --- Desktop/Base Styles --- */
 .left-side-profile-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
     gap: 60px;
+    margin-left: 40px;
 }
 
 .worker-left-side-details {
@@ -34,8 +33,8 @@
 }
 
 .worker-profile-image {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 10px;
@@ -135,10 +134,12 @@
     font-weight: 500;
 }
 
-/* --- Mobile Fix: Media Query (<= 650px) --- */
 @media (max-width: 650px) {
 
-    /* 1. Main Containers Adjustments */
+    .left-side-profile-container {
+        margin-left: 0px;
+    }
+
     .left-side-profile-container,
     .worker-left-side-details {
         gap: 30px;
@@ -146,7 +147,6 @@
         align-items: stretch;
     }
 
-    /* 2. Name and Image Container Adjustments */
     .name-and-image-container {
         width: 100%;
         padding: 15px 10px;
@@ -167,7 +167,6 @@
         margin-bottom: 5px;
     }
 
-    /* 3. Font Size Adjustments */
     .worker-name h2 {
         font-size: 20px;
     }
@@ -182,7 +181,6 @@
         font-size: 14px;
     }
 
-    /* 4. About Section Adjustments */
     .left-side-profile-container .worker-about {
         width: 100%;
         padding: 15px 20px;

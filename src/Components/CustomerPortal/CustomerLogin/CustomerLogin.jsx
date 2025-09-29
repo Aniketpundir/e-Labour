@@ -15,6 +15,8 @@ const CustomerLogin = () => {
 
     // ✅ Correct key and fallback
 
+
+
     const [showPassword, setShowPassword] = useState(false);
     const [data, setData] = useState({
         email: "",
@@ -34,8 +36,6 @@ const CustomerLogin = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-
 
         let newURL = URL_LINK;
         newURL += "api/users/login";
@@ -45,11 +45,15 @@ const CustomerLogin = () => {
             const customerToken = res.data.token;
             if (res.data.success) {
                 alert(res.data.message);
+                Navigate("/");
+                localStorage.setItem("customerToken", customerToken);
+                window.location.reload();
             } else {
                 console.log(res.data.message)
             }
-            localStorage.setItem("customerToken", customerToken);
-            Navigate("/");
+
+            // Cookies.set("customerToken", customerToken)
+
         } catch (error) {
             alert(error.message);
         }

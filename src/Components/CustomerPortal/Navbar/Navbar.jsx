@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import Cookies from "js-cookie";
 import "./Navbar.css";
@@ -6,21 +6,18 @@ import logo from "../../../assets/logo.jpg";
 import profileImg from "../../../assets/profile_img.png";
 import image from "../../../assets/101.jpg"
 import { FaBars } from "react-icons/fa";
+import { StoreContext } from "../../../Context/StoreContext";
 
 const Navbar = () => {
+    const { workerToken, setCustomerToken, customerToken, setWorkerToken, customerProfileData, workerProfileData } = useContext(StoreContext);
+
+
     const [showMenu, setShowMenu] = useState(false);
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [hideWorkerPanel, setHideWorkerPanel] = useState(false);
-    const [WorkerToken, setWorkerToken] = useState("");
-    const [customerToken, setCustomerToken] = useState("");
     const [activeItem, setActiveItem] = useState();
     const navigate = useNavigate();
     const location = useLocation();
-
-    useEffect(() => {
-        setWorkerToken(localStorage.getItem("workerToken"));
-        setCustomerToken(localStorage.getItem("customerToken"));
-    }, [])
 
     const handleClick = (name) => {
         setActiveItem(name);
@@ -73,6 +70,12 @@ const Navbar = () => {
             setHideWorkerPanel(true);
         }
     }, [location]);
+    useEffect(() => {
+        if (workerToken) {
+            navigate("/worker-profile");
+        }
+    }, [workerToken])
+
 
     const toggleProfileMenu = () => setShowProfileMenu((prev) => !prev);
     const toggleHamburger = () => setShowMenu((prev) => !prev);
@@ -166,7 +169,7 @@ const Navbar = () => {
             </div>
 
             <div className="navbar-right">
-                {!WorkerToken && !customerToken ? (
+                {!workerToken && !customerToken ? (
                     <button onClick={() => navigate("/landing-page")}>
                         Sign Up
                     </button>
@@ -174,7 +177,9 @@ const Navbar = () => {
                     (
                         <div className="profile-section">
                             <img
-                                src={profileImg}
+                                src={customerProfileData.customer &&
+                                    customerProfileData.customer.avatar &&
+                                    customerProfileData.customer.avatar.image}
                                 alt="Profile"
                                 onClick={customerToken ? toggleProfileMenu : undefined} // menu only for customers
                                 style={{ cursor: customerToken ? "pointer" : "default" }}
@@ -207,13 +212,17 @@ const Navbar = () => {
                                 </div>
                             )}
                         </div>
-                    ) : WorkerToken
+                    ) : workerToken
                         ? (
                             <div className="worker-image-logout">
                                 <button onClick={() => { localStorage.removeItem("workerToken"); setWorkerToken(""); navigate("/") }}>Logout</button>
                                 <div className="profile-section">
                                     <img
-                                        src={image}
+                                        src={workerProfileData.workerId
+                                            &&
+                                            workerProfileData.workerId.avatar
+                                            &&
+                                            workerProfileData.workerId.avatar.image}
                                         alt="Profile"
                                         onClick={customerToken ? toggleProfileMenu : undefined}
                                         style={{ cursor: customerToken ? "pointer" : "default" }}

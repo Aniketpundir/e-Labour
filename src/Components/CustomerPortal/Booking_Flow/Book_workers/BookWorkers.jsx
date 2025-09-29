@@ -1,9 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./BookWorkers.css";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
-import image from "../../../../assets/101.jpg"
+import axios from "axios";
+import image from "../../../../assets/101.jpg";
+
+const STATES = [
+    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat",
+    "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh",
+    "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab",
+    "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh",
+    "Uttarakhand", "West Bengal", "Andaman and Nicobar Islands", "Chandigarh",
+    "Dadra and Nagar Haveli and Daman and Diu", "Lakshadweep", "Puducherry"
+];
 
 const BookWorkers = () => {
     const [serviceDate, setServiceDate] = useState("Tomorrow");
@@ -12,52 +22,13 @@ const BookWorkers = () => {
     const [editMode, setEditMode] = useState(false);
     const [editId, setEditId] = useState(null);
 
+    const [addresses, setAddresses] = useState([]);
+    const [selectedAddress, setSelectedAddress] = useState(null);
+    const [loadingAddr, setLoadingAddr] = useState(false);
+
     const Navigate = useNavigate();
-
-
-    // Fetch attributes by using useParams().
     const { title, id } = useParams();
 
-    // Create a function for navigator
-
-    const navigateHandle = () => {
-        Navigate(`/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section/Booking-Conformation`)
-    }
-
-    // ✅ Store multiple addresses
-    const [addresses, setAddresses] = useState([
-        {
-            id: "1",
-            name: "Aniket Pundir",
-            phone: "9876543210",
-            street: "123 MG Road",
-            city: "Dehradun",
-            state: "Uttarakhand",
-            zip: "248001",
-        },
-        {
-            id: "2",
-            name: "Rahul Sharma",
-            phone: "9871112233",
-            street: "45 Rajpur Road",
-            city: "Dehradun",
-            state: "Uttarakhand",
-            zip: "248002",
-        },
-        {
-            id: "3",
-            name: "Rahul Sharma",
-            phone: "9871112233",
-            street: "45 Rajpur Road",
-            city: "Dehradun",
-            state: "Uttarakhand",
-            zip: "248002",
-        },
-    ]);
-
-    const [selectedAddress, setSelectedAddress] = useState(addresses[0].id);
-
-    // ✅ New/Edit address form state
     const [newAddress, setNewAddress] = useState({
         name: "",
         phone: "",
@@ -68,7 +39,29 @@ const BookWorkers = () => {
         save: false,
     });
 
-    // ✅ Handle form input
+    // ✅ Fetch all addresses from backend
+    const fetchAddresses = async () => {
+        try {
+            setLoadingAddr(true);
+            const res = await axios.get(`${API_BASE}/user`);
+            if (res.data && Array.isArray(res.data)) {
+                setAddresses(res.data);
+                if (res.data.length > 0) {
+                    setSelectedAddress(res.data[0]._id);
+                }
+            }
+        } catch (err) {
+            console.error("Error fetching addresses:", err);
+        } finally {
+            setLoadingAddr(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchAddresses();
+    }, []);
+
+    // ✅ Handle input change
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setNewAddress({
@@ -77,110 +70,152 @@ const BookWorkers = () => {
         });
     };
 
-    // ✅ Handle adding/updating address
-    const handleAddAddress = (e) => {
+    // ✅ Save or Update address (API)
+    const handleAddAddress = async (e) => {
         e.preventDefault();
 
-        if (editMode) {
-            // update existing address
-            setAddresses(
-                addresses.map((addr) =>
-                    addr.id === editId ? { ...addr, ...newAddress } : addr
-                )
-            );
+        try {
+            if (editMode) {
+                // Update existing address
+                await axios.patch(`${API_BASE}/${editId}`, newAddress);
+            } else if (newAddress.save) {
+                // Add new address
+                await axios.post(`${API_BASE}`, newAddress);
+            }
+
+            // Refresh list
+            fetchAddresses();
+
+            setShowForm(false);
             setEditMode(false);
             setEditId(null);
-        } else if (newAddress.save) {
-            // add new address
-            const newId = Date.now().toString();
-            setAddresses([...addresses, { id: newId, ...newAddress }]);
-            setSelectedAddress(newId);
+            setNewAddress({
+                name: "",
+                phone: "",
+                street: "",
+                city: "",
+                state: "",
+                zip: "",
+                save: false,
+            });
+        } catch (err) {
+            console.error("Error saving address:", err);
         }
-
-        setShowForm(false);
-        setNewAddress({
-            name: "",
-            phone: "",
-            street: "",
-            city: "",
-            state: "",
-            zip: "",
-            save: false,
-        });
     };
 
-    // ✅ Handle edit
+    // ✅ Edit address (populate form)
     const handleEdit = (addr) => {
-        setNewAddress({ ...addr, save: true }); // pre-fill form
+        setNewAddress({ ...addr, save: true });
         setShowForm(true);
         setEditMode(true);
-        setEditId(addr.id);
+        setEditId(addr._id);
     };
 
-    // ✅ Handle delete
-    const handleDelete = (id) => {
-        const filtered = addresses.filter((addr) => addr.id !== id);
-        setAddresses(filtered);
-        if (selectedAddress === id && filtered.length > 0) {
-            setSelectedAddress(filtered[0].id);
+    // ✅ Delete address (API)
+    const handleDelete = async (id) => {
+        try {
+            await axios.delete(`${API_BASE}/${id}`);
+            fetchAddresses();
+        } catch (err) {
+            console.error("Error deleting address:", err);
         }
     };
 
-
+    // ✅ Booking
     const handleBooking = () => {
-        const selectedAddrObj = addresses.find((addr) => addr.id === selectedAddress);
+        const selectedAddrObj = addresses.find((addr) => addr._id === selectedAddress);
+        if (!selectedAddrObj) return alert("Please select an address!");
+        if (!paymentMethod) return alert("Please select a payment method!");
 
-        if (!selectedAddrObj) {
-            alert("Please select an address!");
-            return;
-        }
-
-        if (!paymentMethod) {
-            alert("Please select a payment method!");
-            return;
-        }
-
-        // ✅ Booking object create karo
         const bookingData = {
-            workerName: "Alexandria Cortez", // Worker ka naam
-            workerId: id,                    // useParams se
-            serviceDate: serviceDate,        // 🆕 Selected service date add
-            address: selectedAddrObj,        // Selected address object
-            paymentMethod: paymentMethod,    // Payment method
-            service: title,                  // A service that provide worker
+            workerName: "Alexandria Cortez",
+            workerId: id,
+            serviceDate,
+            address: selectedAddrObj,
+            paymentMethod,
+            service: title,
         };
 
-        console.log("Booking Object:", bookingData);
+        console.log("Booking Data:", bookingData);
 
-        navigateHandle();
+        Navigate(
+            `/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section/Booking-Conformation`
+        );
     };
 
-    const handleClick = () => {
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
+    // ✅ Post Office Lookup States
+    const [districtQuery, setDistrictQuery] = useState("");
+    const [postOffices, setPostOffices] = useState([]);
+    const [loadingPO, setLoadingPO] = useState(false);
+    const [error, setError] = useState("");
+
+    const fetchPostOfficesByName = async (name) => {
+        setLoadingPO(true);
+        setError("");
+        setPostOffices([]);
+        try {
+            const trimmed = name.trim();
+            if (!trimmed) {
+                setError("Please enter a district or post office name first.");
+                setLoadingPO(false);
+                return;
+            }
+
+            let responses = [];
+            if (/^\d{6}$/.test(trimmed)) {
+                const res = await fetch(`https://api.postalpincode.in/pincode/${trimmed}`);
+                responses = await res.json();
+            } else {
+                const res = await fetch(`https://api.postalpincode.in/postoffice/${encodeURIComponent(trimmed)}`);
+                responses = await res.json();
+            }
+
+            if (!Array.isArray(responses) || responses.length === 0) {
+                setError("No results from Postal API.");
+                setLoadingPO(false);
+                return;
+            }
+
+            const poList = [];
+            responses.forEach((r) => {
+                if (r && Array.isArray(r.PostOffice)) {
+                    r.PostOffice.forEach((po) => {
+                        poList.push({
+                            name: po.Name,
+                            pincode: po.Pincode,
+                            district: po.District,
+                            state: po.State,
+                            type: po.OfficeType || "",
+                        });
+                    });
+                }
+            });
+
+            setPostOffices(poList);
+        } catch (err) {
+            console.error(err);
+            setError("There was an error querying the Postal API.");
+        } finally {
+            setLoadingPO(false);
+        }
     };
 
     return (
-        <div data-aos="fade-down" className="checkout-container">
-            <div data-aos="fade-down" className="checkout-box">
-                <div data-aos="fade-down" className="worker-profile">
-                    <img
-                        data-aos="fade-down"
-                        src={image}
-                        alt="Worker"
-                        className="worker-avatar"
-                    />
-                    <div data-aos="fade-down" className="worker-info">
-                        <h3 data-aos="fade-down">Alexandria Cortez</h3>
-                        <p data-aos="fade-down" className="worker-job">{title}</p>
-                        <p data-aos="fade-down" className="worker-id">Worker ID: {id}</p>
+        <div className="checkout-container">
+            <div className="checkout-box">
+                {/* Worker profile */}
+                <div className="worker-profile">
+                    <img src={image} alt="Worker" className="worker-avatar" />
+                    <div className="worker-info">
+                        <h3>Alexandria Cortez</h3>
+                        <p className="worker-job">{title}</p>
+                        <p className="worker-id">Worker ID: {id}</p>
                     </div>
                 </div>
 
-                <h2 data-aos="fade-down">When would you like your service?</h2>
-                <div data-aos="fade-down" className="button-group">
+                {/* Service Date */}
+                <h2>When would you like your service?</h2>
+                <div className="button-group">
                     {["Today", "Tomorrow", "Day after"].map((day) => (
                         <button
                             key={day}
@@ -192,45 +227,35 @@ const BookWorkers = () => {
                     ))}
                 </div>
 
+                {/* Address Section */}
                 <h2>Address</h2>
-
-                {!showForm ? (
-                    <div data-aos="fade-down">
+                {loadingAddr ? (
+                    <p>Loading addresses...</p>
+                ) : !showForm ? (
+                    <div>
                         {addresses.map((addr) => (
-                            <div key={addr.id} className="saved-address-box">
+                            <div key={addr._id} className="saved-address-box">
                                 <label>
                                     <input
                                         type="radio"
                                         name="selectedAddress"
-                                        value={addr.id}
-                                        checked={selectedAddress === addr.id}
-                                        onChange={() =>
-                                            setSelectedAddress(addr.id)
-                                        }
+                                        value={addr._id}
+                                        checked={selectedAddress === addr._id}
+                                        onChange={() => setSelectedAddress(addr._id)}
                                     />
                                     <div>
                                         <p>
                                             <b>{addr.name}</b> ({addr.phone})
                                         </p>
-                                        <p>
-                                            {addr.street}, {addr.city}
-                                        </p>
-                                        <p>
-                                            {addr.state} - {addr.zip}
-                                        </p>
+                                        <p>{addr.street}, {addr.city}</p>
+                                        <p>{addr.state} - {addr.zip}</p>
                                     </div>
                                 </label>
                                 <div className="row">
-                                    <button
-                                        className="edit-address"
-                                        onClick={() => handleEdit(addr)}
-                                    >
+                                    <button className="edit-address" onClick={() => handleEdit(addr)}>
                                         <CiEdit />
                                     </button>
-                                    <button
-                                        className="edit-address"
-                                        onClick={() => handleDelete(addr.id)}
-                                    >
+                                    <button className="edit-address" onClick={() => handleDelete(addr._id)}>
                                         <MdDelete />
                                     </button>
                                 </div>
@@ -246,96 +271,154 @@ const BookWorkers = () => {
                         </button>
                     </div>
                 ) : (
-                    <form data-aos="fade-down" className="form-section" onSubmit={handleAddAddress}>
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Enter your full name"
-                            value={newAddress.name}
-                            onChange={handleChange}
-                            required
-                        />
-                        <input
-                            type="text"
-                            name="phone"
-                            placeholder="Enter your phone number"
-                            value={newAddress.phone}
-                            onChange={handleChange}
-                            required
-                        />
-                        <input
-                            type="text"
-                            name="street"
-                            placeholder="Enter your street address"
-                            value={newAddress.street}
-                            onChange={handleChange}
-                            required
-                        />
-                        <div className="row">
-                            <input
-                                type="text"
-                                name="city"
-                                placeholder="Enter your city"
-                                value={newAddress.city}
-                                onChange={handleChange}
-                                required
-                            />
-                            <input
-                                type="text"
-                                name="state"
-                                placeholder="Enter your state"
-                                value={newAddress.state}
-                                onChange={handleChange}
-                                required
-                            />
-                        </div>
-                        <input
-                            type="text"
-                            name="zip"
-                            placeholder="Enter your ZIP code"
-                            value={newAddress.zip}
-                            onChange={handleChange}
-                            required
-                        />
-                        <label className="save-address">
-                            <input
-                                type="checkbox"
-                                name="save"
-                                checked={newAddress.save}
-                                onChange={handleChange}
-                            />{" "}
-                            <p>I agree to the <span>Terms and conditions</span></p>
-                        </label>
+                    <>
+                        {/* ✅ Post Office Lookup (only when adding/editing address) */}
+                        <section className="post-page">
+                            <div className="post-card">
+                                <h1 className="post-title">Search your nearest location by your post office.</h1>
+                                <span>
+                                    Select your local post office here, your Full Address section will be auto-filled.
+                                </span>
+                                <div style={{ marginTop: "20px" }} className="post-form">
+                                    <div className="post-form-row">
+                                        <label>
+                                            <span>State</span>
+                                            <select>
+                                                <option value="">-- Select State (optional) --</option>
+                                                {STATES.map((s) => <option key={s} value={s}>{s}</option>)}
+                                            </select>
+                                        </label>
+                                        <label className="post-grow">
+                                            <span>Pin code / District</span>
+                                            <input
+                                                value={districtQuery}
+                                                onChange={(e) => setDistrictQuery(e.target.value)}
+                                                placeholder="Enter Pin code or Post office name"
+                                            />
+                                        </label>
+                                    </div>
 
-                        <div className="row">
-                            <button type="submit" className="pay-btn">
-                                {editMode ? "💾 Update" : "✅ Save"}
-                            </button>
-                            <button
-                                type="button"
-                                className="pay-btn"
-                                onClick={() => {
-                                    setShowForm(false);
-                                    setEditMode(false);
-                                    setNewAddress({
-                                        name: "",
-                                        phone: "",
-                                        street: "",
-                                        city: "",
-                                        state: "",
-                                        zip: "",
-                                        save: false,
-                                    });
-                                }}
-                            >
-                                ❌ Cancel
-                            </button>
-                        </div>
-                    </form>
+                                    <div className="post-actions">
+                                        <button type="button" disabled={loadingPO} onClick={() => fetchPostOfficesByName(districtQuery)}>
+                                            {loadingPO ? "Searching..." : "Search"}
+                                        </button>
+                                        <div className="post-result-count">Results: {postOffices.length}</div>
+                                    </div>
+
+                                    {error && <div className="post-error">{error}</div>}
+
+                                    {postOffices.length > 0 && (
+                                        <div className="post-results">
+                                            {postOffices.map((po) => (
+                                                <div
+                                                    key={`${po.name}-${po.pincode}`}
+                                                    className="post-result-card"
+                                                    onClick={() => {
+                                                        setNewAddress((prev) => ({
+                                                            ...prev,
+                                                            state: po.state,
+                                                            city: po.district,
+                                                            street: po.name,
+                                                            zip: po.pincode,
+                                                        }));
+                                                        setPostOffices([]);
+                                                        setDistrictQuery("");
+                                                    }}
+                                                >
+                                                    <div className="po-name">{po.name}</div>
+                                                    <div className="po-info">{po.district}, {po.state} — PIN {po.pincode}</div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* ✅ Address Form */}
+                        <form className="form-section" onSubmit={handleAddAddress}>
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Enter your full name"
+                                value={newAddress.name}
+                                onChange={handleChange}
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="phone"
+                                placeholder="Enter your phone number"
+                                value={newAddress.phone}
+                                onChange={handleChange}
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="street"
+                                placeholder="Enter your street address"
+                                value={newAddress.street}
+                                onChange={handleChange}
+                                required
+                            />
+                            <div className="row">
+                                <input
+                                    type="text"
+                                    name="city"
+                                    placeholder="Enter your city"
+                                    value={newAddress.city}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <input
+                                    type="text"
+                                    name="state"
+                                    placeholder="Enter your state"
+                                    value={newAddress.state}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <input
+                                type="text"
+                                name="zip"
+                                placeholder="Enter your ZIP code"
+                                value={newAddress.zip}
+                                onChange={handleChange}
+                                required
+                            />
+
+                            <label className="save-address">
+                                <input
+                                    type="checkbox"
+                                    name="save"
+                                    checked={newAddress.save}
+                                    onChange={handleChange}
+                                />
+                                <p>
+                                    I agree to the <span>Terms and conditions</span>
+                                </p>
+                            </label>
+
+                            <div className="row">
+                                <button type="submit" className="pay-btn">
+                                    {editMode ? "💾 Update" : "✅ Save"}
+                                </button>
+                                <button
+                                    type="button"
+                                    className="pay-btn"
+                                    onClick={() => setShowForm(false)}
+                                >
+                                    ❌ Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </>
                 )}
 
+                {/* Payment Section */}
                 <h2>Payment Details</h2>
-                <div data-aos="fade-down" className="payment-methods">
+                <div className="payment-methods">
                     <label>
                         <input
                             type="radio"
@@ -348,7 +431,9 @@ const BookWorkers = () => {
                     </label>
                 </div>
 
-                <button onClick={() => { handleBooking(), handleClick() }} className="pay-btn">Book Now</button>
+                <button onClick={handleBooking} className="pay-btn">
+                    Book Now
+                </button>
             </div>
         </div>
     );

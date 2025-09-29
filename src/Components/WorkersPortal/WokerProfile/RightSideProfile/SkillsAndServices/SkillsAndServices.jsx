@@ -1,27 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './SkillsAndServices.css';
+import { StoreContext } from "../../../../../Context/StoreContext"
 
 const SkillsAndServices = () => {
-    const skills = ['Plumbing', 'Electrical', 'Carpentry', 'Repair', 'Maintenance'];
-    const services = [
-        'Leaky faucet repair',
-        'Light fixture installation',
-        'Custom shelving',
-        'Circuit breaker replacement',
-    ];
+    const { workerProfileData } = useContext(StoreContext)
+    const services = workerProfileData.skills;
 
     return (
         <div className="info-card">
             <h2>Skills & Services</h2>
 
             <div className="section-group">
-                <h3>Skills</h3>
+                <h3>Working Category</h3>
                 <div className="skills-tags">
-                    {skills.map((skill, index) => (
-                        <span key={index} className="skill-tag">
-                            {skill}
-                        </span>
-                    ))}
+                    <span className="skill-tag">
+                        {workerProfileData.workCategory}
+                    </span>
                 </div>
             </div>
 

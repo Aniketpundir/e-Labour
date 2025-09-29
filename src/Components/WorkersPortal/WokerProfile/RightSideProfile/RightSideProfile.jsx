@@ -2,7 +2,7 @@ import React from 'react'
 import "./RightSideProfile.css"
 import PersonalInformation from './PersonalInformation/PersonalInformation'
 import SkillsAndServices from './SkillsAndServices/SkillsAndServices'
-import WorkHistoryAndReviews from './WorkHistoryAndReviews/WorkHistoryAndReviews'
+import Emergency from './Emergency/Emergency'
 
 
 const RightSideProfile = () => {
@@ -10,7 +10,7 @@ const RightSideProfile = () => {
         <div className='right'>
             <PersonalInformation />
             <SkillsAndServices />
-            <WorkHistoryAndReviews />
+            <Emergency />
         </div>
     )
 }

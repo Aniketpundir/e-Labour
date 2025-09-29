@@ -27,8 +27,6 @@ const CustomerSignup = () => {
         password: ""
     });
 
-    // console.log(URL_LINK)
-
     const email = data.email;
 
     const [file, setFile] = useState(null);
@@ -89,11 +87,13 @@ const CustomerSignup = () => {
             const customerToken = res.data.token;
             if (!res.data.success) {
                 alert(res.data.success)
+                localStorage.setItem("customerToken", customerToken)
+                Navigate("/");
+                window.location.reload();
             } else {
                 alert(res.data.message)
             }
-            localStorage.setItem("customerToken", customerToken)
-            Navigate("/");
+
         } catch (error) {
             console.log(error.message);
         }
