@@ -4,7 +4,7 @@ import "./WorkerCard.css";
 import Cookies from 'js-cookie';
 import { useNavigate, useParams } from 'react-router-dom';
 
-const WorkerCard = ({ image, name, service, rating, daily_wages, status, id }) => {
+const WorkerCard = ({ image, service, name, /*rating,*/ daily_wages, status, id }) => {
     const [token, setToken] = useState();
     const Navigate = useNavigate();
 
@@ -39,17 +39,18 @@ const WorkerCard = ({ image, name, service, rating, daily_wages, status, id }) =
                 <div className='Worker-Card-img'>
                     <img src={image} alt='Worker' />
                     <p className={`status ${isAvailable ? "availabel" : "unavailabel"}`}>
-                        • {isAvailable ? "Availabel" : "Unavailabel"}
+                        {/* • {isAvailable ? "Available" : "Unavailable"} */}
+                        •Available
                     </p>
                 </div>
                 <div className='Worker-Card-text'>
                     <div className='name-with-avaiable'>
                         <h3>{name}</h3>
                     </div>
-                    <p className='service'>{title}</p>
+                    <p className='service'>{service}</p>
                     <div className='rating'>
                         <p className='rating-counting'>
-                            <span>{rating}</span>/5
+                            <span>4.5</span>/5
                         </p>
                         <p className='rating-text'>rating</p>
                     </div>
