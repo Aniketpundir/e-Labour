@@ -61,7 +61,7 @@ export const StoreProvider = (props) => {
                 headers: { token: customerToken }
             });
 
-            setAddresses(res.data.addresses);
+            setAddresses(res.data?.addresses);
 
             // Fix here
             const addresses = res.data?.data || res.data;
