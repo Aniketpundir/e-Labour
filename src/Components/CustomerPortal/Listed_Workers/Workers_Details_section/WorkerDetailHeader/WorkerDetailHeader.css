@@ -23,12 +23,17 @@
 
 .worker-info {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
 }
 
 .worker-name {
     margin: 0;
     font-size: 18px;
     font-weight: bold;
+    text-align: start;
 }
 
 .worker-details {
@@ -77,6 +82,11 @@
         margin: 0 0 12px 0;
         width: 80px;
         height: 80px;
+    }
+
+    .worker-info {
+        justify-content: center;
+        align-items: center;
     }
 
     .worker-name {

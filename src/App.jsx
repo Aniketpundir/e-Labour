@@ -31,6 +31,7 @@ import Review from "./Components/WorkersPortal/Reviews/Reviews";
 import { StoreProvider } from './Context/StoreContext';
 import AddWorkersDetails from './Components/WorkersPortal/AddWorkersDetails/AddWorkersDetails';
 import SubmissionSuccess from './Components/WorkersPortal/SubmissionSuccess/SubmissionSuccess';
+import LocationMap from './Components/LocationMap/LocationMap';
 
 
 
@@ -57,7 +58,7 @@ const router = createBrowserRouter(
                 <Route path='/Support-Section' element={<HelpSection />} />
                 <Route path='/Past-Booking' element={<PastBooking />} />
             </Route>
-
+            <Route path='/xyz' element={<LocationMap />} />
             <Route path='/worker-profile' element={<WorkerLayout />}>
                 <Route path='/worker-profile' element={<WorkerProfile />} />
                 <Route path='/worker-profile/Dashboard' element={<JobDashboard />} />
