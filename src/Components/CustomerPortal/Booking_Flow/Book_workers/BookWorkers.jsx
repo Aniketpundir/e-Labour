@@ -259,7 +259,9 @@ const BookWorkers = () => {
                 <h2>Address</h2>
                 {loadingAddr ? (
                     <p>Loading addresses...</p>
-                ) : !showForm ? (
+                ) : addresses.length === 0 ? (
+                    <p>No addresses found. Please save an address in your profile settings.</p>
+                ) : (
                     <div>
                         {addresses.map((addr) => (
                             <div key={addr._id} className="saved-address-box">
@@ -283,180 +285,10 @@ const BookWorkers = () => {
                                         </p>
                                     </div>
                                 </label>
-                                <div className="row">
-                                    <button className="edit-address" onClick={() => handleEdit(addr)}>
-                                        <CiEdit />
-                                    </button>
-                                    <button className="edit-address" onClick={() => handleDelete(addr._id)}>
-                                        <MdDelete />
-                                    </button>
-                                </div>
                             </div>
                         ))}
-
-                        <button
-                            className="pay-btn"
-                            onClick={() => setShowForm(true)}
-                            disabled={addresses.length >= 3}
-                        >
-                            ➕ Add New Address
-                        </button>
                     </div>
-                ) : (
-                    <>
-                        {/* Post Office Lookup */}
-                        <section className="post-page">
-                            <div className="post-card">
-                                <h1 className="post-title">Search your nearest location by your post office.</h1>
-                                <span>
-                                    Select your local post office here, your Full Address section will be auto-filled.
-                                </span>
-                                <div style={{ marginTop: "20px" }} className="post-form">
-                                    <div className="post-form-row">
-                                        <label>
-                                            <span>State / Union territory</span>
-                                            <select>
-                                                <option value="">-- Select State (optional) --</option>
-                                                {STATES.map((s) => <option key={s} value={s}>{s}</option>)}
-                                            </select>
-                                        </label>
-                                        <label className="post-grow">
-                                            <span>Pin code / District</span>
-                                            <input
-                                                value={districtQuery}
-                                                onChange={(e) => setDistrictQuery(e.target.value)}
-                                                placeholder="Enter Pin code or Post office name"
-                                            />
-                                        </label>
-                                    </div>
-
-                                    <div className="post-actions">
-                                        <button type="button" disabled={loadingPO} onClick={() => fetchPostOfficesByName(districtQuery)}>
-                                            {loadingPO ? "Searching..." : "Search"}
-                                        </button>
-                                        <div className="post-result-count">Results: {postOffices.length}</div>
-                                    </div>
-
-                                    {error && <div className="post-error">{error}</div>}
-
-                                    {postOffices.length > 0 && (
-                                        <div className="post-results">
-                                            {postOffices.map((po) => (
-                                                <div
-                                                    key={`${po.name}-${po.pincode}`}
-                                                    className="post-result-card"
-                                                    onClick={() => {
-                                                        setNewAddress((prev) => ({
-                                                            ...prev,
-                                                            state: po.state,
-                                                            city: po.district,
-                                                            postOffice: po.name,
-                                                            zip: po.pincode,
-                                                        }));
-                                                        setPostOffices([]);
-                                                        setDistrictQuery("");
-                                                    }}
-                                                >
-                                                    <div className="po-name">{po.name}</div>
-                                                    <div className="po-info">{po.district}, {po.state} — PIN {po.pincode}</div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
-                        </section>
-
-                        {/* ✅ Address Form */}
-                        <form className="form-section" onSubmit={handleAddAddress}>
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Enter your full name"
-                                value={newAddress.name || ""}
-                                onChange={handleChange}
-                                required
-                            />
-                            <input
-                                type="text"
-                                name="phone"
-                                placeholder="Enter your phone number"
-                                value={newAddress.phone || ""}
-                                onChange={handleChange}
-                                required
-                            />
-                            <input
-                                type="text"
-                                name="street"
-                                placeholder="Enter your street address"
-                                value={newAddress.street || ""}
-                                onChange={handleChange}
-                                required
-                            />
-                            <div className="row">
-                                <input
-                                    type="text"
-                                    name="city"
-                                    placeholder="Enter your city"
-                                    value={newAddress.city || ""}
-                                    onChange={handleChange}
-                                    required
-                                />
-                                <input
-                                    type="text"
-                                    name="postOffice"
-                                    placeholder="Enter your Post Office"
-                                    value={newAddress.postOffice || ""}
-                                    onChange={handleChange}
-                                    required
-                                />
-
-                            </div>
-                            <input
-                                type="text"
-                                name="state"
-                                placeholder="Enter your state"
-                                value={newAddress.state || ""}
-                                onChange={handleChange}
-                                required
-                            />
-                            <input
-                                type="text"
-                                name="zip"
-                                placeholder="Enter your ZIP code"
-                                value={newAddress.zip || ""}
-                                onChange={handleChange}
-                                required
-                            />
-
-                            <label className="save-address">
-                                <input
-                                    type="checkbox"
-                                    name="save"
-                                    checked={!!newAddress.save}
-                                    onChange={handleChange}
-                                />
-                                <p>
-                                    I agree to the <span>Terms and conditions</span>
-                                </p>
-                            </label>
-
-                            <div className="row">
-                                <button type="submit" className="pay-btn">
-                                    {editMode ? "💾 Update" : "✅ Save"}
-                                </button>
-                                <button
-                                    type="button"
-                                    className="pay-btn"
-                                    onClick={() => setShowForm(false)}
-                                >
-                                    ❌ Cancel
-                                </button>
-                            </div>
-                        </form>
-                    </>
                 )}
-
                 {/* Payment Section */}
                 <h2>Payment Details</h2>
                 <div className="payment-methods">
