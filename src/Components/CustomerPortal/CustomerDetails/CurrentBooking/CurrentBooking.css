@@ -113,6 +113,10 @@
 }
 
 .profile-header>div {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
     flex: 1;
     margin-left: 16px;
 }

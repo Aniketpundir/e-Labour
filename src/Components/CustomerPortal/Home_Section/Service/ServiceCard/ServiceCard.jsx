@@ -13,7 +13,7 @@ const ServiceCard = ({ img, title, description }) => {
         const path = location.pathname;
 
         if (token) {
-            Navigate(`/Service-Categories/aadress/${title}`)
+            Navigate(`/Service-Categories/Listed-Workers/${title}`)
         } else {
             Navigate('/customer-login');
         }

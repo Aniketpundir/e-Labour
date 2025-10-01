@@ -33,8 +33,6 @@ import AddWorkersDetails from './Components/WorkersPortal/AddWorkersDetails/AddW
 import SubmissionSuccess from './Components/WorkersPortal/SubmissionSuccess/SubmissionSuccess';
 import LocationMap from './Components/LocationMap/LocationMap';
 
-import AddressManager from './Components/AddressManager/AddressManager';
-
 
 
 const router = createBrowserRouter(
@@ -51,9 +49,10 @@ const router = createBrowserRouter(
                 <Route path='/about' element={<About />} />
                 <Route path='/contact' element={<Contact />} />
                 <Route path='/Service-Categories' element={<ServiceCategories />} />
-                <Route path='/Service-Categories/aadress/:title' element={<AddressManager />} />
-                <Route path='/Service-Categories/aadress/:title/:addressId' element={<ListedWorkers />} />
-                <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id' element={<WorkersDetails />} />
+                <Route path='/Service-Categories/Listed-Workers/:title' element={<ListedWorkers />} />
+                <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id' element={<StoreProvider>
+                    <WorkersDetails />
+                </StoreProvider>} />
                 <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id/booking-section' element={<BookWorkers />} />
                 <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id/Booking-Section/Booking-Conformation' element={<BookingConformation />} />
                 <Route path='/Customer-Profile' element={<CustomerProfile />} />
@@ -61,8 +60,6 @@ const router = createBrowserRouter(
                 <Route path='/Support-Section' element={<HelpSection />} />
                 <Route path='/Past-Booking' element={<PastBooking />} />
             </Route>
-            <Route path='/xyz' element={<LocationMap />} />
-            <Route path='/xyz' element={<LocationMap />} />
             <Route path='/worker-profile' element={<WorkerLayout />}>
                 <Route path='/worker-profile' element={<WorkerProfile />} />
                 <Route path='/worker-profile/Dashboard' element={<JobDashboard />} />

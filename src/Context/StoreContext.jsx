@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 export const StoreContext = createContext();
 
@@ -10,7 +11,6 @@ export const StoreContext = createContext();
 export const StoreProvider = (props) => {
     // Backend URL
     const URL_LINK = "https://e-labour-backend.onrender.com/";
-    // const URL_LINK = "http://localhost:5000/";
 
     const [workerToken, setWorkerToken] = useState(null);
     const [customerToken, setCustomerToken] = useState(null);
@@ -29,7 +29,7 @@ export const StoreProvider = (props) => {
     const [customerProfileData, setCustomerProfileData] = useState([]);
 
     useEffect(() => {
-        if (!customerToken) return; // wait until token is loaded
+        if (!customerToken) return;
 
         const customerProfile = async () => {
             try {
@@ -63,7 +63,6 @@ export const StoreProvider = (props) => {
 
             setAddresses(res.data?.addresses);
 
-            // Fix here
             const addresses = res.data?.data || res.data;
 
             if (Array.isArray(addresses)) {
@@ -78,6 +77,7 @@ export const StoreProvider = (props) => {
             setLoadingAddr(false);
         }
     };
+
 
     useEffect(() => {
         if (!customerToken) return;
@@ -103,15 +103,37 @@ export const StoreProvider = (props) => {
 
     /////////////////
     const [district, setDistrict] = useState("");
+    const [pinCode, setPinCode] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [lati, setLati] = useState("");
     const [longi, setLongi] = useState("");
 
-    const address = `${city}, ${state}`;
-    // console.log(address)
-
     useEffect(() => {
+        const dist = async (latitude, longitude) => {
+            try {
+                let apiEndPoint = "https://api.opencagedata.com/geocode/v1/json";
+                let apikey = "416911d3a90940a6ba7ba4f7aaaa402e";
+                const query = `${latitude},${longitude}`;
+                const apiUrl = `${apiEndPoint}?key=${apikey}&q=${query}&pretty=1`;
+
+                const res = await axios(apiUrl);
+                const data = res.data;
+
+                const districtName = data.results[0].components.state_district;
+                const cityName = data.results[0].components.city;
+                const stateName = data.results[0].components.state;
+                const postCode = data.results[0].components.postcode;
+
+                setDistrict(districtName);
+                setCity(cityName);
+                setState(stateName);
+                setPinCode(postCode);
+            } catch (error) {
+                console.error("Error fetching location data:", error);
+            }
+        };
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
                 (position) => {
@@ -121,7 +143,7 @@ export const StoreProvider = (props) => {
                     setLati(latitude);
                     setLongi(longitude);
 
-                    dist(latitude, longitude);
+                    dist(latitude, longitude); // ✅ Now this works correctly
                 },
                 (error) => {
                     console.error("Error getting location:", error);
@@ -130,43 +152,29 @@ export const StoreProvider = (props) => {
         } else {
             console.error("Geolocation is not supported by this browser.");
         }
+    }, []);
 
-        const dist = async (latitude, longitude) => {
+
+    //////////////////// This function is for worker details //////////////
+
+    const { id } = useParams();
+    const workerId = id;
+
+
+    useEffect(() => {
+        const workerDetails = async () => {
             try {
-                // ----OpenCage API(for district, state, etc.)
-                let apiEndPoint = "https://api.opencagedata.com/geocode/v1/json";
-                let apikey = "416911d3a90940a6ba7ba4f7aaaa402e";
-
-                const query = `${latitude},${longitude}`;
-                const apiUrl = `${apiEndPoint}?key=${apikey}&q=${query}&pretty=1`;
-
-                const res = await axios(apiUrl);
-                const data = res.data;
-                const districtName = data.results[0].components.state_district;
-                const cityName = data.results[0].components.city;
-                const stateName = data.results[0].components.state;
-
-                setDistrict(districtName);
-                setCity(cityName);
-                setState(stateName);
-                // console.log(res)
-                // console.log(stateName);
-
-
-
-                // const pincode = data.results[0].components.postcode;
-
-                // const response = await axios.get(`https://api.postalpincode.in/pincode/251002`)
-
-                // console.log(response);
-
+                const res = await axios.get(`${URL_LINK}api/workers/${workerId}`);
+                console.log(res.data);
             } catch (error) {
-                console.error("Error fetching location data:", error);
+                console.log(error);
             }
         };
 
-        // dist();
-    }, [setDistrict]);
+        if (workerId) {   // ✅ Only call if id is available
+            workerDetails();
+        }
+    }, [workerId]);
 
 
     const contextValue = {
@@ -191,9 +199,10 @@ export const StoreProvider = (props) => {
         workerProfileData,
 
         // Location
-        address,
+        district,
         state,
         city,
+        pinCode,
         lati,
         longi,
     }

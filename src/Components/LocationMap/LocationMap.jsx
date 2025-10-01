@@ -33,11 +33,11 @@ const LocationMap = () => {
     const { address, lati, longi } = useContext(StoreContext);
 
     return (
-        <div style={{ height: "400px", width: "100%" }}>
+        <div style={{ height: "200px", width: "100%", borderRadius: "30px" }}>
             <MapContainer
                 center={[lati, longi]}
                 zoom={13}
-                style={{ height: "100%", width: "100%" }}
+                style={{ height: "100%", width: "100%", borderRadius: "10px" }}
             >
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'

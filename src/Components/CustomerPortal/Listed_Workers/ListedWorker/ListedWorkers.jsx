@@ -4,10 +4,11 @@ import "./ListedWorkers.css";
 import WorkerCard from '../Worker_Card/WorkerCard';
 import { useParams } from 'react-router-dom';
 import { StoreContext } from "../../../../Context/StoreContext";
+import LocationMap from "../../../LocationMap/LocationMap"
 import axios from 'axios';
 
 const ListedWorkers = () => {
-    const { URL_LINK } = useContext(StoreContext)
+    const { URL_LINK, lati, longi, district, pinCode } = useContext(StoreContext)
     const [isOpen, setIsOpen] = useState(false);
     const [data, setData] = useState([]);
     const { title } = useParams();
@@ -35,7 +36,11 @@ const ListedWorkers = () => {
 
     return (
         <div className='ListedWorker'>
-            <div data-aos="fade-down" className='ListedWorker-text'>
+            <h3>To confirm your location, check the surrounding area on the map.</h3>
+            <p>District name:-- {district}</p>
+            <p>Pin Code(Zip Code):-- {pinCode}</p>
+            <LocationMap />
+            <div className='ListedWorker-text'>
                 <h1>Find a Worker</h1>
                 <p>Browse our network of trusted professionals.</p>
             </div>
@@ -63,7 +68,7 @@ const ListedWorkers = () => {
                                 name={items.workerId?.name}
                                 service={items.workCategory}
                                 daily_wages={items.rate}
-                                id={items._id}
+                                id={items.workerId._id}
                             // status,rating
                             />
                         </div>

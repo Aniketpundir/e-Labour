@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./BookWorkers.css";
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
@@ -7,15 +7,6 @@ import axios from "axios";
 import image from "../../../../assets/101.jpg";
 import { StoreContext } from "../../../../Context/StoreContext";
 
-const STATES = [
-    "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh",
-    "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka",
-    "Kerala", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya",
-    "Mizoram", "Nagaland", "Odisha", "Punjab", "Rajasthan", "Sikkim",
-    "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh", "Uttarakhand",
-    "West Bengal", "Andaman and Nicobar Islands", "Chandigarh",
-    "Dadra and Nagar Haveli and Daman and Diu", "Lakshadweep", "Puducherry"
-];
 
 const BookWorkers = () => {
     const {
@@ -26,6 +17,10 @@ const BookWorkers = () => {
         selectedAddress,
         setSelectedAddress,
         fetchAddresses,
+        // Location from context
+        state,
+        district,
+        pinCode,
     } = useContext(StoreContext);
 
     const [serviceDate, setServiceDate] = useState("Tomorrow");
@@ -42,12 +37,21 @@ const BookWorkers = () => {
         name: "",
         phone: "",
         street: "",
-        city: "",
-        postOffice: "",
-        state: "",
-        zip: "",
+        city: district || "",
+        zipCode: pinCode || "",
+        state: state || "",
         save: false,
     });
+
+    // ✅ Sync with context city/state/pincode if they change
+    useEffect(() => {
+        setNewAddress((prev) => ({
+            ...prev,
+            city: prev.city || district || "",
+            zipCode: prev.zipCode || pinCode || "",
+            state: prev.state || state || "",
+        }));
+    }, [district, state, pinCode]);
 
     // ✅ Handle input change
     const handleChange = (e) => {
@@ -88,9 +92,9 @@ const BookWorkers = () => {
                 name: "",
                 phone: "",
                 street: "",
-                city: "",
-                postOffice: "",
-                state: "",
+                city: district || "",
+                zipCode: pinCode || "",
+                state: state || "",
                 zip: "",
                 save: false,
             });
@@ -105,9 +109,9 @@ const BookWorkers = () => {
             name: addr.name || "",
             phone: addr.phone || "",
             street: addr.street || "",
-            city: addr.city || "",
-            postOffice: addr.postOffice || "",
-            state: addr.state || "",
+            city: addr.city || city || "",
+            zipCode: addr.zipCode || pinCode || "",
+            state: addr.state || state || "",
             zip: addr.zip || "",
             save: true,
         });
@@ -137,7 +141,6 @@ const BookWorkers = () => {
         if (!selectedAddrObj) return alert("Please select an address!");
         if (!paymentMethod) return alert("Please select a payment method!");
 
-        // ✅ Sirf address ki ID bhejna hai
         const bookingData = {
             workerId: id,
             workerName: "Alexandria Cortez",
@@ -147,85 +150,12 @@ const BookWorkers = () => {
             paymentMethod: paymentMethod,
         };
 
-        console.log(bookingData)
+        console.log(bookingData);
 
-        // try {
-        //     const res = await axios.post(`${URL_LINK}api/bookings`, bookingData, {
-        //         headers: { token: customerToken },
-        //     });
-
-        //     if (res.data.success) {
-        //         alert("Booking Successful ✅");
-        //         Navigate(
-        //             `/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section/Booking-Conformation`
-        //         );
-        //     } else {
-        //         alert("Booking failed ❌");
-        //     }
-        // } catch (err) {
-        //     console.error("Booking error:", err);
-        //     alert("Something went wrong while booking!");
-        // }
         alert("Booking Successful ✅");
         Navigate(
-            `/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section/Booking-Conformation`)
-    };
-
-    // ✅ Post Office Lookup
-    const [districtQuery, setDistrictQuery] = useState("");
-    const [postOffices, setPostOffices] = useState([]);
-    const [loadingPO, setLoadingPO] = useState(false);
-    const [error, setError] = useState("");
-
-    const fetchPostOfficesByName = async (name) => {
-        setLoadingPO(true);
-        setError("");
-        setPostOffices([]);
-        try {
-            const trimmed = name.trim();
-            if (!trimmed) {
-                setError("Please enter a district or post office name first.");
-                setLoadingPO(false);
-                return;
-            }
-
-            let responses = [];
-            if (/^\d{6}$/.test(trimmed)) {
-                const res = await fetch(`https://api.postalpincode.in/pincode/${trimmed}`);
-                responses = await res.json();
-            } else {
-                const res = await fetch(`https://api.postalpincode.in/postoffice/${encodeURIComponent(trimmed)}`);
-                responses = await res.json();
-            }
-
-            if (!Array.isArray(responses) || responses.length === 0) {
-                setError("No results from Postal API.");
-                setLoadingPO(false);
-                return;
-            }
-
-            const poList = [];
-            responses.forEach((r) => {
-                if (r && Array.isArray(r.PostOffice)) {
-                    r.PostOffice.forEach((po) => {
-                        poList.push({
-                            name: po.Name,
-                            pincode: po.Pincode,
-                            district: po.District,
-                            state: po.State,
-                            type: po.OfficeType || "",
-                        });
-                    });
-                }
-            });
-
-            setPostOffices(poList);
-        } catch (err) {
-            console.error(err);
-            setError("There was an error querying the Postal API.");
-        } finally {
-            setLoadingPO(false);
-        }
+            `/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section/Booking-Conformation`
+        );
     };
 
     return (
@@ -259,9 +189,7 @@ const BookWorkers = () => {
                 <h2>Address</h2>
                 {loadingAddr ? (
                     <p>Loading addresses...</p>
-                ) : addresses.length === 0 ? (
-                    <p>No addresses found. Please save an address in your profile settings.</p>
-                ) : (
+                ) : !showForm ? (
                     <div>
                         {addresses.map((addr) => (
                             <div key={addr._id} className="saved-address-box">
@@ -278,17 +206,130 @@ const BookWorkers = () => {
                                             <b>{addr.name}</b> ({addr.phone})
                                         </p>
                                         <p>
-                                            {addr.street}, {addr.city}, {addr.postOffice}
+                                            {addr.street}, {addr.city},
                                         </p>
                                         <p>
-                                            {addr.state} - {addr.zip}
+                                            {addr.state} - {addr.zipCode}
                                         </p>
                                     </div>
                                 </label>
+                                <div className="row">
+                                    <button className="edit-address" onClick={() => handleEdit(addr)}>
+                                        <CiEdit />
+                                    </button>
+                                    <button className="edit-address" onClick={() => handleDelete(addr._id)}>
+                                        <MdDelete />
+                                    </button>
+                                </div>
                             </div>
                         ))}
+
+                        <button
+                            className="pay-btn"
+                            onClick={() => {
+                                setNewAddress({
+                                    name: "",
+                                    phone: "",
+                                    street: "",
+                                    city: district || "",
+                                    zipCode: pinCode || "",
+                                    state: state || "",
+                                    zip: "",
+                                    save: false,
+                                });
+                                setShowForm(true);
+                                setEditMode(false);
+                                setEditId(null);
+                            }}
+                            disabled={addresses.length >= 3}
+                        >
+                            ➕ Add New Address
+                        </button>
                     </div>
+                ) : (
+                    <>
+                        {/* ✅ Address Form */}
+                        <form className="form-section" onSubmit={handleAddAddress}>
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Enter your full name"
+                                value={newAddress.name}
+                                onChange={handleChange}
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="phone"
+                                placeholder="Enter your phone number"
+                                value={newAddress.phone}
+                                onChange={handleChange}
+                                required
+                            />
+                            <input
+                                type="text"
+                                name="street"
+                                placeholder="House No./Village Name/Landmark"
+                                value={newAddress.street}
+                                onChange={handleChange}
+                                required
+                            />
+                            <div className="row">
+                                <input
+                                    type="text"
+                                    name="city"
+                                    placeholder="Enter your city"
+                                    value={newAddress.city || district || ""}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <input
+                                    type="text"
+                                    name="zipCode"
+                                    placeholder="Enter your pin code"
+                                    value={newAddress.zipCode}
+                                    onChange={handleChange}
+                                    required
+                                />
+                            </div>
+                            <input
+                                type="text"
+                                name="state"
+                                placeholder="Enter your state"
+                                value={newAddress.state}
+                                onChange={handleChange}
+                                required
+                            />
+
+                            <label className="save-address">
+                                <input
+                                    type="checkbox"
+                                    name="save"
+                                    checked={!!newAddress.save}
+                                    onChange={handleChange}
+                                    required
+                                />
+                                <p>
+                                    I agree to the <span>Terms and conditions</span>
+                                </p>
+                            </label>
+
+                            <div className="row">
+                                <button type="submit" className="pay-btn">
+                                    {editMode ? "💾 Update" : "✅ Save"}
+                                </button>
+                                <button
+                                    type="button"
+                                    className="pay-btn"
+                                    onClick={() => setShowForm(false)}
+                                >
+                                    ❌ Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </>
                 )}
+
                 {/* Payment Section */}
                 <h2>Payment Details</h2>
                 <div className="payment-methods">

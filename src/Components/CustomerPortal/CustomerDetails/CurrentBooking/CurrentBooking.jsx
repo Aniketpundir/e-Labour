@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./CurrentBooking.css";
-import { FaPhone } from "react-icons/fa";
+import { FaPhone } from "react-icons/fa6";
 import image from "../../../../assets/101.jpg"
 
 const workers = [
@@ -142,7 +142,7 @@ const workers = [
     },
     {
         id: 9,
-        name: "David Lee",
+        name: "Aniket",
         role: "Electrician",
         service: "Electrical Installation",
         date: "Oct 30, 2023, 10:00 AM",
