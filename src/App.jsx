@@ -31,7 +31,6 @@ import Review from "./Components/WorkersPortal/Reviews/Reviews";
 import { StoreProvider } from './Context/StoreContext';
 import AddWorkersDetails from './Components/WorkersPortal/AddWorkersDetails/AddWorkersDetails';
 import SubmissionSuccess from './Components/WorkersPortal/SubmissionSuccess/SubmissionSuccess';
-import LocationMap from './Components/LocationMap/LocationMap';
 
 
 

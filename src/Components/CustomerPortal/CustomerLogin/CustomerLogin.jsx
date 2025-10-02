@@ -7,6 +7,7 @@ import { StoreContext } from '../../../Context/StoreContext';
 import axios from 'axios';
 import { BiShow } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
+import { toast } from "react-toastify";
 
 const CustomerLogin = () => {
     // const role = "customer";
@@ -44,18 +45,14 @@ const CustomerLogin = () => {
             const res = await axios.post(newURL, data);
             const customerToken = res.data.token;
             if (res.data.success) {
-                alert(res.data.message);
                 Navigate("/");
                 localStorage.setItem("customerToken", customerToken);
                 window.location.reload();
             } else {
-                console.log(res.data.message)
+                toast.error(res.data.message)
             }
-
-            // Cookies.set("customerToken", customerToken)
-
         } catch (error) {
-            alert(error.message);
+            console.log(error);
         }
     };
 

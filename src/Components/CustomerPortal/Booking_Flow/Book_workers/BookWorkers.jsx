@@ -4,6 +4,7 @@ import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 import { StoreContext } from "../../../../Context/StoreContext";
 
 const BookWorkers = () => {
@@ -70,19 +71,47 @@ const BookWorkers = () => {
             let baseUrl = URL_LINK + "api/addresses";
 
             if (editMode) {
-                await axios.patch(`${baseUrl}/${editId}`, newAddress, {
-                    headers: { token: customerToken },
-                });
-                alert("Address Updated ✅");
+                try {
+                    await axios.patch(`${baseUrl}/${editId}`, newAddress, {
+                        headers: { token: customerToken },
+                    });
+                    toast.success("Address Update successfully.", {
+                        position: "bottom-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+
+                    })
+                } catch (error) {
+                    toast.error("Something Wrong Refresh Again!")
+                }
+
                 fetchAddresses();
             } else if (newAddress.save) {
-                const res = await axios.post(baseUrl, newAddress, {
-                    headers: { token: customerToken },
-                });
-                if (res.data.success) {
-                    alert("Address Added ✅");
-                    fetchAddresses();
-                }
+                try {
+                    const res = await axios.post(baseUrl, newAddress, {
+                        headers: { token: customerToken },
+                    });
+                    if (res.data.success) {
+                        toast.success("Address Add successfully.", {
+                            position: "bottom-right",
+                            autoClose: 5000,
+                            hideProgressBar: false,
+                            closeOnClick: false,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "colored",
+
+                        })
+                        fetchAddresses();
+                    }
+                } catch { }
+
             }
 
             // Reset form
@@ -127,7 +156,17 @@ const BookWorkers = () => {
             await axios.delete(`${URL_LINK}api/addresses/${id}`, {
                 headers: { token: customerToken },
             });
-            alert("Address Deleted ❌");
+            toast.error("Address Deleted.", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+
+            })
             fetchAddresses();
         } catch (err) {
             console.error("Error deleting address:", err);
@@ -157,7 +196,17 @@ const BookWorkers = () => {
 
         try {
             await axios.post(newUrl, bookingData, { headers: { token: customerToken } })
+            toast.success("Worker Booked Successfully.", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
 
+            })
 
             Navigate(
                 `/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section/Booking-Conformation`

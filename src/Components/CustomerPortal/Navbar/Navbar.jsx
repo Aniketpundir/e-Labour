@@ -8,6 +8,7 @@ import image from "../../../assets/101.jpg"
 import { FaBars } from "react-icons/fa";
 import { FaTimes } from "react-icons/fa";
 import { StoreContext } from "../../../Context/StoreContext";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
     const { workerToken, setCustomerToken, customerToken, setWorkerToken, customerProfileData, workerProfileData } = useContext(StoreContext);
@@ -19,6 +20,38 @@ const Navbar = () => {
     const [activeItem, setActiveItem] = useState();
     const navigate = useNavigate();
     const location = useLocation();
+
+    useEffect(() => {
+        if (customerToken) {
+            toast.success("Customer Login and Signup successful.", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+
+            })
+        }
+    }, [customerToken, workerToken])
+
+    useEffect(() => {
+        if (workerToken) {
+            toast.success("Worker Login successful.", {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
+        }
+    }, [workerToken])
+
 
     const handleClick = (name) => {
         setActiveItem(name);
