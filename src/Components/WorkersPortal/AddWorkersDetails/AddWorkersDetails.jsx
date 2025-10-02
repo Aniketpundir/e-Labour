@@ -7,7 +7,7 @@ import "./AddWorkersDetails.css";
 import Cookies from "js-cookie";
 
 const AddWorkersDetails = () => {
-    const { URL_LINK } = useContext(StoreContext);
+    const { URL_LINK, district, state, city, pinCode } = useContext(StoreContext);
     const navigate = useNavigate();
     const [workerToken, setWorkerToken] = useState("");
 
@@ -58,76 +58,19 @@ const AddWorkersDetails = () => {
         reference: "",
     });
 
-    const STATES = [
-        "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chhattisgarh", "Goa", "Gujarat",
-        "Haryana", "Himachal Pradesh", "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh",
-        "Maharashtra", "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab",
-        "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh",
-        "Uttarakhand", "West Bengal", "Andaman and Nicobar Islands", "Chandigarh",
-        "Dadra and Nagar Haveli and Daman and Diu", "Lakshadweep", "Puducherry"
-    ];
+    useEffect(() => {
+        setData(prev => ({
+            ...prev,
+            state: state || prev.state,
+            city: city || district || prev.city,
+            zipCode: pinCode || prev.zipCode,
+        }));
+    }, [state, city, district, pinCode]);
 
     const workerSkill = [
         "Plumbing", "Electrical", "Painting", "Carpentry", "Masonry", "Welding", "Mechanic", "Gardening"
     ];
 
-    // Post office lookup
-    const [selectedState, setSelectedState] = useState("");
-    const [districtQuery, setDistrictQuery] = useState("");
-    const [postOffices, setPostOffices] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
-
-    const fetchPostOfficesByName = async (name) => {
-        setLoading(true);
-        setError("");
-        setPostOffices([]);
-        try {
-            const trimmed = name.trim();
-            if (!trimmed) {
-                setError("Please enter a district or post office name first.");
-                setLoading(false);
-                return;
-            }
-
-            let responses = [];
-            if (/^\d{6}$/.test(trimmed)) {
-                const res = await fetch(`https://api.postalpincode.in/pincode/${trimmed}`);
-                responses = await res.json();
-            } else {
-                const res = await fetch(`https://api.postalpincode.in/postoffice/${encodeURIComponent(trimmed)}`);
-                responses = await res.json();
-            }
-
-            if (!Array.isArray(responses) || responses.length === 0) {
-                setError("No results from Postal API.");
-                setLoading(false);
-                return;
-            }
-
-            const poList = [];
-            responses.forEach((r) => {
-                if (r && Array.isArray(r.PostOffice)) {
-                    r.PostOffice.forEach((po) => {
-                        poList.push({
-                            name: po.Name,
-                            pincode: po.Pincode,
-                            district: po.District,
-                            state: po.State,
-                            type: po.OfficeType || "",
-                        });
-                    });
-                }
-            });
-
-            setPostOffices(poList);
-        } catch (err) {
-            console.error(err);
-            setError("There was an error querying the Postal API.");
-        } finally {
-            setLoading(false);
-        }
-    };
 
     const handleChange = (e) => {
         const { name, value, type, checked, files } = e.target;
@@ -224,69 +167,6 @@ const AddWorkersDetails = () => {
                     </div>
                 </section>
 
-                {/* Post Office Lookup */}
-                <section className="post-page">
-                    <div className="post-card">
-                        <h1 className="post-title">Search your nearest location by your post office.</h1>
-                        <span>When you select your local post office here, your Full Address section will be automatically filled.<br />(जब आप यहां अपना स्थानीय डाकघर चयन करेंगे, तो आपका पूरा पता अनुभाग स्वचालित रूप से भर जाएगा।)</span>
-                        <div style={{ marginTop: "20px" }} className="post-form">
-                            <div className="post-form-row">
-                                <label>
-                                    <span>State</span>
-                                    <select value={selectedState} onChange={(e) => setSelectedState(e.target.value)}>
-                                        <option value="">-- Select State (optional) --</option>
-                                        {STATES.map((s) => <option key={s} value={s}>{s}</option>)}
-                                    </select>
-                                </label>
-
-                                <label className="post-grow">
-                                    <span>Pin code (Zip code)</span>
-                                    <input
-                                        value={districtQuery}
-                                        onChange={(e) => setDistrictQuery(e.target.value)}
-                                        placeholder="Enter your Pin code (Zip code)"
-                                    />
-                                </label>
-                            </div>
-
-                            <div className="post-actions">
-                                <button type="button" disabled={loading} onClick={() => fetchPostOfficesByName(districtQuery)}>
-                                    {loading ? "Searching..." : "Search"}
-                                </button>
-                                <div className="post-result-count">Results: {postOffices.length}</div>
-                            </div>
-
-                            {error && <div className="post-error">{error}</div>}
-
-                            {postOffices.length > 0 && (
-                                <div className="post-results">
-                                    {postOffices.map((po) => (
-                                        <div
-                                            key={`${po.name}-${po.pincode}`}
-                                            className="post-result-card"
-                                            onClick={() => {
-                                                // Update Data state directly
-                                                setData(prev => ({
-                                                    ...prev,
-                                                    state: po.state,
-                                                    city: po.district,
-                                                    street: po.name,
-                                                    zipCode: po.pincode
-                                                }));
-                                                setPostOffices([]);
-                                                setDistrictQuery("");
-                                            }}
-                                        >
-                                            <div className="po-name">{po.name}</div>
-                                            <div className="po-info">{po.district}, {po.state} — PIN {po.pincode}</div>
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                </section>
-
                 {/* Address */}
                 <section className="profile-section">
                     <h3>2. Full Address</h3>
@@ -321,6 +201,14 @@ const AddWorkersDetails = () => {
                                 <option>Plumber</option>
                                 <option>Electrician</option>
                                 <option>Painter</option>
+                                <option>Carpenter</option>
+                                <option>Home Cleaning</option>
+                                <option>Electrical</option>
+                                <option>Gardening</option>
+                                <option>Appliance Repair</option>
+                                <option>Painting Service</option>
+                                <option>Pest Control</option>
+                                <option>Painting Service</option>
                             </select>
                         </div>
 

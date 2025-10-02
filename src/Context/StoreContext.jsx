@@ -129,7 +129,6 @@ export const StoreProvider = (props) => {
                 setCity(cityName);
                 setState(stateName);
                 setPinCode(postCode);
-                console.log(res);
             } catch (error) {
                 console.error("Error fetching location data:", error);
             }
