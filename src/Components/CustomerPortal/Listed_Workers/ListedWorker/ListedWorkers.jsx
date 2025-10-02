@@ -8,7 +8,7 @@ import LocationMap from "../../../LocationMap/LocationMap"
 import axios from 'axios';
 
 const ListedWorkers = () => {
-    const { URL_LINK, lati, longi, district, pinCode } = useContext(StoreContext)
+    const { URL_LINK, lati, longi, district, pinCode, state } = useContext(StoreContext)
     const [isOpen, setIsOpen] = useState(false);
     const [data, setData] = useState([]);
     const { title } = useParams();
@@ -37,9 +37,14 @@ const ListedWorkers = () => {
     return (
         <div className='ListedWorker'>
             <h3>To confirm your location, check the surrounding area on the map.</h3>
-            <p>District name:-- {district}</p>
-            <p>Pin Code(Zip Code):-- {pinCode}</p>
-            <LocationMap />
+            <div className='location'>
+                <div className='location-text'>
+                    <p>State:-- <span>[ {state} ]</span></p>
+                    <p>District name:-- <span>[ {district} ]</span></p>
+                    <p>Pin Code:-- <span>[ {pinCode} ]</span></p>
+                </div>
+                <LocationMap />
+            </div>
             <div className='ListedWorker-text'>
                 <h1>Find a Worker</h1>
                 <p>Browse our network of trusted professionals.</p>

@@ -37,6 +37,13 @@
     object-fit: cover;
 }
 
+.worker-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .worker-info h3 {
     text-align: center;
     font-size: 18px;
@@ -81,12 +88,12 @@
     font-size: 14px;
 }
 
-.button-group button.active,
-.button-group button:hover {
+.button-group button.active {
     background: #ec6d13;
     color: #fff;
     border-color: #ec6d13;
 }
+
 
 /* ✅ Saved Address */
 .saved-address-box {
@@ -204,6 +211,32 @@
 
 .pay-btn:disabled {
     background: #9ca3af;
+    cursor: not-allowed;
+}
+
+
+.date-btn {
+    padding: 12px 20px;
+    margin: 8px;
+    border: 1px solid #ccc;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.date-btn:hover {
+    background-color: #e9ecef;
+}
+
+.date-btn.selected {
+    background-color: #ec6d13;
+    /* Green background when selected */
+    color: white;
+    border: 1px solid #ec6d13;
+}
+
+.date-btn.booked {
     cursor: not-allowed;
 }
 

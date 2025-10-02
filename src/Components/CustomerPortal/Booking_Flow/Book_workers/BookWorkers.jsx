@@ -4,9 +4,7 @@ import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import image from "../../../../assets/101.jpg";
 import { StoreContext } from "../../../../Context/StoreContext";
-
 
 const BookWorkers = () => {
     const {
@@ -17,17 +15,20 @@ const BookWorkers = () => {
         selectedAddress,
         setSelectedAddress,
         fetchAddresses,
-        // Location from context
         state,
         district,
         pinCode,
+        workerDetails
     } = useContext(StoreContext);
 
-    const [serviceDate, setServiceDate] = useState("Tomorrow");
+
     const [paymentMethod, setPaymentMethod] = useState("");
     const [showForm, setShowForm] = useState(false);
     const [editMode, setEditMode] = useState(false);
     const [editId, setEditId] = useState(null);
+
+    // ✅ serviceDate for selected button
+    const [serviceDate, setServiceDate] = useState("");
 
     const Navigate = useNavigate();
     const { title, id } = useParams();
@@ -43,7 +44,7 @@ const BookWorkers = () => {
         save: false,
     });
 
-    // ✅ Sync with context city/state/pincode if they change
+    // ✅ Sync with context
     useEffect(() => {
         setNewAddress((prev) => ({
             ...prev,
@@ -53,7 +54,7 @@ const BookWorkers = () => {
         }));
     }, [district, state, pinCode]);
 
-    // ✅ Handle input change
+    // ✅ Input handler
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setNewAddress({
@@ -62,7 +63,7 @@ const BookWorkers = () => {
         });
     };
 
-    // ✅ Save or Update Address
+    // ✅ Save/Update Address
     const handleAddAddress = async (e) => {
         e.preventDefault();
         try {
@@ -72,14 +73,14 @@ const BookWorkers = () => {
                 await axios.patch(`${baseUrl}/${editId}`, newAddress, {
                     headers: { token: customerToken },
                 });
-                alert("Address Updated Successfully ✅");
+                alert("Address Updated ✅");
                 fetchAddresses();
             } else if (newAddress.save) {
                 const res = await axios.post(baseUrl, newAddress, {
                     headers: { token: customerToken },
                 });
                 if (res.data.success) {
-                    alert("Address Added Successfully ✅");
+                    alert("Address Added ✅");
                     fetchAddresses();
                 }
             }
@@ -103,13 +104,13 @@ const BookWorkers = () => {
         }
     };
 
-    // ✅ Edit address
+    // ✅ Edit
     const handleEdit = (addr) => {
         setNewAddress({
             name: addr.name || "",
             phone: addr.phone || "",
             street: addr.street || "",
-            city: addr.city || city || "",
+            city: addr.city || district || "",
             zipCode: addr.zipCode || pinCode || "",
             state: addr.state || state || "",
             zip: addr.zip || "",
@@ -120,13 +121,13 @@ const BookWorkers = () => {
         setEditId(addr._id);
     };
 
-    // ✅ Delete address
+    // ✅ Delete
     const handleDelete = async (id) => {
         try {
             await axios.delete(`${URL_LINK}api/addresses/${id}`, {
                 headers: { token: customerToken },
             });
-            alert("Address Deleted Successfully ❌");
+            alert("Address Deleted ❌");
             fetchAddresses();
         } catch (err) {
             console.error("Error deleting address:", err);
@@ -140,49 +141,102 @@ const BookWorkers = () => {
         );
         if (!selectedAddrObj) return alert("Please select an address!");
         if (!paymentMethod) return alert("Please select a payment method!");
+        if (!serviceDate) return alert("Please select a service date!");
 
         const bookingData = {
             workerId: id,
-            workerName: "Alexandria Cortez",
-            service: title,
-            serviceDate: serviceDate,
-            addressId: selectedAddrObj,
-            paymentMethod: paymentMethod,
+            amount: workerDetails?.worker?.rate,
+            serviceType: title,
+            scheduledDate: serviceDate,
+            addressId: selectedAddress,
+            method: paymentMethod,
         };
 
-        console.log(bookingData);
+        let newUrl = URL_LINK;
+        newUrl += "api/booking/new";
 
-        alert("Booking Successful ✅");
-        Navigate(
-            `/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section/Booking-Conformation`
-        );
+        try {
+            await axios.post(newUrl, bookingData, { headers: { token: customerToken } })
+
+
+            Navigate(
+                `/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section/Booking-Conformation`
+            )
+        } catch (error) {
+            // console.log()
+        }
+
+
     };
 
+    // ----------------- Date Handling -----------------
+    const today = new Date();
+    const tomorrow = new Date();
+    const dayAfterTomorrow = new Date();
+
+    tomorrow.setDate(today.getDate() + 1);
+    dayAfterTomorrow.setDate(today.getDate() + 2);
+
+    const formatDate = (date) => {
+        const d = String(date.getDate()).padStart(2, "0");
+        const m = String(date.getMonth() + 1).padStart(2, "0");
+        const y = date.getFullYear();
+        return `${y}-${m}-${d}`;
+    };
+
+    const bookedDates =
+        workerDetails?.scheduledDate?.map((d) =>
+            new Date(d).toLocaleDateString("en-CA")
+        ) || [];
+
+    const isBooked = (date) => bookedDates.includes(formatDate(date));
+
+    // ----------------- UI -----------------
     return (
         <div className="checkout-container">
             <div className="checkout-box">
                 {/* Worker profile */}
                 <div className="worker-profiles">
-                    <img src={image} alt="Worker" className="worker-avatar" />
+                    <img
+                        src={workerDetails?.worker?.workerId?.avatar?.image}
+                        alt="Worker"
+                        className="worker-avatar"
+                    />
                     <div className="worker-info">
-                        <h3>Alexandria Cortez</h3>
-                        <p className="worker-job">{title}</p>
-                        <p className="worker-id">Worker ID: {id}</p>
+                        <h3>{workerDetails?.worker?.workerId?.name}</h3>
+                        <p className="worker-job">{workerDetails?.worker?.workCategory}</p>
+                        <p className="worker-id">
+                            Worker ID: {workerDetails?.worker?.workerId?._id}
+                        </p>
                     </div>
                 </div>
 
                 {/* Service Date */}
                 <h2>When would you like your service?</h2>
                 <div className="button-group">
-                    {["Today", "Tomorrow", "Day after"].map((day) => (
-                        <button
-                            key={day}
-                            className={serviceDate === day ? "active" : ""}
-                            onClick={() => setServiceDate(day)}
-                        >
-                            {day}
-                        </button>
-                    ))}
+                    <button
+                        className={`date-btn ${serviceDate === formatDate(today) ? "selected" : ""} ${isBooked(today) ? "booked" : ""}`}
+                        onClick={() => setServiceDate(formatDate(today))}
+                        disabled={isBooked(today)}
+                    >
+                        Today: <br /> {formatDate(today)}
+                    </button>
+
+                    <button
+                        className={`date-btn ${serviceDate === formatDate(tomorrow) ? "selected" : ""} ${isBooked(tomorrow) ? "booked" : ""}`}
+                        onClick={() => setServiceDate(formatDate(tomorrow))}
+                        disabled={isBooked(tomorrow)}
+                    >
+                        Tomorrow: <br /> {formatDate(tomorrow)}
+                    </button>
+
+                    <button
+                        className={`date-btn ${serviceDate === formatDate(dayAfterTomorrow) ? "selected" : ""} ${isBooked(dayAfterTomorrow) ? "booked" : ""}`}
+                        onClick={() => setServiceDate(formatDate(dayAfterTomorrow))}
+                        disabled={isBooked(dayAfterTomorrow)}
+                    >
+                        Day After: <br /> {formatDate(dayAfterTomorrow)}
+                    </button>
                 </div>
 
                 {/* Address Section */}
@@ -205,12 +259,8 @@ const BookWorkers = () => {
                                         <p>
                                             <b>{addr.name}</b> ({addr.phone})
                                         </p>
-                                        <p>
-                                            {addr.street}, {addr.city},
-                                        </p>
-                                        <p>
-                                            {addr.state} - {addr.zipCode}
-                                        </p>
+                                        <p>{addr.street}, {addr.city},</p>
+                                        <p>{addr.state} - {addr.zipCode}</p>
                                     </div>
                                 </label>
                                 <div className="row">
@@ -338,8 +388,8 @@ const BookWorkers = () => {
                             type="radio"
                             name="payment"
                             value="cod"
-                            checked={paymentMethod === "cod"}
-                            onChange={() => setPaymentMethod("cod")}
+                            checked={paymentMethod === "offline"}
+                            onChange={() => setPaymentMethod("offline")}
                         />
                         Cash on Delivery
                     </label>

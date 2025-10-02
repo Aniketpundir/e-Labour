@@ -129,6 +129,7 @@ export const StoreProvider = (props) => {
                 setCity(cityName);
                 setState(stateName);
                 setPinCode(postCode);
+                console.log(res);
             } catch (error) {
                 console.error("Error fetching location data:", error);
             }
@@ -159,13 +160,13 @@ export const StoreProvider = (props) => {
 
     const { id } = useParams();
     const workerId = id;
-
+    const [workerDetails, setWorkerDetails] = useState([]);
 
     useEffect(() => {
         const workerDetails = async () => {
             try {
                 const res = await axios.get(`${URL_LINK}api/workers/${workerId}`);
-                console.log(res.data);
+                setWorkerDetails(res.data.data);
             } catch (error) {
                 console.log(error);
             }
@@ -177,6 +178,7 @@ export const StoreProvider = (props) => {
     }, [workerId]);
 
 
+    // console.log(workerDetails)
     const contextValue = {
         URL_LINK,
 
@@ -205,7 +207,11 @@ export const StoreProvider = (props) => {
         pinCode,
         lati,
         longi,
+
+        //worker details for showing people
+        workerDetails,
     }
+
     return (
         <StoreContext.Provider value={contextValue}>
             {props.children}

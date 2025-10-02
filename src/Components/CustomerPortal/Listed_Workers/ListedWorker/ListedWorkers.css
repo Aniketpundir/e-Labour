@@ -3,15 +3,32 @@
     margin-bottom: 50px;
     margin-left: 20px;
     margin-right: 20px;
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: start; */
     align-items: self-start;
     gap: 20px;
 }
 
 .ListedWorker h3 {
     font-size: 22px;
+    font-weight: 600;
+}
+
+.location {
+    display: flex;
+    justify-content: space-between;
+}
+
+.location-text {
+    margin-top: 30px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.location-text p span {
     font-weight: 600;
 }
 
@@ -62,12 +79,22 @@
 }
 
 .ListedWorker-card {
+    margin-top: 20px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 40px;
 }
 
 @media (max-width:650px) {
+    .location {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .location-text {
+        width: 100%;
+    }
+
     .ListedWorker-card {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;

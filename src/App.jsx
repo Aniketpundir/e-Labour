@@ -53,7 +53,9 @@ const router = createBrowserRouter(
                 <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id' element={<StoreProvider>
                     <WorkersDetails />
                 </StoreProvider>} />
-                <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id/booking-section' element={<BookWorkers />} />
+                <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id/booking-section' element={<StoreProvider>
+                    <BookWorkers />
+                </StoreProvider>} />
                 <Route path='/Service-Categories/Listed-Workers/:title/Worker-Details/:id/Booking-Section/Booking-Conformation' element={<BookingConformation />} />
                 <Route path='/Customer-Profile' element={<CustomerProfile />} />
                 <Route path='/Current-Booking' element={<CurrentBooking />} />
