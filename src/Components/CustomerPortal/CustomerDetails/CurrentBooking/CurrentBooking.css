@@ -8,6 +8,14 @@
     color: #111827;
 }
 
+.no-bookings {
+    margin-top: 80px;
+    text-align: center;
+    font-size: 16px;
+    color: #6b7280;
+}
+
+/* Left Panel */
 .left-panel {
     max-height: 500px;
     overflow-y: auto;
@@ -19,6 +27,10 @@
     border: 1px solid #e5e7eb;
     border-radius: 12px;
     padding: 20px;
+}
+
+.left-panel::-webkit-scrollbar {
+    display: none;
 }
 
 .left-panel h2 {
@@ -40,6 +52,7 @@
     color: #374151;
 }
 
+/* Booking Card */
 .card {
     display: flex;
     justify-content: space-between;
@@ -64,6 +77,7 @@
     width: 42px;
     height: 42px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .card-info strong {
@@ -75,12 +89,7 @@
 
 .card-info p {
     font-size: 12px;
-}
-
-.rating {
-    font-size: 12px;
-    color: #6b7280;
-    margin-top: 2px;
+    color: #374151;
 }
 
 .card small {
@@ -90,13 +99,14 @@
 
 .card.active {
     border-color: #ec6d13;
-    background: #ec6d1322;
+    background: #fff7f2;
 }
 
 .card:hover {
     background: #f9fafb;
 }
 
+/* Right Panel */
 .right-panel {
     flex: 1;
     background: #fff;
@@ -104,8 +114,10 @@
     border-radius: 12px;
     padding: 24px;
     height: 80vh;
+    overflow-y: auto;
 }
 
+/* Profile */
 .profile-header {
     display: flex;
     align-items: center;
@@ -125,6 +137,7 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .profile-header h2 {
@@ -148,8 +161,14 @@
     align-items: center;
     gap: 6px;
     font-size: 14px;
+    transition: background 0.2s ease;
 }
 
+.call-btn:hover {
+    background: #f3f4f6;
+}
+
+/* Details Body */
 .details-body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -162,42 +181,108 @@
 .details-body p {
     font-size: 14px;
     color: #374151;
+    margin: 0;
 }
 
-.cancel-btn {
-    margin-top: 24px;
-    width: 100%;
-    background: #fee2e2;
-    border: 1px solid #fca5a5;
-    color: #b91c1c;
+/* Buttons */
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    min-height: 160px;
+}
+
+.cancel-btn1 {
+    background-color: #059669;
     padding: 10px;
     border-radius: 8px;
+    border: none;
+    color: #fff;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
     transition: background 0.2s ease;
 }
 
+.cancel-btn1:hover {
+    background-color: #047857;
+}
+
+/* Cancel Form */
+.cancel-section {
+    position: absolute;
+    top: 30%;
+    left: 0;
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    z-index: 10;
+}
+
+.cancel-section p {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.cancel-section label {
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.cancel-section input[type="radio"] {
+    margin-right: 8px;
+    color: orange;
+}
+
+.cancel-section textarea {
+    width: 100%;
+    margin-top: 8px;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    resize: vertical;
+}
+
+.cancel-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+}
+
+.cancel-btn,
+.confirm-btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.cancel-btn {
+    background-color: rgba(128, 128, 128, 0.221);
+    color: gray;
+}
+
+.confirm-btn {
+    background-color: #fee2e2;
+    border: 1px solid #fca5a5;
+    color: #b91c1c;
+}
+
 .cancel-btn:hover {
     background: #fecaca;
 }
 
-.mobile-profile {
-    margin-top: 12px;
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 12px;
+.confirm-btn:hover {
+    background: #fecaca;
 }
 
-.mobile-details {
-    margin-top: 8px;
-    padding: 12px;
-    background: #f9fafb;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-}
-
+/* Mobile */
 @media (max-width: 650px) {
     .container {
         flex-direction: column;
@@ -209,6 +294,7 @@
     .left-panel {
         width: 100%;
         padding: 16px;
+        max-height: unset;
     }
 
     .right-panel {
@@ -229,7 +315,7 @@
         grid-template-columns: 1fr;
     }
 
-    .cancel-btn {
+    .cancel-btn1 {
         font-size: 13px;
         padding: 8px;
     }

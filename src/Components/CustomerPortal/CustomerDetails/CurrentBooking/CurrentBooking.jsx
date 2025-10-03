@@ -1,169 +1,26 @@
-import React, { useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import "./CurrentBooking.css";
 import { FaPhone } from "react-icons/fa6";
-import image from "../../../../assets/101.jpg"
-
-const workers = [
-    {
-        id: 1,
-        name: "Sarah Miller",
-        role: "Master Plumber",
-        service: "Plumbing Repair",
-        date: "Oct 28, 2023, 2:00 PM",
-        rating: 4.9,
-        reviews: 120,
-        location: "123 Maple Street, Anytown, USA",
-        payment: "Visa **** 1234",
-        experience: "5 Years of Experience",
-        eta: "5 mins",
-        img: image,
-        number: "+911234567890",
-        email: "12345@gmail.com",
-        completeService: "0",
-    },
-    {
-        id: 2,
-        name: "David Lee",
-        role: "Electrician",
-        service: "Electrical Installation",
-        date: "Oct 30, 2023, 10:00 AM",
-        rating: 4.8,
-        reviews: 85,
-        location: "456 Oak Avenue, Anytown, USA",
-        payment: "Mastercard **** 5678",
-        experience: "3 Years of Experience",
-        eta: "",
-        img: image,
-        number: "+911234567890",
-        email: "12345@gmail.com",
-        completeService: "0",
-    },
-    {
-        id: 3,
-        name: "David Lee",
-        role: "Electrician",
-        service: "Electrical Installation",
-        date: "Oct 30, 2023, 10:00 AM",
-        rating: 4.8,
-        reviews: 85,
-        location: "456 Oak Avenue, Anytown, USA",
-        payment: "Mastercard **** 5678",
-        experience: "3 Years of Experience",
-        eta: "",
-        img: image,
-        number: "+911234567890",
-        email: "12345@gmail.com",
-        completeService: "0",
-    },
-    {
-        id: 4,
-        name: "David Lee",
-        role: "Electrician",
-        service: "Electrical Installation",
-        date: "Oct 30, 2023, 10:00 AM",
-        rating: 4.8,
-        reviews: 85,
-        location: "456 Oak Avenue, Anytown, USA",
-        payment: "Mastercard **** 5678",
-        experience: "3 Years of Experience",
-        eta: "",
-        img: image,
-        number: "+911234567890",
-        email: "12345@gmail.com",
-        completeService: "0",
-    },
-    {
-        id: 5,
-        name: "David Lee",
-        role: "Electrician",
-        service: "Electrical Installation",
-        date: "Oct 30, 2023, 10:00 AM",
-        rating: 4.8,
-        reviews: 85,
-        location: "456 Oak Avenue, Anytown, USA",
-        payment: "Mastercard **** 5678",
-        experience: "3 Years of Experience",
-        eta: "",
-        img: image,
-        number: "+911234567890",
-        email: "12345@gmail.com",
-        completeService: "0",
-    },
-    {
-        id: 6,
-        name: "David Lee",
-        role: "Electrician",
-        service: "Electrical Installation",
-        date: "Oct 30, 2023, 10:00 AM",
-        rating: 4.8,
-        reviews: 85,
-        location: "456 Oak Avenue, Anytown, USA",
-        payment: "Mastercard **** 5678",
-        experience: "3 Years of Experience",
-        eta: "",
-        img: image,
-        number: "+911234567890",
-        email: "12345@gmail.com",
-        completeService: "0",
-    },
-    {
-        id: 7,
-        name: "David Lee",
-        role: "Electrician",
-        service: "Electrical Installation",
-        date: "Oct 30, 2023, 10:00 AM",
-        rating: 4.8,
-        reviews: 85,
-        location: "456 Oak Avenue, Anytown, USA",
-        payment: "Mastercard **** 5678",
-        experience: "3 Years of Experience",
-        eta: "",
-        img: image,
-        number: "+911234567890",
-        email: "12345@gmail.com",
-        completeService: "0",
-    },
-    {
-        id: 8,
-        name: "David Lee",
-        role: "Electrician",
-        service: "Electrical Installation",
-        date: "Oct 30, 2023, 10:00 AM",
-        rating: 4.8,
-        reviews: 85,
-        location: "456 Oak Avenue, Anytown, USA",
-        payment: "Mastercard **** 5678",
-        experience: "3 Years of Experience",
-        eta: "",
-        img: image,
-        number: "+911234567890",
-        email: "12345@gmail.com",
-        completeService: "0",
-    },
-    {
-        id: 9,
-        name: "Aniket",
-        role: "Electrician",
-        service: "Electrical Installation",
-        date: "Oct 30, 2023, 10:00 AM",
-        rating: 4.8,
-        reviews: 85,
-        location: "456 Oak Avenue, Anytown, USA",
-        payment: "Mastercard **** 5678",
-        experience: "3 Years of Experience",
-        eta: "",
-        img: image,
-        number: "+911234567890",
-        email: "12345@gmail.com",
-        completeService: "0",
-    },
-];
+import { StoreContext } from "../../../../Context/StoreContext";
+import axios from "axios";
 
 const CurrentBooking = () => {
-    const [selectedWorker, setSelectedWorker] = useState(workers[0]);
+    const { URL_LINK, bookingWorkerList, customerToken } = useContext(StoreContext);
+    const workers = bookingWorkerList || [];
+    const [selectedWorker, setSelectedWorker] = useState(workers[0] || null);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const [cancelWorkerId, setCancelWorkerId] = useState(null);
+    const [reason, setReason] = useState("");
+    const [otherReason, setOtherReason] = useState("");
 
-    React.useEffect(() => {
+
+    useEffect(() => {
+        if (workers.length > 0 && !selectedWorker) {
+            setSelectedWorker(workers[0]);
+        }
+    }, [workers]);
+
+    useEffect(() => {
         const handleResize = () => setWindowWidth(window.innerWidth);
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
@@ -171,114 +28,166 @@ const CurrentBooking = () => {
 
     const isMobile = windowWidth <= 650;
 
+    if (!workers || workers.length === 0) {
+        return <p className="no-bookings">No bookings available.</p>;
+    }
 
-    const DetailsSection = ({ worker }) => (
-        <div className="details-body mobile-details">
-            <div>
-                <p><strong>Booking ID</strong><br />#{worker.id}FS123456</p>
+    const handleBookingCancel = async (id) => {
+        const cancelReason = reason === "Other" ? otherReason : reason;
+        if (!cancelReason) {
+            alert("Please select or enter a reason!");
+            return;
+        }
+
+        try {
+            await axios.patch(`${URL_LINK}api/bookings/${id}/cancel`, cancelReason,
+                { headers: { token: customerToken }, params: { bookingId: id } }
+            );
+            alert("Booking cancelled successfully!");
+            setCancelWorkerId(null);
+            setReason("");
+            setOtherReason("");
+        } catch (error) {
+            console.error(error);
+            alert("Error cancelling booking.");
+        }
+    };
+
+    const CancelForm = ({ onConfirm, onCancel }) => (
+        <div className="cancel-section">
+            <p><strong>Why are you cancelling?</strong></p>
+
+            {["Changed my mind", "Found another worker", "Too expensive", "Other"].map(item => (
+                <label key={item}>
+                    <input
+                        type="radio"
+                        name="cancel-reason"
+                        value={item}
+                        checked={reason === item}
+                        onChange={(e) => setReason(e.target.value)}
+                    />
+                    {item}
+                </label>
+            ))}
+
+            {reason === "Other" && (
+                <textarea
+                    placeholder="Please specify..."
+                    value={otherReason}
+                    onChange={(e) => setOtherReason(e.target.value)}
+                />
+            )}
+
+            <div className="cancel-actions">
+                <button className="confirm-btn" onClick={onConfirm}>Confirm</button>
+                <button className="cancel-btn" onClick={onCancel}>Cancel</button>
             </div>
-            <div>
-                <p><strong>Location</strong><br />{worker.location}</p>
-            </div>
-            <div>
-                <p><strong>Date & Time</strong><br />{worker.date}</p>
-            </div>
-            <div>
-                <p><strong>Payment Method</strong><br />{worker.payment}</p>
-            </div>
-            <div>
-                <p><strong>Number</strong><br />{worker.number}</p>
-            </div>
-            <div>
-                <p><strong>Email</strong><br />{worker.email}</p>
-            </div>
-            <div>
-                <p><strong>Complete Service</strong><br />{worker.completeService}</p>
-            </div>
-            <button
-                className="cancel-btn"
-                onClick={() => alert("Booking canceled")}
-            >
-                Cancel Booking
-            </button>
         </div>
     );
 
     return (
-        <div data-aos="fade-down" className="container">
-            {/* Left Panel */}
-            <div data-aos="fade-down" className="left-panel">
+        <div className="container">
+            {/* LEFT PANEL */}
+            <div className="left-panel">
                 <h2>My Bookings</h2>
-                <p className="subtitle">
-                    View and manage your upcoming service bookings.
-                </p>
+                <p className="subtitle">View and manage your upcoming service bookings.</p>
 
                 <h3>Upcoming Bookings</h3>
-                {workers.map((worker) => (
-                    <div key={worker.id}>
+                {workers.map((worker, index) => (
+                    <div key={index}>
                         <div
-                            className={`card ${selectedWorker.id === worker.id ? "active" : ""}`}
+                            className={`card ${selectedWorker?._id === worker._id ? "active" : ""}`}
                             onClick={() => setSelectedWorker(worker)}
                         >
                             <div className="card-left">
-                                <img src={worker.img} alt={worker.name} className="avatar" />
+                                <img src={worker.workerId?.avatar?.image} alt={worker.workerId?.name} className="avatar" />
                                 <div className="card-info">
-                                    <strong>{worker.name}</strong>
-                                    <p>{worker.service}</p>
-                                    <div className="rating">
-                                        {worker.rating} ({worker.reviews} reviews)
-                                    </div>
-                                    <small>Date: {worker.date}</small>
+                                    <strong>{worker.workerId?.name}</strong>
+                                    <p>{worker.serviceType}</p>
+                                    <small>Scheduled: {new Date(worker.scheduledDate).toLocaleString()}</small>
                                 </div>
                             </div>
                         </div>
 
-                        {/* Render details under clicked card on mobile */}
-                        {isMobile && selectedWorker.id === worker.id && (
+                        {/* MOBILE VIEW DETAILS */}
+                        {isMobile && selectedWorker?._id === worker._id && (
                             <>
-                                <div data-aos="fade-down" className="profile-header mobile-profile">
-                                    <img src={worker.img} alt={worker.name} className="profile-avatar" />
+                                <div className="profile-header mobile-profile">
                                     <div>
-                                        <h2>{worker.name}</h2>
-                                        <p>{worker.role}</p>
-                                        <p className="experience">{worker.experience}</p>
+                                        <p>{worker.serviceType}</p>
+                                        <p className="experience">Phone: {worker.workerId?.phone}</p>
                                     </div>
-                                    <button
-                                        className="call-btn"
-                                        onClick={() => (window.location.href = `tel:${worker.number}`)}
-                                    >
+                                    <button className="call-btn" onClick={() => (window.location.href = `tel:${worker.workerId?.phone}`)}>
                                         <FaPhone /> Call
                                     </button>
                                 </div>
-                                <DetailsSection worker={worker} />
+
+                                <div className="details-body mobile-details">
+                                    <p><strong>Booking Code</strong>: {worker.bookingCode}</p>
+                                    <p><strong>Location</strong>: {worker.location.street}, {worker.location.city}, {worker.location.state} - {worker.location.zipCode}</p>
+                                    <p><strong>Date & Time</strong>: {new Date(worker.scheduledDate).toLocaleString()}</p>
+                                    <p><strong>Amount</strong>: {worker.payment.amount}</p>
+                                    <p><strong>Payment</strong>: ({worker.payment.method}, {worker.payment.status})</p>
+                                    <p><strong>Worker Email</strong>: {worker.workerId?.email}</p>
+                                    <p><strong>Status</strong>: {worker.status}</p>
+
+                                    <div className="button-container">
+                                        <button className="cancel-btn1">Work Complete</button>
+                                        {cancelWorkerId === worker._id && (
+                                            <CancelForm
+                                                onConfirm={() => handleBookingCancel(worker._id)}
+                                                onCancel={() => setCancelWorkerId(null)}
+                                            />
+                                        )}
+                                        {cancelWorkerId !== worker._id && (
+                                            <button className="cancel-btn" onClick={() => setCancelWorkerId(worker._id)}>Cancel Booking</button>
+                                        )}
+                                    </div>
+                                </div>
                             </>
                         )}
                     </div>
                 ))}
             </div>
 
-            {/* Right Panel for Desktop */}
-            {!isMobile && (
-                <div data-aos="fade-down" className="right-panel">
-                    <div data-aos="fade-down" className="profile-header">
-                        <img data-aos="fade-down"
-                            src={selectedWorker.img}
-                            alt={selectedWorker.name}
-                            className="profile-avatar"
-                        />
-                        <div data-aos="fade-down">
-                            <h2>{selectedWorker.name}</h2>
-                            <p>{selectedWorker.role}</p>
-                            <p className="experience">{selectedWorker.experience}</p>
+            {/* RIGHT PANEL (Desktop only) */}
+            {!isMobile && selectedWorker && (
+                <div className="right-panel">
+                    <div className="profile-header">
+                        <img src={selectedWorker.workerId?.avatar?.image} alt={selectedWorker.workerId?.name} className="profile-avatar" />
+                        <div>
+                            <h2>{selectedWorker.workerId?.name}</h2>
+                            <p>{selectedWorker.serviceType}</p>
+                            <p className="experience">Phone: {selectedWorker.workerId?.phone}</p>
                         </div>
-                        <button data-aos="fade-down"
-                            className="call-btn"
-                            onClick={() => (window.location.href = `tel:${selectedWorker.number}`)}
-                        >
+                        <button className="call-btn" onClick={() => (window.location.href = `tel:${selectedWorker.workerId?.phone}`)}>
                             <FaPhone /> Call
                         </button>
                     </div>
-                    <DetailsSection worker={selectedWorker} />
+
+                    <div className="details-body">
+                        <p><strong>Booking Code</strong>: {selectedWorker.bookingCode}</p>
+                        <p><strong>Location</strong>: {selectedWorker.location.street}, {selectedWorker.location.city}, {selectedWorker.location.state} - {selectedWorker.location.zipCode}</p>
+                        <p><strong>Booking Date</strong>: {new Date(selectedWorker.bookingDate).toLocaleString()}</p>
+                        <p><strong>Scheduled Date</strong>: {new Date(selectedWorker.scheduledDate).toLocaleString()}</p>
+                        <p><strong>Amount</strong>: {selectedWorker.payment.amount}</p>
+                        <p><strong>Payment</strong>: ({selectedWorker.payment.method}, {selectedWorker.payment.status})</p>
+                        <p><strong>Worker Email</strong>: {selectedWorker.workerId?.email}</p>
+                        <p><strong>Status</strong>: {selectedWorker.status}</p>
+
+                        <div className="button-container">
+                            <button className="cancel-btn1">Work Complete</button>
+                            {cancelWorkerId === selectedWorker._id && (
+                                <CancelForm
+                                    onConfirm={() => handleBookingCancel(selectedWorker._id)}
+                                    onCancel={() => setCancelWorkerId(null)}
+                                />
+                            )}
+                            {cancelWorkerId !== selectedWorker._id && (
+                                <button className="cancel-btn" onClick={() => setCancelWorkerId(selectedWorker._id)}>Cancel Booking</button>
+                            )}
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

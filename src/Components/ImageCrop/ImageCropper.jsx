@@ -59,14 +59,18 @@ const ImageCropper = ({ image, onCropDone, onCropCancel }) => {
       </div>
 
       {/* Action Buttons */}
-      <div style={{ marginTop: "20px" }}>
+      <div style={{ display: "flex", marginTop: "20px", flexDirection: "row", gap: "30px" }}>
         <button
           onClick={() => onCropDone(croppedAreaPixels)}
-          style={{ marginRight: "10px" }}
+          style={{ marginRight: "10px", backgroundColor: "#d75f0f", padding: "10px 30px", color: "#fff", border: "none", borderRadius: "8px", fontWeight: "500", cursor: "pointer" }}
         >
           Done
         </button>
-        <button onClick={onCropCancel}>Cancel</button>
+        <button
+          onClick={onCropCancel}
+          style={{ marginRight: "10px", backgroundColor: "#d75f0f", padding: "10px 25px", color: "#fff", border: "none", borderRadius: "8px", fontWeight: "500", cursor: "pointer" }}
+        >
+          Cancel</button>
       </div>
     </div>
   );

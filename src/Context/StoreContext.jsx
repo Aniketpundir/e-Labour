@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { header } from "framer-motion/m";
 
 export const StoreContext = createContext();
 
@@ -176,6 +177,33 @@ export const StoreProvider = (props) => {
         }
     }, [workerId]);
 
+    //////// Customer Booking section ///////////
+
+    const [bookingWorkerList, setBookingWorkerList] = useState([]);
+
+    const bookingWorkersList = async () => {
+        try {
+            let newUrl = URL_LINK;
+            newUrl += "api/bookings/";
+
+            const res = await axios.get(
+                newUrl,
+                {
+                    headers: { token: customerToken },
+                    params: { status: "pending" },
+                }
+            );
+            setBookingWorkerList(res.data.bookings);
+        } catch (error) {
+            console.log("not fetched!");
+        }
+    }
+
+    useEffect(() => {
+        if (!customerToken) { return; }
+        bookingWorkersList();
+    }, [customerToken])
+
 
     // console.log(workerDetails)
     const contextValue = {
@@ -209,6 +237,7 @@ export const StoreProvider = (props) => {
 
         //worker details for showing people
         workerDetails,
+        bookingWorkerList,
     }
 
     return (

@@ -26,7 +26,6 @@ const WorkersLogin = () => {
 
         try {
             const res = await axios.post(newUrl, data);
-            // cccc@gmail.com
             const workerToken = res.data.token;
             if (res.data.success) {
                 alert(res.data.message);

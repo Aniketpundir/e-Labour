@@ -106,7 +106,6 @@ const AddWorkersDetails = () => {
         try {
             const res = await axios.post(newUrl, Data, { headers: { token: workerToken } });
             if (res.data.success) {
-                alert("Profile submitted successfully!");
                 window.scrollTo({ top: 0, behavior: "smooth" });
                 navigate("/worker-profile/submission-success");
             } else {
