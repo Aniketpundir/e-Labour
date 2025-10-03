@@ -192,7 +192,7 @@ const BookWorkers = () => {
         };
 
         let newUrl = URL_LINK;
-        newUrl += "api/booking/new";
+        newUrl += "api/bookings/new";
 
         try {
             await axios.post(newUrl, bookingData, { headers: { token: customerToken } })
