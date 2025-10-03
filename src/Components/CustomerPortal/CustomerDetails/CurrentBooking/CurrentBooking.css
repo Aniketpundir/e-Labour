@@ -15,7 +15,6 @@
     color: #6b7280;
 }
 
-/* Left Panel */
 .left-panel {
     max-height: 500px;
     overflow-y: auto;
@@ -52,7 +51,6 @@
     color: #374151;
 }
 
-/* Booking Card */
 .card {
     display: flex;
     justify-content: space-between;
@@ -106,7 +104,6 @@
     background: #f9fafb;
 }
 
-/* Right Panel */
 .right-panel {
     flex: 1;
     background: #fff;
@@ -117,7 +114,6 @@
     overflow-y: auto;
 }
 
-/* Profile */
 .profile-header {
     display: flex;
     align-items: center;
@@ -168,7 +164,6 @@
     background: #f3f4f6;
 }
 
-/* Details Body */
 .details-body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -184,13 +179,11 @@
     margin: 0;
 }
 
-/* Buttons */
 .button-container {
     display: flex;
     flex-direction: column;
     gap: 8px;
     position: relative;
-    min-height: 160px;
 }
 
 .cancel-btn1 {
@@ -209,7 +202,6 @@
     background-color: #047857;
 }
 
-/* Cancel Form */
 .cancel-section {
     position: absolute;
     top: 30%;
@@ -282,7 +274,6 @@
     background: #fecaca;
 }
 
-/* Mobile */
 @media (max-width: 650px) {
     .container {
         flex-direction: column;
@@ -318,5 +309,16 @@
     .cancel-btn1 {
         font-size: 13px;
         padding: 8px;
+    }
+
+    .cancel-section {
+        position: relative;
+        top: auto;
+        left: auto;
+        margin-top: 12px;
+    }
+
+    .button-container {
+        min-height: auto;
     }
 }
