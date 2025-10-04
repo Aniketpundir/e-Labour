@@ -177,7 +177,7 @@ export const StoreProvider = (props) => {
         }
     }, [workerId]);
 
-    //////// Customer Booking section ///////////
+    //////// Current Customer Booking section ///////////
 
     const [bookingWorkerList, setBookingWorkerList] = useState([]);
 
@@ -190,7 +190,7 @@ export const StoreProvider = (props) => {
                 newUrl,
                 {
                     headers: { token: customerToken },
-                    params: { status: "pending" },
+                    params: { q: "upcoming" },
                 }
             );
             setBookingWorkerList(res.data.bookings);
@@ -205,7 +205,63 @@ export const StoreProvider = (props) => {
     }, [customerToken])
 
 
-    // console.log(workerDetails)
+    //////// Current Customer Booking section ///////////
+
+
+    const [pastbookingWorkerList, setPastBookingWorkerList] = useState([]);
+
+    const pastbookingWorkersList = async () => {
+        try {
+            let newUrl = URL_LINK;
+            newUrl += "api/bookings/";
+
+            const res = await axios.get(
+                newUrl,
+                {
+                    headers: { token: customerToken },
+                    params: { q: "completed" },
+                }
+            );
+            setPastBookingWorkerList(res.data.bookings);
+        } catch (error) {
+            console.log("not fetched!");
+        }
+    }
+
+    useEffect(() => {
+        if (!customerToken) { return; }
+        pastbookingWorkersList();
+    }, [customerToken])
+
+
+    //////// Current Customer Booking section ///////////
+
+
+    const [jobRequest, setJobRequest] = useState([]);
+
+    const jobRequestforworker = async () => {
+        try {
+            let newUrl = URL_LINK;
+            newUrl += "api/bookings/";
+
+            const res = await axios.get(
+                newUrl,
+                {
+                    headers: { token: workerToken },
+                    params: { q: "pending" },
+                }
+            );
+            setJobRequest(res.data.bookings);
+        } catch (error) {
+            console.log("not fetched!");
+        }
+    }
+
+    useEffect(() => {
+        if (!workerToken) { return; }
+        jobRequestforworker();
+    }, [workerToken])
+
     const contextValue = {
         URL_LINK,
 
@@ -238,6 +294,8 @@ export const StoreProvider = (props) => {
         //worker details for showing people
         workerDetails,
         bookingWorkerList,
+        pastbookingWorkerList,
+        jobRequest,
     }
 
     return (

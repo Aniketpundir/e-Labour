@@ -1,5 +1,9 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import "./JobDashboard.css";
+import { GiConsoleController } from 'react-icons/gi';
+import { Store } from 'lucide-react';
+import { StoreContext } from '../../../Context/StoreContext';
+import axios from 'axios';
 
 const jobsData = [
     {
@@ -37,12 +41,40 @@ const getStatusClass = (status) => {
 };
 
 const JobDashboard = () => {
+    const [jobList, setJobList] = useState([]);
+    const { URL_LINK, workerToken } = useContext(StoreContext);
+    const [filter, setFilter] = useState("All");
+    const filteredJobs = filter === "All"
+        ? jobsData
+        : jobsData.filter(job => job.status === filter);
+
+    const jobData = async () => {
+        let newUrl = URL_LINK;
+        newUrl += "";
+
+        try {
+            const res = await axios.get(newUrl);
+        } catch (error) {
+
+        }
+    }
+
+
     return (
         <div className="job-list-container">
             <div className="job-list-header">
                 <div className="header-item job-col">JOB</div>
                 <div className="header-item customer-col">CUSTOMER</div>
                 <div className="header-item status-col">STATUS</div>
+            </div>
+            <div className="filter-row">
+                <label>Filter: </label>
+                <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+                    <option value="All">All</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Confirmed">Confirmed</option>
+                    <option value="Cancelled">Cancelled</option>
+                </select>
             </div>
             {jobsData.map((jobItem, index) => (
                 <div className="job-list-row" key={index}>

@@ -5,8 +5,11 @@
     border-radius: 8px;
     box-shadow: 0.5px 10px 20px 0.5px rgba(128, 128, 128, 0.478);
     color: #333;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
 }
 
+/* Header */
 .job-list-header {
     display: grid;
     grid-template-columns: 2fr 1.5fr 1fr;
@@ -21,6 +24,7 @@
     font-size: 0.85rem;
 }
 
+/* Rows */
 .job-list-row {
     display: grid;
     grid-template-columns: 2fr 1.5fr 1fr;
@@ -39,6 +43,7 @@
     font-size: 0.95rem;
 }
 
+/* Job Info */
 .job-title {
     font-weight: 600;
     margin-bottom: 3px;
@@ -50,6 +55,25 @@
     color: #888;
 }
 
+/* Filter Row */
+.filter-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    background: #fafafa;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.filter-row select {
+    padding: 6px 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+/* Status Pills */
 .status-pill {
     display: inline-block;
     padding: 5px 10px;
