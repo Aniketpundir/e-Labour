@@ -1,8 +1,32 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import './JobRequestCard.css'; // Make sure to create this CSS file
+import { StoreContext } from '../../../../Context/StoreContext';
+import axios from 'axios';
+import { header } from 'framer-motion/m';
 
 const JobRequestCard = ({ job }) => {
-    console.log(job)
+    const { URL_LINK, workerToken } = useContext(StoreContext);
+
+    const bookingRequestHandle = async (status) => {
+        let newUrl = URL_LINK;
+        newUrl += `api/bookings/${job._id}/update`;
+
+        try {
+            const res = await axios.patch(newUrl, {
+                // koi body nahi bhejna
+            }, {
+                headers: { token: workerToken },
+                params: { q: status }
+            });
+            console.log("Booking Arrove Successful");
+            console.log(res);
+        } catch (error) {
+            console.log(error.message);
+        }
+
+    }
+
+
     return (
         <div className="job-card">
             <div className="job-card-header">
@@ -29,8 +53,8 @@ const JobRequestCard = ({ job }) => {
 
             <div className="job-card-footer">
                 <div className="actions">
-                    <button className="reject-button">Reject</button>
-                    <button className="accept-button">Accept</button>
+                    <bcutton className="reject-button" onClick={() => { bookingRequestHandle("cancelled") }}>Reject</bcutton>
+                    <button className="accept-button" onClick={() => { bookingRequestHandle("approved") }}>Accept</button>
                 </div>
             </div>
         </div>

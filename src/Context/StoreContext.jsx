@@ -8,7 +8,9 @@ export const StoreContext = createContext();
 
 export const StoreProvider = (props) => {
     // Backend URL
-    const URL_LINK = "https://e-labour-backend.onrender.com/";
+    // const URL_LINK = "https://e-labour-backend.onrender.com/";
+
+    const URL_LINK = "http://localhost:5000/"
 
     // ================== TOKENS ==================
     const [workerToken, setWorkerToken] = useState(localStorage.getItem("workerToken") || null);
@@ -225,8 +227,6 @@ export const StoreProvider = (props) => {
             console.error("Error fetching past bookings:", error.response?.data || error.message);
         }
     };
-
-    console.log(pastBookingWorkerList);
 
     const jobRequestForWorker = async () => {
         if (!workerToken) return;

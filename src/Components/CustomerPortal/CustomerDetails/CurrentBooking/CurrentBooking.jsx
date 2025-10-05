@@ -16,6 +16,8 @@ const CurrentBooking = () => {
     const [rating, setRating] = useState(0);
     const [feedback, setFeedback] = useState("");
 
+    console.log(bookingWorkerList);
+
     useEffect(() => {
         if (workers.length > 0 && !selectedWorker) {
             setSelectedWorker(workers[0]);
@@ -59,16 +61,16 @@ const CurrentBooking = () => {
     };
 
     // Rating submit
-    const handleRatingSubmit = async (id) => {
+    const handleRatingSubmit = async (workerId, bookingId) => {
         if (rating === 0) {
             alert("Please select a rating!");
             return;
         }
-
+        console.log("BookingId:--", workerId, "WorkerId:--", bookingId)
         try {
-            await axios.post(
-                `${URL_LINK}api/bookings/${id}/rate`,
-                { bookingId: id, rating, feedback },  // ✅ sending bookingId also
+            const res = await axios.post(
+                `${URL_LINK}api/reviews/${bookingId}`,
+                { bookingId: workerId, rating, review: feedback },
                 { headers: { token: customerToken } }
             );
             alert("Thanks for your feedback!");
@@ -115,7 +117,7 @@ const CurrentBooking = () => {
     );
 
     // Rating form component
-    const RatingForm = ({ workerId }) => (
+    const RatingForm = ({ workerId, bookingId }) => (
         <div className="rating-section">
             <p><strong>Rate your experience</strong></p>
             <div className="rating-circles">
@@ -134,7 +136,7 @@ const CurrentBooking = () => {
                 value={feedback}
                 onChange={(e) => setFeedback(e.target.value)}
             />
-            <button className="submit-btn" onClick={() => handleRatingSubmit(workerId)}>Submit</button>
+            <button className="submit-btn" onClick={() => handleRatingSubmit(workerId, bookingId)}>Submit</button>
         </div>
     );
 
@@ -186,7 +188,8 @@ const CurrentBooking = () => {
 
                                     <div className="button-container">
                                         {showRatingForWorker === worker._id ? (
-                                            <RatingForm workerId={worker._id} />
+                                            <RatingForm workerId={worker._id}
+                                                bookingId={worker.workerId._id} />
                                         ) : (
                                             <button className="cancel-btn1" onClick={() => setShowRatingForWorker(worker._id)}>Work Complete</button>
                                         )}
@@ -235,7 +238,8 @@ const CurrentBooking = () => {
 
                         <div className="button-container">
                             {showRatingForWorker === selectedWorker._id ? (
-                                <RatingForm workerId={selectedWorker._id} />
+                                <RatingForm workerId={selectedWorker._id}
+                                    bookingId={selectedWorker.workerId._id} />
                             ) : (
                                 <button className="cancel-btn1" onClick={() => setShowRatingForWorker(selectedWorker._id)}>Work Complete</button>
                             )}

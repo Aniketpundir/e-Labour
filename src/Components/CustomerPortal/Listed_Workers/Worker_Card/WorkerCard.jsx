@@ -55,7 +55,7 @@ const WorkerCard = ({ image, service, name, /*rating,*/ daily_wages, status, id 
                         <p className='rating-text'>rating</p>
                     </div>
                     <div className='daily-wage'>
-                        <h3>&#8377; {daily_wages}<span></span></h3>
+                        <h3>&#8377; {daily_wages}/Day<span></span></h3>
                     </div>
                 </div>
             </div>

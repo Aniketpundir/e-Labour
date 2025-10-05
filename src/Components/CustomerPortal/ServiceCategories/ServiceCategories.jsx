@@ -12,70 +12,77 @@ import Pest_Control from "../../../assets/Pest_Control.png";
 import painting_service from "../../../assets/painting_service.png"
 import Handyman from "../../../assets/Handyman.png"
 import ServiceCard from '../Home_Section/Service/ServiceCard/ServiceCard';
+import image4 from "../../../assets/chock_labour.jpeg"
 
 const Servce_List = [
     {
-        id: "1",
+        _id: "1",
+        title: "Chowk Laborers",
+        img: image4,
+        description: "Hands Covered in Dust, Hearts Full of Dreams.",
+    },
+    {
+        id: "2",
         img: Plumber,
         title: "Plumber",
         description: "Expert plumbing solutions for your home."
     },
     {
-        id: "2",
+        id: "3",
         img: Electrician,
         title: "Electrician",
         description: "Reliable wiring and repairs you can trust."
     },
     {
-        id: "3",
+        id: "4",
         img: Painter,
         title: "Painter",
         description: "Bring your walls to life with expert painting."
     },
     {
-        id: "4",
+        id: "5",
         img: Carpenter,
         title: "Carpenter",
         description: "From fixes to fine furniture, we build with care."
     },
     {
-        id: "5",
+        id: "6",
         img: Home_cleaning,
         title: "Home Cleaning",
         description: "Deep cleaning services for a healthier home."
     },
     {
-        id: "6",
+        id: "7",
         img: Electrical,
         title: "Electrical",
         description: "Reliable electrical repair services."
     },
     {
-        id: "7",
+        id: "8",
         img: gardening,
         title: "Gardening",
         description: "Professional gardening to keep your greens thriving."
     },
     {
-        id: "8",
+        id: "9",
         img: Appliance,
         title: "Appliance Repair",
         description: "Fast and efficient appliance repairs."
     },
     {
-        id: "9",
+        id: "10",
         img: painting_service,
         title: "Painting Service",
         description: "“Reliable painters bringing vibrant life to your space."
     },
     {
-        id: "10",
+        id: "11",
         img: Pest_Control,
         title: "Pest Control",
         description: "Effective pest control solutions."
     },
     {
-        id: "11",
+        id: "12",
         img: Handyman,
         title: "Painting Service",
         description: "All rounder home repair services."

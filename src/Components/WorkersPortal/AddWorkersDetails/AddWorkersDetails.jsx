@@ -16,15 +16,6 @@ const AddWorkersDetails = () => {
     }, []);
 
 
-    const random = [
-        {
-            name: "Aniket",
-            image: image,
-            number: "9528756292",
-            email: "Aniketpundir@gmail.com",
-        },
-    ];
-
     const [Data, setData] = useState({
         // Personal Information
         fullName: workerSignUp?.worker?.name || "",
@@ -198,6 +189,7 @@ const AddWorkersDetails = () => {
                             <label>Work workCategory *</label>
                             <select name="workCategory" value={Data.workCategory} onChange={handleChange}>
                                 <option value="">Select</option>
+                                <option>Chowk Laborers</option>
                                 <option>Plumber</option>
                                 <option>Electrician</option>
                                 <option>Painter</option>
