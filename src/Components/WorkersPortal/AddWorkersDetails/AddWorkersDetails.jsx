@@ -7,7 +7,7 @@ import "./AddWorkersDetails.css";
 import Cookies from "js-cookie";
 
 const AddWorkersDetails = () => {
-    const { URL_LINK, district, state, city, pinCode } = useContext(StoreContext);
+    const { URL_LINK, district, state, city, pinCode, workerSignUp } = useContext(StoreContext);
     const navigate = useNavigate();
     const [workerToken, setWorkerToken] = useState("");
 
@@ -27,13 +27,13 @@ const AddWorkersDetails = () => {
 
     const [Data, setData] = useState({
         // Personal Information
-        fullName: random[0]?.name || "",
+        fullName: workerSignUp?.worker?.name || "",
         fName: "",
         dob: "",
         gender: "",
-        profilePhoto: random[0]?.image || null,
-        mobile: random[0]?.number || "",
-        email: random[0]?.email || "",
+        profilePhoto: workerSignUp?.worker?.avatar?.image || null,
+        mobile: workerSignUp?.worker?.phone || "",
+        email: workerSignUp?.worker?.email || "",
         bio: "",
 
         // Full Address
@@ -129,11 +129,11 @@ const AddWorkersDetails = () => {
                     <div className="form-grid">
                         <div className="worker-profile-photo">
                             <label>Profile Photo *</label>
-                            <img src={Data.profilePhoto} alt="Profile" />
+                            <img src={workerSignUp?.worker?.avatar?.image || null} alt="Profile" />
                         </div>
                         <div className="form-group">
                             <label>Full Name *</label>
-                            <input type="text" name="fullName" value={Data.fullName} readOnly />
+                            <input type="text" name="fullName" value={workerSignUp?.worker?.name || ""} readOnly />
                         </div>
                         <div className="form-group">
                             <label>Father’s Name *</label>
@@ -154,11 +154,11 @@ const AddWorkersDetails = () => {
                         </div>
                         <div className="form-group">
                             <label>Mobile Number *</label>
-                            <input type="text" name="mobile" value={Data.mobile} readOnly />
+                            <input type="text" name="mobile" value={workerSignUp?.worker?.phone || ""} readOnly />
                         </div>
                         <div className="form-group">
                             <label>Email Address *</label>
-                            <input type="email" name="email" value={Data.email} readOnly />
+                            <input type="email" name="email" value={workerSignUp?.worker?.email || ""} readOnly />
                         </div>
                         <div className="form-group">
                             <label>Bio *</label>

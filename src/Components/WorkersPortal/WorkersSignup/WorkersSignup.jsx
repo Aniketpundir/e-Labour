@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 
 const WorkersSignup = () => {
     const role = "worker"
-    const { URL_LINK, setWtokes } = useContext(StoreContext);
+    const { URL_LINK } = useContext(StoreContext);
     const [showPassword, setShowPassword] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
     const [data, setData] = useState({
@@ -80,6 +80,7 @@ const WorkersSignup = () => {
             localStorage.setItem("workerToken", workerToken)
             alert("Worker SignUp Successfully");
             Navigate("/worker-profile/add-workers-details");
+            window.location.reload();
         } catch (error) {
             console.log(error.message);
         }

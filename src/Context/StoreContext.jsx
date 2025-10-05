@@ -1,5 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import axios from "axios";
+import { Workflow } from "lucide-react";
+import { header } from "framer-motion/client";
 
 export const StoreContext = createContext();
 
@@ -93,6 +95,31 @@ export const StoreProvider = (props) => {
         };
         fetchWorkerProfile();
     }, [workerToken]);
+
+    // Worker Sign Up data
+
+    const [workerSignUp, setWorkerSignUp] = useState([]);
+
+    useEffect(() => {
+        if (!workerToken) { return };
+
+        const signUpDetails = async () => {
+            let newUrl = URL_LINK;
+            newUrl += "api/workers/worker/primary-info";
+            try {
+
+                const res = await axios.get(newUrl, { headers: { token: workerToken } })
+
+                setWorkerSignUp(res.data);
+
+            } catch (error) {
+
+            }
+        }
+
+        signUpDetails();
+    }, [workerToken])
+
 
     // ================== LOCATION (DISTRICT, CITY, STATE) ==================
     const [district, setDistrict] = useState("");
@@ -228,6 +255,10 @@ export const StoreProvider = (props) => {
         bookingWorkerList,
         pastBookingWorkerList,
         jobRequest,
+
+        // worker signup details
+        workerSignUp,
+        setWorkerSignUp
     };
 
     return (
