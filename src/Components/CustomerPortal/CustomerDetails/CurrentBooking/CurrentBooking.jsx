@@ -5,7 +5,7 @@ import { StoreContext } from "../../../../Context/StoreContext";
 import axios from "axios";
 
 const CurrentBooking = () => {
-    const { URL_LINK, bookingWorkerList, customerToken, fetchUpcomingBookings } = useContext(StoreContext);
+    const { URL_LINK, bookingWorkerList, bookingWorkersList, customerToken, fetchUpcomingBookings } = useContext(StoreContext);
     const [selectedWorker, setSelectedWorker] = useState(null);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [openCancelFor, setOpenCancelFor] = useState(null);
@@ -13,6 +13,11 @@ const CurrentBooking = () => {
 
     const workers = bookingWorkerList || [];
     const isMobile = windowWidth <= 650;
+
+    useEffect(() => {
+        if (!customerToken) { return }
+        bookingWorkersList();
+    }, [customerToken])
 
     // Keep selected worker stable
     useEffect(() => {

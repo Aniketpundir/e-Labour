@@ -292,6 +292,10 @@ export const StoreProvider = (props) => {
         // worker signup details
         workerSignUp,
         setWorkerSignUp,
+
+        //
+        bookingWorkersList,
+        pastBookingWorkersList,
     };
 
     return (

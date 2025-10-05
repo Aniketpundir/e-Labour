@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import "./PastBooking.css";
 import image from "../../../../assets/101.jpg";
 import { StoreContext } from '../../../../Context/StoreContext';
@@ -6,10 +6,13 @@ import { useNavigate } from 'react-router-dom';
 
 const PastBooking = () => {
 
-    const { pastBookingWorkerList } = useContext(StoreContext);
+    const { pastBookingWorkerList, pastBookingWorkersList, customerToken } = useContext(StoreContext);
     const Navigate = useNavigate();
 
-    // console.log(pastBookingWorkerList);
+    useEffect(() => {
+        if (!customerToken) { return }
+        pastBookingWorkersList();
+    })
 
     const navigate = (id, title) => {
         Navigate(`/Service-Categories/Listed-Workers/${title}/Worker-Details/${id}/Booking-Section`);
