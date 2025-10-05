@@ -246,7 +246,7 @@ export const StoreProvider = (props) => {
             bookingWorkersList();
             pastBookingWorkersList();
         }
-    }, [customerToken, bookingWorkerList]);
+    }, [customerToken]);
 
     useEffect(() => {
         if (workerToken) {
