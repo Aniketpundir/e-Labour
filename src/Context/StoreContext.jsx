@@ -8,9 +8,9 @@ export const StoreContext = createContext();
 
 export const StoreProvider = (props) => {
     // Backend URL
-    // const URL_LINK = "https://e-labour-backend.onrender.com/";
+    const URL_LINK = "https://e-labour-backend.onrender.com/";
 
-    const URL_LINK = "http://localhost:5000/"
+    // const URL_LINK = "http://localhost:5000/"
 
     // ================== TOKENS ==================
     const [workerToken, setWorkerToken] = useState(localStorage.getItem("workerToken") || null);
@@ -246,7 +246,7 @@ export const StoreProvider = (props) => {
             bookingWorkersList();
             pastBookingWorkersList();
         }
-    }, [customerToken]);
+    }, [customerToken, bookingWorkerList]);
 
     useEffect(() => {
         if (workerToken) {

@@ -8,6 +8,7 @@ import { StoreContext } from '../../../../../Context/StoreContext';
 
 const WorkerDetailHeader = () => {
     const { workerDetails } = useContext(StoreContext);
+    console.log(workerDetails);
 
     // console.log(workerDetails);
     const { title, id } = useParams();
