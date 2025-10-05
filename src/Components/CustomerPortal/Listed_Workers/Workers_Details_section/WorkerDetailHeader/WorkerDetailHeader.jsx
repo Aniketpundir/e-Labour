@@ -35,7 +35,7 @@ const WorkerDetailHeader = () => {
             <div className="worker-info">
                 <h3 className="worker-name">{workerDetails?.worker?.workerId?.name}</h3>
                 <p className="worker-details">{workerDetails?.worker?.workCategory} · {workerDetails?.worker?.experience} years of experience</p>
-                <p className="worker-details" style={{ fontSize: "18px", fontWeight: "600" }}>{workerDetails?.worker?.rate}</p>
+                <p className="worker-details" style={{ fontSize: "18px", fontWeight: "600" }}>{workerDetails?.worker?.rate}/Day</p>
                 <div className="verified">
                     <FaCheckCircle className="verified-icon" />
                     <span>Verified</span>

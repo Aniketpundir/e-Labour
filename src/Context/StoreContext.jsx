@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from "react";
 import axios from "axios";
 import { Workflow } from "lucide-react";
 import { header } from "framer-motion/client";
+import { useParams } from "react-router-dom";
 
 export const StoreContext = createContext();
 
@@ -12,6 +13,8 @@ export const StoreProvider = (props) => {
     // ================== TOKENS ==================
     const [workerToken, setWorkerToken] = useState(localStorage.getItem("workerToken") || null);
     const [customerToken, setCustomerToken] = useState(localStorage.getItem("customerToken") || null);
+
+    const { id } = useParams();
 
     // Save tokens to localStorage automatically
     useEffect(() => {
@@ -121,6 +124,31 @@ export const StoreProvider = (props) => {
     }, [workerToken])
 
 
+    // Single worker details
+
+    const [workerDetails, setWorkerDetails] = useState([]);
+
+
+    useEffect(() => {
+
+        if (!customerToken || !id) return;
+
+        const workerdetail = async () => {
+            const newUrl = `${URL_LINK}api/workers/${id}`;
+            try {
+                const res = await axios.get(newUrl, { headers: { token: customerToken } });
+                console.log(res.data.data)
+                setWorkerDetails(res.data.data);
+                console.log(workerDetails)
+            } catch (error) {
+                console.error("Error fetching worker details:", error);
+            }
+        };
+
+        workerdetail();
+    }, [customerToken, id]);
+
+
     // ================== LOCATION (DISTRICT, CITY, STATE) ==================
     const [district, setDistrict] = useState("");
     const [pinCode, setPinCode] = useState("");
@@ -167,7 +195,7 @@ export const StoreProvider = (props) => {
 
     // ================== BOOKINGS ==================
     const [bookingWorkerList, setBookingWorkerList] = useState([]);
-    const [pastBookingWorkerList, setPastBookingWorkerList] = useState([]);
+
     const [jobRequest, setJobRequest] = useState([]);
 
     const bookingWorkersList = async () => {
@@ -177,12 +205,13 @@ export const StoreProvider = (props) => {
                 headers: { token: customerToken },
                 params: { q: "upcoming" },
             });
-            setBookingWorkerList(res.data.bookings || []);
+            setBookingWorkerList(res.data.bookings);
         } catch (error) {
             console.error("Error fetching upcoming bookings:", error.response?.data || error.message);
         }
     };
 
+    const [pastBookingWorkerList, setPastBookingWorkerList] = useState([]);
     const pastBookingWorkersList = async () => {
         if (!customerToken) return;
         try {
@@ -190,11 +219,14 @@ export const StoreProvider = (props) => {
                 headers: { token: customerToken },
                 params: { q: "completed" },
             });
-            setPastBookingWorkerList(res.data.bookings || []);
+            setPastBookingWorkerList(res.data.bookings);
+            console.log(res.data.bookings)
         } catch (error) {
             console.error("Error fetching past bookings:", error.response?.data || error.message);
         }
     };
+
+    console.log(pastBookingWorkerList);
 
     const jobRequestForWorker = async () => {
         if (!workerToken) return;
@@ -235,6 +267,7 @@ export const StoreProvider = (props) => {
         // Profiles
         customerProfileData,
         workerProfileData,
+        workerDetails,
 
         // Addresses
         addresses,
@@ -258,7 +291,7 @@ export const StoreProvider = (props) => {
 
         // worker signup details
         workerSignUp,
-        setWorkerSignUp
+        setWorkerSignUp,
     };
 
     return (

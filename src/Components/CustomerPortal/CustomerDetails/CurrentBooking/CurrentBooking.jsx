@@ -179,7 +179,7 @@ const CurrentBooking = () => {
                                     <p><strong>Booking Code</strong>: {worker.bookingCode}</p>
                                     <p><strong>Location</strong>: {worker.location.street}, {worker.location.city}, {worker.location.state} - {worker.location.zipCode}</p>
                                     <p><strong>Date & Time</strong>: {new Date(worker.scheduledDate).toLocaleString()}</p>
-                                    <p><strong>Amount</strong>: {worker.payment.amount}</p>
+                                    <p><strong>Amount</strong>: {worker.payment.amount}/Day</p>
                                     <p><strong>Payment</strong>: ({worker.payment.method}, {worker.payment.status})</p>
                                     <p><strong>Worker Email</strong>: {worker.workerId?.email}</p>
                                     <p><strong>Status</strong>: {worker.status}</p>
@@ -228,7 +228,7 @@ const CurrentBooking = () => {
                         <p><strong>Location</strong>: {selectedWorker.location.street}, {selectedWorker.location.city}, {selectedWorker.location.state} - {selectedWorker.location.zipCode}</p>
                         <p><strong>Booking Date</strong>: {new Date(selectedWorker.bookingDate).toLocaleString()}</p>
                         <p><strong>Scheduled Date</strong>: {new Date(selectedWorker.scheduledDate).toLocaleString()}</p>
-                        <p><strong>Amount</strong>: {selectedWorker.payment.amount}</p>
+                        <p><strong>Amount</strong>: {selectedWorker.payment.amount}/Day</p>
                         <p><strong>Payment</strong>: ({selectedWorker.payment.method}, {selectedWorker.payment.status})</p>
                         <p><strong>Worker Email</strong>: {selectedWorker.workerId?.email}</p>
                         <p><strong>Status</strong>: {selectedWorker.status}</p>
