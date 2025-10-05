@@ -21,37 +21,6 @@ const Navbar = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    useEffect(() => {
-        if (customerToken) {
-            toast.success("Customer Login and Signup successful.", {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-
-            })
-        }
-    }, [customerToken, workerToken])
-
-    useEffect(() => {
-        if (workerToken) {
-            toast.success("Worker Login successful.", {
-                position: "bottom-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "colored",
-            })
-        }
-    }, [workerToken])
-
 
     const handleClick = (name) => {
         setActiveItem(name);
@@ -211,9 +180,7 @@ const Navbar = () => {
                     (
                         <div className="profile-section">
                             <img
-                                src={customerProfileData.customer &&
-                                    customerProfileData.customer.avatar &&
-                                    customerProfileData.customer.avatar.image}
+                                src={customerProfileData?.customer?.avatar?.image}
                                 alt="Profile"
                                 onClick={customerToken ? toggleProfileMenu : undefined} // menu only for customers
                                 style={{ cursor: customerToken ? "pointer" : "default" }}

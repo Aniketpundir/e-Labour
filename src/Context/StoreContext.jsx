@@ -1,108 +1,100 @@
 import { createContext, useState, useEffect } from "react";
-import Cookies from "js-cookie";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { header } from "framer-motion/m";
 
 export const StoreContext = createContext();
-
-
-
 
 export const StoreProvider = (props) => {
     // Backend URL
     const URL_LINK = "https://e-labour-backend.onrender.com/";
 
-    const [workerToken, setWorkerToken] = useState(null);
-    const [customerToken, setCustomerToken] = useState(null);
+    // ================== TOKENS ==================
+    const [workerToken, setWorkerToken] = useState(localStorage.getItem("workerToken") || null);
+    const [customerToken, setCustomerToken] = useState(localStorage.getItem("customerToken") || null);
+
+    // Save tokens to localStorage automatically
+    useEffect(() => {
+        if (workerToken) {
+            localStorage.setItem("workerToken", workerToken);
+        } else {
+            localStorage.removeItem("workerToken");
+        }
+    }, [workerToken]);
 
     useEffect(() => {
-        const worker = localStorage.getItem("workerToken");
-        const customer = localStorage.getItem("customerToken");
+        if (customerToken) {
+            localStorage.setItem("customerToken", customerToken);
+        } else {
+            localStorage.removeItem("customerToken");
+        }
+    }, [customerToken]);
 
-        setWorkerToken(worker);
-        setCustomerToken(customer);
-    }, []);
-
-
-    // Customer Profile
-
-    const [customerProfileData, setCustomerProfileData] = useState([]);
+    // ================== CUSTOMER PROFILE ==================
+    const [customerProfileData, setCustomerProfileData] = useState(null);
 
     useEffect(() => {
         if (!customerToken) return;
-
-        const customerProfile = async () => {
+        const fetchCustomerProfile = async () => {
             try {
-                const res = await axios.get(URL_LINK + "api/users/mydetails", {
-                    headers: { token: customerToken }
+                const res = await axios.get(`${URL_LINK}api/users/mydetails`, {
+                    headers: { token: customerToken },
                 });
                 setCustomerProfileData(res.data);
             } catch (error) {
-                console.log(error);
+                console.error("Error fetching customer profile:", error.response?.data || error.message);
             }
         };
-
-        customerProfile();
+        fetchCustomerProfile();
     }, [customerToken]);
 
-    // Fetch worker for customer showing
+    // ================== ADDRESSES ==================
     const [addresses, setAddresses] = useState([]);
     const [loadingAddr, setLoadingAddr] = useState(false);
     const [selectedAddress, setSelectedAddress] = useState(null);
 
-
-
     const fetchAddresses = async () => {
+        if (!customerToken) return;
         try {
-            let newUrl = `${URL_LINK}api/addresses/user`;
             setLoadingAddr(true);
-
-            const res = await axios.get(newUrl, {
-                headers: { token: customerToken }
+            const res = await axios.get(`${URL_LINK}api/addresses/user`, {
+                headers: { token: customerToken },
             });
-
-            setAddresses(res.data?.addresses);
-
-            const addresses = res.data?.data || res.data;
-
-            if (Array.isArray(addresses)) {
-                setAddresses(addresses);
-                if (addresses.length > 0) {
-                    setSelectedAddress(addresses[0]._id);
-                }
+            const addrList = res.data?.addresses || res.data?.data || [];
+            setAddresses(addrList);
+            if (addrList.length > 0) {
+                setSelectedAddress(addrList[0]._id);
             }
         } catch (err) {
-            console.error("Error fetching addresses:", err);
+            console.error("Error fetching addresses:", err.response?.data || err.message);
         } finally {
             setLoadingAddr(false);
         }
     };
 
-
     useEffect(() => {
-        if (!customerToken) return;
-        fetchAddresses();
-    }, [customerToken])
+        if (customerToken) {
+            fetchAddresses();
+        }
+    }, [customerToken]);
 
-    // Worker Profile
+    // ================== WORKER PROFILE ==================
+    const [workerProfileData, setWorkerProfileData] = useState(null);
 
-    const [workerProfileData, setWorkerProfileData] = useState([]);
     useEffect(() => {
         if (!workerToken) return;
-        const workerProfile = async () => {
+        const fetchWorkerProfile = async () => {
             try {
-                const res = await axios.get(URL_LINK + "api/workers/mydetails", { headers: { token: workerToken } })
+                const res = await axios.get(`${URL_LINK}api/workers/mydetails`, {
+                    headers: { token: workerToken },
+                });
                 setWorkerProfileData(res.data.worker);
             } catch (error) {
-
+                console.error("Error fetching worker profile:", error.response?.data || error.message);
             }
-        }
+        };
+        fetchWorkerProfile();
+    }, [workerToken]);
 
-        workerProfile();
-    }, [workerToken])
-
-    /////////////////
+    // ================== LOCATION (DISTRICT, CITY, STATE) ==================
     const [district, setDistrict] = useState("");
     const [pinCode, setPinCode] = useState("");
     const [city, setCity] = useState("");
@@ -111,27 +103,22 @@ export const StoreProvider = (props) => {
     const [longi, setLongi] = useState("");
 
     useEffect(() => {
-        const dist = async (latitude, longitude) => {
+        const fetchLocationDetails = async (latitude, longitude) => {
             try {
-                let apiEndPoint = "https://api.opencagedata.com/geocode/v1/json";
-                let apikey = "416911d3a90940a6ba7ba4f7aaaa402e";
+                const apiEndPoint = "https://api.opencagedata.com/geocode/v1/json";
+                const apikey = "416911d3a90940a6ba7ba4f7aaaa402e";
                 const query = `${latitude},${longitude}`;
                 const apiUrl = `${apiEndPoint}?key=${apikey}&q=${query}&pretty=1`;
 
                 const res = await axios(apiUrl);
-                const data = res.data;
+                const data = res.data.results[0]?.components || {};
 
-                const districtName = data.results[0].components.state_district;
-                const cityName = data.results[0].components.city;
-                const stateName = data.results[0].components.state;
-                const postCode = data.results[0].components.postcode;
-
-                setDistrict(districtName);
-                setCity(cityName);
-                setState(stateName);
-                setPinCode(postCode);
+                setDistrict(data.state_district || "");
+                setCity(data.city || data.town || data.village || "");
+                setState(data.state || "");
+                setPinCode(data.postcode || "");
             } catch (error) {
-                console.error("Error fetching location data:", error);
+                console.error("Error fetching location data:", error.message);
             }
         };
 
@@ -140,148 +127,94 @@ export const StoreProvider = (props) => {
                 (position) => {
                     const latitude = position.coords.latitude;
                     const longitude = position.coords.longitude;
-
                     setLati(latitude);
                     setLongi(longitude);
-
-                    dist(latitude, longitude); // ✅ Now this works correctly
+                    fetchLocationDetails(latitude, longitude);
                 },
                 (error) => {
-                    console.error("Error getting location:", error);
+                    console.error("Error getting location:", error.message);
                 }
             );
-        } else {
-            console.error("Geolocation is not supported by this browser.");
         }
     }, []);
 
-
-    //////////////////// This function is for worker details //////////////
-
-    const { id } = useParams();
-    const workerId = id;
-    const [workerDetails, setWorkerDetails] = useState([]);
-
-    useEffect(() => {
-        const workerDetails = async () => {
-            try {
-                const res = await axios.get(`${URL_LINK}api/workers/${workerId}`);
-                setWorkerDetails(res.data.data);
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        if (workerId) {   // ✅ Only call if id is available
-            workerDetails();
-        }
-    }, [workerId]);
-
-    //////// Current Customer Booking section ///////////
-
+    // ================== BOOKINGS ==================
     const [bookingWorkerList, setBookingWorkerList] = useState([]);
-
-    const bookingWorkersList = async () => {
-        try {
-            let newUrl = URL_LINK;
-            newUrl += "api/bookings/";
-
-            const res = await axios.get(
-                newUrl,
-                {
-                    headers: { token: customerToken },
-                    params: { q: "upcoming" },
-                }
-            );
-            setBookingWorkerList(res.data.bookings);
-        } catch (error) {
-            console.log("not fetched!");
-        }
-    }
-
-    useEffect(() => {
-        if (!customerToken) { return; }
-        bookingWorkersList();
-    }, [customerToken])
-
-
-    //////// Current Customer Booking section ///////////
-
-
-    const [pastbookingWorkerList, setPastBookingWorkerList] = useState([]);
-
-    const pastbookingWorkersList = async () => {
-        try {
-            let newUrl = URL_LINK;
-            newUrl += "api/bookings/";
-
-            const res = await axios.get(
-                newUrl,
-                {
-                    headers: { token: customerToken },
-                    params: { q: "completed" },
-                }
-            );
-            setPastBookingWorkerList(res.data.bookings);
-        } catch (error) {
-            console.log("not fetched!");
-        }
-    }
-
-    useEffect(() => {
-        if (!customerToken) { return; }
-        pastbookingWorkersList();
-    }, [customerToken])
-
-
-    //////// Current Customer Booking section ///////////
-
-
+    const [pastBookingWorkerList, setPastBookingWorkerList] = useState([]);
     const [jobRequest, setJobRequest] = useState([]);
 
-    const jobRequestforworker = async () => {
+    const bookingWorkersList = async () => {
+        if (!customerToken) return;
         try {
-            let newUrl = URL_LINK;
-            newUrl += "api/bookings/";
-
-            const res = await axios.get(
-                newUrl,
-                {
-                    headers: { token: workerToken },
-                    params: { q: "pending" },
-                }
-            );
-            setJobRequest(res.data.bookings);
+            const res = await axios.get(`${URL_LINK}api/bookings/`, {
+                headers: { token: customerToken },
+                params: { q: "upcoming" },
+            });
+            setBookingWorkerList(res.data.bookings || []);
         } catch (error) {
-            console.log("not fetched!");
+            console.error("Error fetching upcoming bookings:", error.response?.data || error.message);
         }
-    }
+    };
+
+    const pastBookingWorkersList = async () => {
+        if (!customerToken) return;
+        try {
+            const res = await axios.get(`${URL_LINK}api/bookings/`, {
+                headers: { token: customerToken },
+                params: { q: "completed" },
+            });
+            setPastBookingWorkerList(res.data.bookings || []);
+        } catch (error) {
+            console.error("Error fetching past bookings:", error.response?.data || error.message);
+        }
+    };
+
+    const jobRequestForWorker = async () => {
+        if (!workerToken) return;
+        try {
+            const res = await axios.get(`${URL_LINK}api/bookings/`, {
+                headers: { token: workerToken },
+                params: { q: "pending" },
+            });
+            setJobRequest(res.data.bookings || []);
+        } catch (error) {
+            console.error("Error fetching job requests:", error.response?.data || error.message);
+        }
+    };
 
     useEffect(() => {
-        if (!workerToken) { return; }
-        jobRequestforworker();
-    }, [workerToken])
+        if (customerToken) {
+            bookingWorkersList();
+            pastBookingWorkersList();
+        }
+    }, [customerToken]);
 
+    useEffect(() => {
+        if (workerToken) {
+            jobRequestForWorker();
+        }
+    }, [workerToken]);
+
+    // ================== CONTEXT VALUE ==================
     const contextValue = {
         URL_LINK,
 
-        // Tokens for auth
+        // Tokens
         workerToken,
-        setCustomerToken,
-        customerToken,
         setWorkerToken,
+        customerToken,
+        setCustomerToken,
 
-        // Customer Profile
+        // Profiles
         customerProfileData,
+        workerProfileData,
 
+        // Addresses
         addresses,
         loadingAddr,
         selectedAddress,
         setSelectedAddress,
         fetchAddresses,
-
-        // Worker Profile
-        workerProfileData,
 
         // Location
         district,
@@ -291,16 +224,15 @@ export const StoreProvider = (props) => {
         lati,
         longi,
 
-        //worker details for showing people
-        workerDetails,
+        // Bookings
         bookingWorkerList,
-        pastbookingWorkerList,
+        pastBookingWorkerList,
         jobRequest,
-    }
+    };
 
     return (
         <StoreContext.Provider value={contextValue}>
             {props.children}
         </StoreContext.Provider>
-    )
-}
+    );
+};

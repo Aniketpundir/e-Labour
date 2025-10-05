@@ -228,7 +228,6 @@
 
 .cancel-section input[type="radio"] {
     margin-right: 8px;
-    color: orange;
 }
 
 .cancel-section textarea {
@@ -273,6 +272,88 @@
 .confirm-btn:hover {
     background: #fecaca;
 }
+
+/* ====== Rating Section ====== */
+.rating-section {
+    margin-top: 16px;
+    padding: 16px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.rating-section p {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+/* Circles for rating */
+.rating-circles {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.rating-circles .circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: 0.2s;
+}
+
+.rating-circles .circle:hover {
+    background: #e0e0e0;
+}
+
+.rating-circles .circle.selected {
+    background: #ec6d13;
+    /* blue background when selected */
+    color: #fff;
+    border-color: #ec6d13;
+}
+
+/* Feedback textarea */
+.rating-section textarea {
+    width: 100%;
+    min-height: 70px;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 12px;
+    resize: vertical;
+}
+
+.rating-section textarea:focus {
+    border-color: #ec6d13;
+    outline: none;
+}
+
+/* Submit button */
+.rating-section .submit-btn {
+    background: #ec6d13;
+    color: #fff;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.rating-section .submit-btn:hover {
+    background: #ec6d13c2;
+}
+
 
 @media (max-width: 650px) {
     .container {

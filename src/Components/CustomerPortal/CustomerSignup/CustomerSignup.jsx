@@ -14,8 +14,10 @@ import { getCroppedImg } from "../../ImageCrop/cropImage.js";
 import axios from "axios";
 import { StoreContext } from "../../../Context/StoreContext.jsx";
 
+import { toast } from "react-toastify";
+
 const CustomerSignup = () => {
-    const { URL_LINK, customerToken } = useContext(StoreContext)
+    const { URL_LINK, setCtokens } = useContext(StoreContext)
     const role = "customer";
     const [showPassword, setShowPassword] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
@@ -84,18 +86,14 @@ const CustomerSignup = () => {
 
         try {
             const res = await axios.post(newUrl, formData);
-            console.log(res);
             const customerToken = res.data.token;
             if (res.data.success) {
-                alert(res.data.success)
                 navigate("/");
                 localStorage.setItem("customerToken", customerToken)
                 window.location.reload();
             } else {
                 alert(res.data.message)
             }
-
-            window.location.reload();
         } catch (error) {
             console.log(error.message);
         }

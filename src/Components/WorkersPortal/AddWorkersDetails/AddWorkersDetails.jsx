@@ -107,6 +107,7 @@ const AddWorkersDetails = () => {
             const res = await axios.post(newUrl, Data, { headers: { token: workerToken } });
             if (res.data.success) {
                 window.scrollTo({ top: 0, behavior: "smooth" });
+                alert("Worker Details add successfully.")
                 navigate("/worker-profile/submission-success");
             } else {
                 alert("Profile not submitted.");
@@ -180,7 +181,7 @@ const AddWorkersDetails = () => {
                         </div>
                         <div className="form-group">
                             <label>Locality *</label>
-                            <input type="text" name="street" value={Data.street} onChange={handleChange} readOnly required />
+                            <input type="text" name="street" value={Data.street} onChange={handleChange} required />
                         </div>
                         <div className="form-group">
                             <label>Pin Code *</label>

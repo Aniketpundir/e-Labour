@@ -7,6 +7,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import { BiShow } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
+import { toast } from "react-toastify";
 
 const WorkersLogin = () => {
     const { URL_LINK } = useContext(StoreContext);
@@ -28,15 +29,13 @@ const WorkersLogin = () => {
             const res = await axios.post(newUrl, data);
             const workerToken = res.data.token;
             if (res.data.success) {
-                alert(res.data.message);
                 localStorage.setItem("workerToken", workerToken)
                 Navigate("/worker-profile");
+                alert("Worker Login Successfully");
                 window.location.reload();
             } else {
                 alert(res.data.message);
             }
-
-
         } catch (error) {
             alert(error);
         }

@@ -9,10 +9,11 @@ import axios from "axios";
 import { StoreContext } from "../../../Context/StoreContext.jsx";
 import { BiShow } from "react-icons/bi";
 import { BiHide } from "react-icons/bi";
+import { toast } from "react-toastify";
 
 const WorkersSignup = () => {
     const role = "worker"
-    const { URL_LINK } = useContext(StoreContext);
+    const { URL_LINK, setWtokes } = useContext(StoreContext);
     const [showPassword, setShowPassword] = useState(false);
     const [checkbox, setCheckbox] = useState(false);
     const [data, setData] = useState({
@@ -73,11 +74,11 @@ const WorkersSignup = () => {
             const res = await axios.post(newUrl, formData);
             const workerToken = res.data.token;
             if (res.status.success) {
-                alert(res.data.message);
             } else {
                 alert(res.data.message);
             }
             localStorage.setItem("workerToken", workerToken)
+            alert("Worker SignUp Successfully");
             Navigate("/worker-profile/add-workers-details");
         } catch (error) {
             console.log(error.message);

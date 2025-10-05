@@ -12,7 +12,9 @@ const CurrentBooking = () => {
     const [cancelWorkerId, setCancelWorkerId] = useState(null);
     const [reason, setReason] = useState("");
     const [otherReason, setOtherReason] = useState("");
-
+    const [showRatingForWorker, setShowRatingForWorker] = useState(null);
+    const [rating, setRating] = useState(0);
+    const [feedback, setFeedback] = useState("");
 
     useEffect(() => {
         if (workers.length > 0 && !selectedWorker) {
@@ -32,6 +34,7 @@ const CurrentBooking = () => {
         return <p className="no-bookings">No bookings available.</p>;
     }
 
+    // Cancel booking
     const handleBookingCancel = async (id) => {
         const cancelReason = reason === "Other" ? otherReason : reason;
         if (!cancelReason) {
@@ -40,8 +43,10 @@ const CurrentBooking = () => {
         }
 
         try {
-            await axios.patch(`${URL_LINK}api/bookings/${id}/cancel`, cancelReason,
-                { headers: { token: customerToken }, params: { bookingId: id } }
+            await axios.patch(
+                `${URL_LINK}api/bookings/${id}/cancel`,
+                { reason: cancelReason },
+                { headers: { token: customerToken } }
             );
             alert("Booking cancelled successfully!");
             setCancelWorkerId(null);
@@ -53,6 +58,30 @@ const CurrentBooking = () => {
         }
     };
 
+    // Rating submit
+    const handleRatingSubmit = async (id) => {
+        if (rating === 0) {
+            alert("Please select a rating!");
+            return;
+        }
+
+        try {
+            await axios.post(
+                `${URL_LINK}api/bookings/${id}/rate`,
+                { bookingId: id, rating, feedback },  // ✅ sending bookingId also
+                { headers: { token: customerToken } }
+            );
+            alert("Thanks for your feedback!");
+            setShowRatingForWorker(null);
+            setRating(0);
+            setFeedback("");
+        } catch (error) {
+            console.error(error);
+            alert("Error submitting rating.");
+        }
+    };
+
+    // Cancel form component
     const CancelForm = ({ onConfirm, onCancel }) => (
         <div className="cancel-section">
             <p><strong>Why are you cancelling?</strong></p>
@@ -82,6 +111,30 @@ const CurrentBooking = () => {
                 <button className="confirm-btn" onClick={onConfirm}>Confirm</button>
                 <button className="cancel-btn" onClick={onCancel}>Cancel</button>
             </div>
+        </div>
+    );
+
+    // Rating form component
+    const RatingForm = ({ workerId }) => (
+        <div className="rating-section">
+            <p><strong>Rate your experience</strong></p>
+            <div className="rating-circles">
+                {[1, 2, 3, 4, 5].map(num => (
+                    <div
+                        key={num}
+                        className={`circle ${rating === num ? "selected" : ""}`}
+                        onClick={() => setRating(num)}
+                    >
+                        {num}
+                    </div>
+                ))}
+            </div>
+            <textarea
+                placeholder="Write your feedback..."
+                value={feedback}
+                onChange={(e) => setFeedback(e.target.value)}
+            />
+            <button className="submit-btn" onClick={() => handleRatingSubmit(workerId)}>Submit</button>
         </div>
     );
 
@@ -132,7 +185,12 @@ const CurrentBooking = () => {
                                     <p><strong>Status</strong>: {worker.status}</p>
 
                                     <div className="button-container">
-                                        <button className="cancel-btn1">Work Complete</button>
+                                        {showRatingForWorker === worker._id ? (
+                                            <RatingForm workerId={worker._id} />
+                                        ) : (
+                                            <button className="cancel-btn1" onClick={() => setShowRatingForWorker(worker._id)}>Work Complete</button>
+                                        )}
+
                                         {cancelWorkerId === worker._id && (
                                             <CancelForm
                                                 onConfirm={() => handleBookingCancel(worker._id)}
@@ -176,7 +234,12 @@ const CurrentBooking = () => {
                         <p><strong>Status</strong>: {selectedWorker.status}</p>
 
                         <div className="button-container">
-                            <button className="cancel-btn1">Work Complete</button>
+                            {showRatingForWorker === selectedWorker._id ? (
+                                <RatingForm workerId={selectedWorker._id} />
+                            ) : (
+                                <button className="cancel-btn1" onClick={() => setShowRatingForWorker(selectedWorker._id)}>Work Complete</button>
+                            )}
+
                             {cancelWorkerId === selectedWorker._id && (
                                 <CancelForm
                                     onConfirm={() => handleBookingCancel(selectedWorker._id)}
