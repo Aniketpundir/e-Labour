@@ -222,7 +222,6 @@ export const StoreProvider = (props) => {
                 params: { q: "completed" },
             });
             setPastBookingWorkerList(res.data.bookings);
-            console.log(res.data.bookings)
         } catch (error) {
             console.error("Error fetching past bookings:", error.response?.data || error.message);
         }

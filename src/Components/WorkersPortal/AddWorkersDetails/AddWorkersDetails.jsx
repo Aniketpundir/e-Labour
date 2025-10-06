@@ -43,6 +43,7 @@ const AddWorkersDetails = () => {
         workingHr: "",
         weekends: false,
         rate: "",
+        hrRate: "",
 
         // Emergency & References
         emergencyContact: "",
@@ -243,6 +244,10 @@ const AddWorkersDetails = () => {
                         <div className="form-group">
                             <label>Expected rate *</label>
                             <input placeholder="e.g. 450/day" type="text" name="rate" value={Data.rate} onChange={handleChange} />
+                        </div>
+                        <div className="form-group">
+                            <label>Hourly Charges:-- *</label>
+                            <input placeholder="e.g. 100/h" type="text" name="hrRate" value={Data.hrRate} onChange={handleChange} />
                         </div>
                     </div>
                 </section>

@@ -8,8 +8,6 @@ import { StoreContext } from '../../../../../Context/StoreContext';
 
 const WorkerDetailHeader = () => {
     const { workerDetails } = useContext(StoreContext);
-    console.log(workerDetails);
-
     // console.log(workerDetails);
     const { title, id } = useParams();
 
@@ -37,6 +35,8 @@ const WorkerDetailHeader = () => {
                 <h3 className="worker-name">{workerDetails?.worker?.workerId?.name}</h3>
                 <p className="worker-details">{workerDetails?.worker?.workCategory} · {workerDetails?.worker?.experience} years of experience</p>
                 <p className="worker-details" style={{ fontSize: "18px", fontWeight: "600" }}>{workerDetails?.worker?.rate}/Day</p>
+                <span>Hourly Charges:-- {workerDetails?.worker?.hrRate}/H
+                </span>
                 <div className="verified">
                     <FaCheckCircle className="verified-icon" />
                     <span>Verified</span>
