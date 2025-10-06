@@ -14,6 +14,8 @@ const CurrentBooking = () => {
     const workers = bookingWorkerList || [];
     const isMobile = windowWidth <= 650;
 
+
+
     useEffect(() => {
         if (!customerToken) { return }
         bookingWorkersList();
@@ -90,7 +92,6 @@ const CurrentBooking = () => {
     const RatingForm = ({ workerId, bookingId, onClose }) => {
         const [rating, setRating] = useState(0);
         const [feedback, setFeedback] = useState("");
-
         const handleSubmit = async () => {
             if (rating === 0) return alert("Please select a rating!");
             try {
@@ -133,6 +134,22 @@ const CurrentBooking = () => {
         );
     };
 
+
+    // Worker Approval
+
+    const approvalHandle = async (bookingId) => {
+        console.log(bookingId)
+        let newUrl = URL_LINK;
+        newUrl += `api/bookings/${bookingId}/update`
+
+        try {
+            await axios.patch(newUrl, {}, { headers: { token: customerToken }, params: { q: "completed" } });
+        } catch (error) {
+            alert(error);
+        }
+    }
+
+
     // ---- Booking Details ----
     const BookingDetails = ({ worker }) => (
         <div className="details-body">
@@ -152,7 +169,7 @@ const CurrentBooking = () => {
                     />
                 ) : (
                     <button
-                        onClick={() => setOpenRatingFor(worker._id)}
+                        onClick={() => { approvalHandle(worker._id), setOpenRatingFor(worker._id) }}
                         className="cancel-btn1"
                     >
                         Work Complete
