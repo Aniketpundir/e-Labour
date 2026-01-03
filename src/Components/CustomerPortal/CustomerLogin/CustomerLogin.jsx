@@ -52,6 +52,7 @@ const CustomerLogin = () => {
                 toast.error(res.data.message)
             }
         } catch (error) {
+            alert(erroe.message)j
             console.log(error);
         }
     };
